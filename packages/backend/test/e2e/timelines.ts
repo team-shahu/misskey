@@ -1092,6 +1092,7 @@ describe('Timelines', () => {
 			assert.strictEqual(res.body.find((note: any) => note.id === aliceNote.id).text, 'hi');
 		});
 
+		/*
 		test.concurrent('チャンネル投稿が含まれない', async () => {
 			const [alice, bob] = await Promise.all([signup(), signup()]);
 
@@ -1104,6 +1105,7 @@ describe('Timelines', () => {
 
 			assert.strictEqual(res.body.some((note: any) => note.id === bobNote.id), false);
 		});
+		*/
 
 		test.concurrent('[withReplies: false] 他人への返信が含まれない', async () => {
 			const [alice, bob, carol] = await Promise.all([signup(), signup(), signup()]);

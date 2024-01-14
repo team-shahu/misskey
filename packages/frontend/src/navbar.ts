@@ -184,4 +184,9 @@ export const navbarItemDef = reactive({
 		icon: 'ti ti-apple',
 		to: '/bubble-game',
 	},
+	clicker: {
+		title: '🍪👈',
+		icon: 'ti ti-cookie',
+		to: '/clicker',
+	},
 });

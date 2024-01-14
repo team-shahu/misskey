@@ -3836,7 +3836,7 @@ export type components = {
       fileIds?: string[];
       files?: components['schemas']['DriveFile'][];
       tags?: string[];
-      poll?: Record<string, unknown> | null;
+      poll?: Record<string, never> | null;
       /**
        * Format: id
        * @example xxxxxxxxxx
@@ -3859,7 +3859,7 @@ export type components = {
       url?: string;
       reactionAndUserPairCache?: string[];
       clippedCount?: number;
-      myReaction?: Record<string, unknown> | null;
+      myReaction?: Record<string, never> | null;
     };
     NoteReaction: {
       /**

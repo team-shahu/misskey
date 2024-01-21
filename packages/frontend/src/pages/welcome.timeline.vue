@@ -4,6 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
+<!--
 <div :class="$style.root">
 	<div ref="scrollEl" :class="[$style.scrollbox, { [$style.scroll]: isScrolling }]">
 		<div v-for="note in notes" :key="note.id" :class="$style.note">
@@ -24,6 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</div>
 </div>
+-->
 </template>
 
 <script lang="ts" setup>

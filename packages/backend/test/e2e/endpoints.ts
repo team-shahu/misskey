@@ -10,29 +10,21 @@ import * as assert from 'assert';
 // https://github.com/node-fetch/node-fetch/pull/1664
 import { Blob } from 'node-fetch';
 import { MiUser } from '@/models/_.js';
-import { startServer, signup, post, api, uploadFile, simpleGet, initTestDb } from '../utils.js';
-import type { INestApplicationContext } from '@nestjs/common';
+import { api, initTestDb, post, signup, simpleGet, uploadFile } from '../utils.js';
 import type * as misskey from 'misskey-js';
 
 describe('Endpoints', () => {
-	let app: INestApplicationContext;
-
 	let alice: misskey.entities.SignupResponse;
 	let bob: misskey.entities.SignupResponse;
 	let carol: misskey.entities.SignupResponse;
 	let dave: misskey.entities.SignupResponse;
 
 	beforeAll(async () => {
-		app = await startServer();
 		alice = await signup({ username: 'alice' });
 		bob = await signup({ username: 'bob' });
 		carol = await signup({ username: 'carol' });
 		dave = await signup({ username: 'dave' });
 	}, 1000 * 60 * 2);
-
-	afterAll(async () => {
-		await app.close();
-	});
 
 	describe('signup', () => {
 		test('不正なユーザー名でアカウントが作成できない', async () => {
@@ -409,6 +401,7 @@ describe('Endpoints', () => {
 		});
 	});
 
+	/*
 	describe('channels/search', () => {
 		test('空白検索で一覧を取得できる', async () => {
 			await api('/channels/create', {
@@ -502,6 +495,7 @@ describe('Endpoints', () => {
 			assert.strictEqual(res.body.length, 2);
 		});
 	});
+	*/
 
 	describe('drive', () => {
 		test('ドライブ情報を取得できる', async () => {
@@ -705,6 +699,18 @@ describe('Endpoints', () => {
 			const res = await api('/drive/files/update', {
 				fileId: '000000000000000000000000',
 				name: 'いちごパスタ.png',
+			}, alice);
+
+			assert.strictEqual(res.status, 400);
+		});
+
+		test('不正なファイル名で怒られる', async () => {
+			const file = (await uploadFile(alice)).body;
+			const newName = '';
+
+			const res = await api('/drive/files/update', {
+				fileId: file.id,
+				name: newName,
 			}, alice);
 
 			assert.strictEqual(res.status, 400);

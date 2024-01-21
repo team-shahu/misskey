@@ -4,6 +4,7 @@
  */
 
 import { computed, reactive } from 'vue';
+import { clearCache } from './scripts/clear-cache.js';
 import { $i } from '@/account.js';
 import { miLocalStorage } from '@/local-storage.js';
 import { openInstanceMenu, openToolsMenu } from '@/ui/_common_/common.js';
@@ -12,7 +13,6 @@ import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
 import { ui } from '@/config.js';
 import { unisonReload } from '@/scripts/unison-reload.js';
-import { clearCache } from './scripts/clear-cache.js';
 
 export const navbarItemDef = reactive({
 	notifications: {
@@ -108,6 +108,7 @@ export const navbarItemDef = reactive({
 	},
 	channels: {
 		title: i18n.ts.channel,
+		show: computed(() => $i != null && ($i.isAdmin || $i.policies.canUseChannel)),
 		icon: 'ti ti-device-tv',
 		to: '/channels',
 	},
@@ -178,5 +179,21 @@ export const navbarItemDef = reactive({
 		action: (ev) => {
 			clearCache();
 		},
+	},
+	bubbleGame: {
+		title: i18n.ts.bubbleGame,
+		icon: 'ti ti-apple',
+		to: '/bubble-game',
+	},
+	clicker: {
+		title: '🍪👈',
+		icon: 'ti ti-cookie',
+		to: '/clicker',
+	},
+	manageCustomEmojis: {
+		title: i18n.ts.manageCustomEmojis,
+		icon: 'ti ti-icons',
+		show: computed(() => $i != null && ($i.isAdmin || $i.policies.canManageCustomEmojis)),
+		to: '/custom-emojis-manager',
 	},
 });

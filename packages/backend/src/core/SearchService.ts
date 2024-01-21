@@ -202,6 +202,7 @@ export class SearchService {
 			})).filter(note => {
 				if (me && isUserRelated(note, userIdsWhoBlockingMe)) return false;
 				if (me && isUserRelated(note, userIdsWhoMeMuting)) return false;
+				if (note.channelId) return false;
 				return true;
 			});
 			return notes.sort((a, b) => a.id > b.id ? -1 : 1);

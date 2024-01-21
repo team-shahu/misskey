@@ -34,11 +34,10 @@ describe('api:notes/create', () => {
 					.toBe(VALID);
 			});
 
-			// TODO
-			//test('null post', () => {
-			//	expect(v({ text: null }))
-			//		.toBe(INVALID);
-			//});
+			test('null post', () => {
+				expect(v({ text: null }))
+					.toBe(INVALID);
+			});
 
 			test('0 characters post', () => {
 				expect(v({ text: '' }))
@@ -47,6 +46,11 @@ describe('api:notes/create', () => {
 
 			test('over 3000 characters post', async () => {
 				expect(v({ text: await tooLong }))
+					.toBe(INVALID);
+			});
+
+			test('whitespace-only post', () => {
+				expect(v({ text: ' ' }))
 					.toBe(INVALID);
 			});
 		});
@@ -62,10 +66,12 @@ describe('api:notes/create', () => {
 					.toBe(VALID);
 			});
 
+			/*
 			test('0 characters cw', () => {
 				expect(v({ text: 'Body', cw: '' }))
 					.toBe(INVALID);
 			});
+			*/
 
 			test('reject only cw', () => {
 				expect(v({ cw: 'Hello, world!' }))

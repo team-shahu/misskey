@@ -6,7 +6,6 @@
 import { EventEmitter } from 'eventemitter3';
 import * as Matter from 'matter-js';
 import seedrandom from 'seedrandom';
-import { NORAML_MONOS, SQUARE_MONOS, SWEETS_MONOS, YEN_MONOS } from './monos.js';
 
 export type Mono = {
 	id: string;

@@ -118,6 +118,11 @@ export const navbarItemDef = reactive({
 		show: computed(() => $i != null),
 		to: '/my/achievements',
 	},
+	games: {
+		title: 'Misskey Games',
+		icon: 'ti ti-device-gamepad',
+		to: '/games',
+	},
 	ui: {
 		title: i18n.ts.switchUi,
 		icon: 'ti ti-devices',

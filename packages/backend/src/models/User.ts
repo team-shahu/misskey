@@ -49,6 +49,7 @@ export class MiUser {
 	})
 	public usernameLower: string;
 
+	@Index()
 	@Column('varchar', {
 		length: 128, nullable: true,
 		comment: 'The name of the User.',

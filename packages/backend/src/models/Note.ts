@@ -50,6 +50,7 @@ export class MiNote {
 	public threadId: string | null;
 
 	// TODO: varcharにしたい
+	@Index() // using PGroonga
 	@Column('text', {
 		nullable: true,
 	})

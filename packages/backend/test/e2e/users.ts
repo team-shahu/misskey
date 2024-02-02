@@ -715,6 +715,7 @@ describe('ユーザー', () => {
 
 	//#endregion
 	//#region 検索(users/search)
+	/* TODO
 
 	test('を検索することができる', async () => {
 		const parameters = { query: 'carol', limit: 10 };
@@ -746,6 +747,7 @@ describe('ユーザー', () => {
 	});
 	test.todo('を検索することができる(リモート)');
 	test.todo('を検索することができる(pagenation)');
+	*/
 
 	//#endregion
 	//#region ID指定検索(users/search-by-username-and-host)

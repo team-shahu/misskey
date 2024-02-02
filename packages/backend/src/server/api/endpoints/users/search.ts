@@ -86,7 +86,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				const nameQuery = this.usersRepository.createQueryBuilder('user')
 					.where(new Brackets(qb => {
 						// qb.where('user.name ILIKE :query', { query: '%' + sqlLikeEscape(ps.query) + '%' });
-						qb.where('user.name &@~ :query', { query: '%' + sqlLikeEscape(ps.query) + '%' });
+						qb.where('user.name &@~ :query', { query: ps.query });
 
 						// Also search username if it qualifies as username
 						if (this.userEntityService.validateLocalUsername(ps.query)) {

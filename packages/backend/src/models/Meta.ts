@@ -79,11 +79,6 @@ export class MiMeta {
 	@Column('varchar', {
 		length: 1024, array: true, default: '{}',
 	})
-	public prohibitedWords: string[];
-
-	@Column('varchar', {
-		length: 1024, array: true, default: '{}',
-	})
 	public silencedHosts: string[];
 
 	@Column('varchar', {

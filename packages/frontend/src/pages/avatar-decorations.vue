@@ -155,8 +155,8 @@ const headerActions = computed(() => [{
 
 const headerTabs = computed(() => []);
 
-definePageMetadata({
+definePageMetadata(() => ({
 	title: i18n.ts.avatarDecorations,
 	icon: 'ti ti-sparkles',
-});
+}));
 </script>

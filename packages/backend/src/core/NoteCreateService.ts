@@ -360,7 +360,7 @@ export class NoteCreateService implements OnApplicationShutdown {
 		}
 
 		// #region *.n1l.dev
-		const willCauseNotification = mentionedUsers.length > 0 || data.reply?.userHost === null || data.renote?.userHost === null;
+		const willCauseNotification = mentionedUsers.length > 0 || data.reply?.userHost === null;
 
 		if (user.host != null && willCauseNotification) {
 			const userEntity = await this.usersRepository.findOneBy({ id: user.id });

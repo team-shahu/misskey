@@ -6,7 +6,6 @@ on:
       - master
       - develop
       - dev/storybook8 # for testing
-  pull_request_target:
 
 jobs:
   build:

@@ -52,7 +52,7 @@ export class MiMeta {
 	public disableRegistration: boolean;
 
 	@Column('boolean', {
-		default: true,
+		default: false,
 	})
 	public disableAntiSpam: boolean;
 

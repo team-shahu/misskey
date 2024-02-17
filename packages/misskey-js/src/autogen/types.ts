@@ -4657,6 +4657,7 @@ export type components = {
       inviteExpirationTime: number;
       canManageCustomEmojis: boolean;
       canManageAvatarDecorations: boolean;
+      canUseChannel: boolean;
       canSearchNotes: boolean;
       canUseTranslator: boolean;
       canHideAds: boolean;
@@ -4858,6 +4859,7 @@ export type operations = {
             defaultLightTheme: string | null;
             description: string | null;
             disableRegistration: boolean;
+            disableAntiSpam: boolean | null;
             impressumUrl: string | null;
             maintainerEmail: string | null;
             maintainerName: string | null;
@@ -8820,7 +8822,8 @@ export type operations = {
     requestBody: {
       content: {
         'application/json': {
-          disableRegistration?: boolean | null;
+          disableRegistration?: boolean;
+          disableAntiSpam?: boolean;
           pinnedUsers?: string[] | null;
           hiddenTags?: string[] | null;
           blockedHosts?: string[] | null;
@@ -19594,6 +19597,7 @@ export type operations = {
             defaultDarkTheme: string | null;
             defaultLightTheme: string | null;
             disableRegistration: boolean;
+            disableAntiSpam: boolean;
             cacheRemoteFiles: boolean;
             cacheRemoteSensitiveFiles: boolean;
             emailRequiredForSignup: boolean;

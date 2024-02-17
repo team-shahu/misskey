@@ -93,6 +93,10 @@ export const meta = {
 				type: 'boolean',
 				optional: false, nullable: false,
 			},
+			disableAntiSpam: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
 			cacheRemoteFiles: {
 				type: 'boolean',
 				optional: false, nullable: false,

@@ -362,10 +362,14 @@ export class NoteCreateService implements OnApplicationShutdown {
 		// #region *.n1l.dev
 		const willCauseNotification = mentionedUsers.length > 0 || data.reply?.userHost === null;
 
-		if (user.host != null && willCauseNotification) {
-			const userEntity = await this.usersRepository.findOneBy({ id: user.id });
-			if ((userEntity?.followersCount ?? 0) === 0) {
-				throw new Error('Temporarily, notes including mentions, replies and renotes to local-user from remote users which is not followed by local-users are not allowed');
+		const instance = await this.metaService.fetch(true);
+
+		if (instance.disableAntiSpam === false) {
+			if (user.host != null && willCauseNotification) {
+				const userEntity = await this.usersRepository.findOneBy({ id: user.id });
+				if ((userEntity?.followersCount ?? 0) === 0) {
+					throw new Error('Temporarily, notes including mentions, replies and renotes to local-user from remote users which is not followed by local-users are not allowed');
+				}
 			}
 		}
 		// #endregion

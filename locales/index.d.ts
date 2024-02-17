@@ -1469,6 +1469,14 @@ export interface Locale extends ILocale {
      */
     "enableRegistration": string;
     /**
+     * アンチスパムモードを有効にする
+     */
+    "enableAntiSpam": string;
+    /**
+     * 本サーバーからフォローされていないユーザーのメンションが届かなくなります
+     */
+    "enableAntiSpamDescription": string;
+    /**
      * 招待
      */
     "invite": string;

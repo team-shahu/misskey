@@ -20,7 +20,8 @@ export const meta = {
 export const paramDef = {
 	type: 'object',
 	properties: {
-		disableRegistration: { type: 'boolean', nullable: true },
+		disableRegistration: { type: 'boolean', nullable: false },
+
 		pinnedUsers: {
 			type: 'array', nullable: true, items: {
 				type: 'string',

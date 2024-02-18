@@ -360,7 +360,8 @@ export class NoteCreateService implements OnApplicationShutdown {
 		}
 
 		// #region *.n1l.dev
-		const willCauseNotification = mentionedUsers.length > 0 || data.reply?.userHost === null;
+		// ローカル宛てのメンション、リプライの発行元が、ローカルユーザーにフォローされていない場合は投稿を拒否する
+		const willCauseNotification = mentionedUsers.filter(u => u.host === null).length > 0 || (data.reply != null && data.reply.userHost === null)
 
 		const instance = await this.metaService.fetch(true);
 

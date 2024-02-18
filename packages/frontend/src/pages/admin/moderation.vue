@@ -14,8 +14,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<template #label>{{ i18n.ts.enableRegistration }}</template>
 					</MkSwitch>
 					<MkSwitch v-model="enableAntiSpam">
-						<template #label>{{ i18n.ts.enableAntiSpam }}</template>
-						<template #caption>{{ i18n.ts.enableAntiSpamDescription }}</template>
+						<template #label>{{ i18n.ts.enableAntiSpam || "アンチスパムモードを有効にする" }}</template>
+						<template #caption>{{ i18n.ts.enableAntiSpamDescription || "本サーバーからフォローされていないユーザーのメンションが届かなくなります" }}</template>
 					</MkSwitch>
 
 					<MkSwitch v-model="emailRequiredForSignup">

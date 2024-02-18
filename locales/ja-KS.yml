@@ -364,7 +364,7 @@ disablingTimelinesInfo: "ここらへんのタイムラインを使えんよう�
 registration: "登録"
 enableRegistration: "一見さんでも誰でもいらっしゃ～い"
 enableAntiSpam: "スパム対策を有効にするで"
-enableAntiSpamDescription: "本サーバーからフォローされていないユーザーのメンションが届かなくなるで"
+enableAntiSpamDescription: "本サーバーからフォローされてへんユーザーのメンションが届かんくなるで"
 invite: "来てや"
 driveCapacityPerLocalAccount: "ローカルユーザーはんひとりあたりのドライブ容量"
 driveCapacityPerRemoteAccount: "リモートユーザーはんひとりあたりのドライブ容量"

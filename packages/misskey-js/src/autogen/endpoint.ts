@@ -402,6 +402,8 @@ import type {
 	NotesLocalTimelineResponse,
 	NotesMentionsRequest,
 	NotesMentionsResponse,
+	NotesAnyLocalTimelineRequest,
+	NotesAnyLocalTimelineResponse,
 	NotesPollsRecommendationRequest,
 	NotesPollsRecommendationResponse,
 	NotesPollsVoteRequest,
@@ -826,6 +828,7 @@ export type Endpoints = {
 	'notes/hybrid-timeline': { req: NotesHybridTimelineRequest; res: NotesHybridTimelineResponse };
 	'notes/local-timeline': { req: NotesLocalTimelineRequest; res: NotesLocalTimelineResponse };
 	'notes/mentions': { req: NotesMentionsRequest; res: NotesMentionsResponse };
+	'notes/any-local-timeline': { req: NotesAnyLocalTimelineRequest; res: NotesAnyLocalTimelineResponse };
 	'notes/polls/recommendation': { req: NotesPollsRecommendationRequest; res: NotesPollsRecommendationResponse };
 	'notes/polls/vote': { req: NotesPollsVoteRequest; res: EmptyResponse };
 	'notes/reactions': { req: NotesReactionsRequest; res: NotesReactionsResponse };

@@ -87,6 +87,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</MkSwitch>
 						</MkFolder>
 
+						<MkFolder v-if="matchQuery([i18n.ts._role._options.localTimelineAnyLimit, 'localTimelineAnyLimit'])" class="_margin">
+								<template #label>{{ i18n.ts._role._options.localTimelineAnyLimit }}</template>
+								<template #suffix>{{ policies.localTimelineAnyLimit }}</template>
+								<MkInput v-model="policies.localTimelineAnyLimit" type="number">
+								</MkInput>
+							</MkFolder>
+
 						<MkFolder v-if="matchQuery([i18n.ts._role._options.canUseChannel, 'canUseChannel'])">
 							<template #label>{{ i18n.ts._role._options.canUseChannel }}</template>
 							<template #suffix>{{ policies.canUseChannel ? i18n.ts.yes : i18n.ts.no }}</template>

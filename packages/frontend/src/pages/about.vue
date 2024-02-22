@@ -20,7 +20,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 				<MkKeyValue>
 					<template #key>{{ i18n.ts.description }}</template>
-					<template #value><div v-html="instance.description"></div></template>
+					<template #value>
+						Creadit by <a href="https://git.prismisskey.space/mattyatea/misskey">Prismisskey</a>
+						<br />
+						Creadit by <a href="https://misskey.io/@cyberrex_v2">@cyberrex_v2</a>
+				</template>
 				</MkKeyValue>
 
 				<FormSection>

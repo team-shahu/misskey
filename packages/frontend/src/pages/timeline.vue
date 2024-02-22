@@ -115,6 +115,11 @@ const withSensitive = computed<boolean>({
 	get: () => defaultStore.reactiveState.tl.value.filter.withSensitive,
 	set: (x) => saveTlFilter('withSensitive', x),
 });
+const remoteLocalTimelineEnable1 = ref(defaultStore.state.remoteLocalTimelineEnable1);
+const remoteLocalTimelineEnable2 = ref(defaultStore.state.remoteLocalTimelineEnable2);
+const remoteLocalTimelineEnable3 = ref(defaultStore.state.remoteLocalTimelineEnable3);
+const remoteLocalTimelineEnable4 = ref(defaultStore.state.remoteLocalTimelineEnable4);
+const remoteLocalTimelineEnable5 = ref(defaultStore.state.remoteLocalTimelineEnable5);
 
 watch(src, () => {
 	queue.value = 0;
@@ -299,6 +304,31 @@ const headerTabs = computed(() => [...(defaultStore.reactiveState.pinnedUserList
 	key: 'social',
 	title: i18n.ts._timelines.social,
 	icon: 'ti ti-universe',
+	iconOnly: true,
+}] : []), ...(remoteLocalTimelineEnable1.value ? [{
+	key: 'custom-timeline-1',
+	title: defaultStore.state.remoteLocalTimelineName1,
+	icon: 'ti ti-plus',
+	iconOnly: true,
+}] : []), ...(remoteLocalTimelineEnable2.value ? [{
+	key: 'custom-timeline-2',
+	title: defaultStore.state.remoteLocalTimelineName2,
+	icon: 'ti ti-plus',
+	iconOnly: true,
+}] : []), ...(remoteLocalTimelineEnable3.value ? [{
+	key: 'custom-timeline-3',
+	title: defaultStore.state.remoteLocalTimelineName3,
+	icon: 'ti ti-plus',
+	iconOnly: true,
+}] : []), ...(remoteLocalTimelineEnable4.value ? [{
+	key: 'custom-timeline-4',
+	title: defaultStore.state.remoteLocalTimelineName4,
+	icon: 'ti ti-plus',
+	iconOnly: true,
+}] : []), ...(remoteLocalTimelineEnable5.value ? [{
+	key: 'custom-timeline-5',
+	title: defaultStore.state.remoteLocalTimelineName5,
+	icon: 'ti ti-plus',
 	iconOnly: true,
 }] : []), ...(isGlobalTimelineAvailable ? [{
 	key: 'global',

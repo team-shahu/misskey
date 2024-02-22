@@ -1,4 +1,4 @@
-import { operations } from './types.js';
+import { operations } from '../../generator/built/autogen/types.js';
 
 export type EmptyRequest = Record<string, unknown> | undefined;
 export type EmptyResponse = Record<string, unknown> | undefined;
@@ -404,6 +404,8 @@ export type NotesLocalTimelineRequest = operations['notes/local-timeline']['requ
 export type NotesLocalTimelineResponse = operations['notes/local-timeline']['responses']['200']['content']['application/json'];
 export type NotesMentionsRequest = operations['notes/mentions']['requestBody']['content']['application/json'];
 export type NotesMentionsResponse = operations['notes/mentions']['responses']['200']['content']['application/json'];
+export type NotesAnyLocalTimelineRequest = operations['notes/any-local-timeline']['requestBody']['content']['application/json'];
+export type NotesAnyLocalTimelineResponse = operations['notes/any-local-timeline']['responses']['200']['content']['application/json'];
 export type NotesPollsRecommendationRequest = operations['notes/polls/recommendation']['requestBody']['content']['application/json'];
 export type NotesPollsRecommendationResponse = operations['notes/polls/recommendation']['responses']['200']['content']['application/json'];
 export type NotesPollsVoteRequest = operations['notes/polls/vote']['requestBody']['content']['application/json'];

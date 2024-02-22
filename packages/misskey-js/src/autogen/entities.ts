@@ -1,4 +1,4 @@
-import { operations } from '../../generator/built/autogen/types.js';
+import { operations } from './types.js';
 
 export type EmptyRequest = Record<string, unknown> | undefined;
 export type EmptyResponse = Record<string, unknown> | undefined;

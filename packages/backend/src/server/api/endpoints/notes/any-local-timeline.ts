@@ -119,7 +119,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 				if (remoteTimeline.length > 0) {
 					for (const note of remoteTimeline) {
-						const uri = `https://${ps.host}/notes/${note}`;
+						const uri = `https://${ps.host}/notes/${note.id}`;
 						const note_ = await this.fetchAny(uri, me);
 						if (note_ == null) continue;
 						noteIds.push(note_.id);
@@ -150,7 +150,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 						if (remoteTimeline.length > 0) {
 							for (const note of remoteTimeline) {
-								const uri = `https://${ps.host}/notes/${note}`;
+								const uri = `https://${ps.host}/notes/${note.id}`;
 								const note_ = await this.fetchAny(uri, me);
 								if (note_ == null) continue;
 								//noteIds.push(note_.id);
@@ -178,7 +178,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 					if (remoteTimeline.length > 0) {
 						for (const note of remoteTimeline) {
-							const uri = `https://${ps.host}/notes/${note}`;
+							const uri = `https://${ps.host}/notes/${note.id}`;
 							const note_ = await this.fetchAny(uri, me);
 							if (note_ == null) continue;
 							noteIds.push(note_.id);

@@ -10,6 +10,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<i v-else-if="column.tl === 'local'" class="ti ti-planet"></i>
 		<i v-else-if="column.tl === 'social'" class="ti ti-universe"></i>
 		<i v-else-if="column.tl === 'global'" class="ti ti-whirl"></i>
+		<i v-else-if="column.tl === 'custom-timeline-1'" class="ti ti-plus"></i>
+		<i v-else-if="column.tl === 'custom-timeline-2'" class="ti ti-plus"></i>
+		<i v-else-if="column.tl === 'custom-timeline-3'" class="ti ti-plus"></i>
+		<i v-else-if="column.tl === 'custom-timeline-4'" class="ti ti-plus"></i>
+		<i v-else-if="column.tl === 'custom-timeline-5'" class="ti ti-plus"></i>
 		<span style="margin-left: 8px;">{{ column.name }}</span>
 	</template>
 

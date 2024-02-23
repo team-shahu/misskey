@@ -299,21 +299,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</div>
 			</MkFolder>
 
-			<MkFolder v-if="matchQuery([i18n.ts._role._options.localTimelineAnyLimit, 'localTimelineAnyLimit'])">
-				<template #label>{{ i18n.ts._role._options.localTimelineAnyLimit }}</template>
+			<MkFolder v-if="matchQuery([i18n.ts._role._options.remoteLocalTimelineAnyLimit, 'remoteLocalTimelineAnyLimit'])">
+				<template #label>{{ i18n.ts._role._options.remoteLocalTimelineAnyLimit }}</template>
 				<template #suffix>
-					<span v-if="role.policies.localTimelineAnyLimit.useDefault" :class="$style.useDefaultLabel">{{ i18n.ts._role.useBaseValue }}</span>
-					<span v-else>{{ role.policies.localTimelineAnyLimit.value}}</span>
-					<span :class="$style.priorityIndicator"><i :class="getPriorityIcon(role.policies.localTimelineAnyLimit)"></i></span>
+					<span v-if="role.policies.remoteLocalTimelineAnyLimit.useDefault" :class="$style.useDefaultLabel">{{ i18n.ts._role.useBaseValue }}</span>
+					<span v-else>{{ role.policies.remoteLocalTimelineAnyLimit.value }}</span>
+					<span :class="$style.priorityIndicator"><i :class="getPriorityIcon(role.policies.remoteLocalTimelineAnyLimit)"></i></span>
 				</template>
 				<div class="_gaps">
-					<MkSwitch v-model="role.policies.localTimelineAnyLimit.useDefault" :readonly="readonly">
+					<MkSwitch v-model="role.policies.remoteLocalTimelineAnyLimit.useDefault" :readonly="readonly">
 						<template #label>{{ i18n.ts._role.useBaseValue }}</template>
 					</MkSwitch>
-            <MkInput v-model="role.policies.localTimelineAnyLimit.value" type="number" :min="0" :disabled="role.policies.localTimelineAnyLimit.useDefault" >
-                <template #label>{{ i18n.ts._role._options.localTimelineAnyLimit }}</template>
-            </MkInput>
-					<MkRange v-model="role.policies.localTimelineAnyLimit.priority" :min="0" :max="5" :step="1" easing :textConverter="(v) => v === 0 ? i18n.ts._role._priority.low : v === 1 ? i18n.ts._role._priority.middle : v === 5 ? i18n.ts._role._priority.high : ''">
+					<MkInput v-model="role.policies.remoteLocalTimelineAnyLimit.value" type="number" :min="0" :disabled="role.policies.remoteLocalTimelineAnyLimit.useDefault">
+						<template #label>{{ i18n.ts._role._options.remoteLocalTimelineAnyLimit }}</template>
+					</MkInput>
+					<MkRange v-model="role.policies.remoteLocalTimelineAnyLimit.priority" :min="0" :max="5" :step="1" easing :textConverter="(v) => v === 0 ? i18n.ts._role._priority.low : v === 1 ? i18n.ts._role._priority.middle : v === 5 ? i18n.ts._role._priority.high : ''">
 						<template #label>{{ i18n.ts._role.priority }}</template>
 					</MkRange>
 				</div>

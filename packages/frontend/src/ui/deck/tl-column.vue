@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<XColumn :menu="menu" :column="column" :isStacked="isStacked" :refresher="() => timeline.reloadTimeline()">
+<XColumn :menu="menu" :column="column" :isStacked="isStacked" :refresher="() => timeline!.reloadTimeline()">
 	<template #header>
 		<i v-if="column.tl === 'home'" class="ti ti-home"></i>
 		<i v-else-if="column.tl === 'local'" class="ti ti-planet"></i>
@@ -41,6 +41,7 @@ import * as os from '@/os.js';
 import { $i } from '@/account.js';
 import { i18n } from '@/i18n.js';
 import { instance } from '@/instance.js';
+import { defaultStore } from '@/store.js';
 
 const props = defineProps<{
 	column: Column;
@@ -84,6 +85,13 @@ onMounted(() => {
 	}
 });
 
+const remoteLocalTimelineEnable1 = defaultStore.state['remoteLocalTimelineEnable1'];
+const remoteLocalTimelineEnable2 = defaultStore.state['remoteLocalTimelineEnable2'];
+const remoteLocalTimelineEnable3 = defaultStore.state['remoteLocalTimelineEnable3'];
+const remoteLocalTimelineEnable4 = defaultStore.state['remoteLocalTimelineEnable4'];
+const remoteLocalTimelineEnable5 = defaultStore.state['remoteLocalTimelineEnable5'];
+
+// ここでカスタムタイムライン追加するっぽい
 async function setType() {
 	const { canceled, result: src } = await os.select({
 		title: i18n.ts.timeline,
@@ -95,7 +103,23 @@ async function setType() {
 			value: 'social' as const, text: i18n.ts._timelines.social,
 		}, {
 			value: 'global' as const, text: i18n.ts._timelines.global,
-		}],
+		}, ...(remoteLocalTimelineEnable1 ? [{
+			value: 'custom-timeline-1' as const,
+			text: defaultStore.state['remoteLocalTimelineName1'],
+		}] : []), ...(remoteLocalTimelineEnable2 ? [{
+			value: 'custom-timeline-2' as const,
+			text: defaultStore.state['remoteLocalTimelineName2'],
+		}] : []), ...(remoteLocalTimelineEnable3 ? [{
+			value: 'custom-timeline-3' as const,
+			text: defaultStore.state['remoteLocalTimelineName3'],
+		}] : []), ...(remoteLocalTimelineEnable4 ? [{
+			value: 'custom-timeline-4' as const,
+			text: defaultStore.state['remoteLocalTimelineName4'],
+		}] : []), ...(remoteLocalTimelineEnable5 ? [{
+			value: 'custom-timeline-5' as const,
+			text: defaultStore.state['remoteLocalTimelineName5'],
+		}] : []),
+	],
 	});
 	if (canceled) {
 		if (props.column.tl == null) {

@@ -44,6 +44,7 @@ import MkTimeline from '@/components/MkTimeline.vue';
 import { i18n } from '@/i18n.js';
 import { $i } from '@/account.js';
 import { instance } from '@/instance.js';
+import { defaultStore } from '@/store.js';
 
 const name = 'timeline';
 const isLocalTimelineAvailable = (($i == null && instance.policies.ltlAvailable) || ($i != null && $i.policies.ltlAvailable));
@@ -115,6 +116,13 @@ const choose = async (ev) => {
 			setSrc('list');
 		},
 	}));
+
+	const remoteLocalTimelineEnable1 = defaultStore.state['remoteLocalTimelineEnable1'];
+	const remoteLocalTimelineEnable2 = defaultStore.state['remoteLocalTimelineEnable2'];
+	const remoteLocalTimelineEnable3 = defaultStore.state['remoteLocalTimelineEnable3'];
+	const remoteLocalTimelineEnable4 = defaultStore.state['remoteLocalTimelineEnable4'];
+	const remoteLocalTimelineEnable5 = defaultStore.state['remoteLocalTimelineEnable5'];
+
 	os.popupMenu([{
 		text: i18n.ts._timelines.home,
 		icon: 'ti ti-home',
@@ -131,7 +139,28 @@ const choose = async (ev) => {
 		text: i18n.ts._timelines.global,
 		icon: 'ti ti-whirl',
 		action: () => { setSrc('global'); },
-	}, antennaItems.length > 0 ? { type: 'divider' } : undefined, ...antennaItems, listItems.length > 0 ? { type: 'divider' } : undefined, ...listItems], ev.currentTarget ?? ev.target).then(() => {
+	}, ...(remoteLocalTimelineEnable1 ? [{
+		text: i18n.ts._timelines['custom-timeline-1'],
+		icon: 'ti ti-plus',
+		action: () => { setSrc('custom-timeline-1'); },
+	}] : []), ...(remoteLocalTimelineEnable2 ? [{
+		text: i18n.ts._timelines['custom-timeline-2'],
+		icon: 'ti ti-plus',
+		action: () => { setSrc('custom-timeline-2'); },
+	}] : []), ...(remoteLocalTimelineEnable3 ? [{
+		text: i18n.ts._timelines['custom-timeline-3'],
+		icon: 'ti ti-plus',
+		action: () => { setSrc('custom-timeline-3'); },
+	}] : []), ...(remoteLocalTimelineEnable4 ? [{
+		text: i18n.ts._timelines['custom-timeline-4'],
+		icon: 'ti ti-plus',
+		action: () => { setSrc('custom-timeline-4'); },
+	}] : []), ...(remoteLocalTimelineEnable5 ? [{
+		text: i18n.ts._timelines['custom-timeline-5'],
+		icon: 'ti ti-plus',
+		action: () => { setSrc('custom-timeline-5'); },
+	}] : []),
+	antennaItems.length > 0 ? { type: 'divider' } : undefined, ...antennaItems, listItems.length > 0 ? { type: 'divider' } : undefined, ...listItems], ev.currentTarget ?? ev.target).then(() => {
 		menuOpened.value = false;
 	});
 };

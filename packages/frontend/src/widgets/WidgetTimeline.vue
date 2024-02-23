@@ -136,6 +136,10 @@ const choose = async (ev) => {
 		text: i18n.ts._timelines.global,
 		icon: 'ti ti-whirl',
 		action: () => { setSrc('global'); },
+	}, {
+		text: 'Custom timeline 1',
+		icon: 'ti ti-at',
+		action: () => { setSrc('custom-timeline-1'); },
 	}, antennaItems.length > 0 ? { type: 'divider' } : undefined, ...antennaItems, listItems.length > 0 ? { type: 'divider' } : undefined, ...listItems], ev.currentTarget ?? ev.target).then(() => {
 		menuOpened.value = false;
 	});

@@ -6491,7 +6491,7 @@ export interface Locale extends ILocale {
             /**
              * 他のサーバーのLTLを覗けるやつ(最大数5)
              */
-            "localTimelineAnyLimit": string;
+            "remoteLocalTimelineAnyLimit": string;
         };
         "_condition": {
             /**

@@ -210,105 +210,104 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 	<FormSection>
 		<MkFolder>
-		<template #label>他のサーバーのローカルタイムラインを覗けるようにする</template>
+			<template #label>他のサーバーのローカルタイムラインを覗けるようにする</template>
 
-		<div class="_gaps_m">
-		<FormSection v-if="maxLocalTimeline >= 1">
-			<div v-if="maxLocalTimeline >= 1" class="_gaps_s">
-				<MkInput v-model="remoteLocalTimelineName1" placeholder="hostDomain">
-					<template #label>{{ i18n.ts.name }}</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineDomain1" placeholder="hostDomain">
-					<template #label>サーバーURL</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineToken1" placeholder="">
-					<template #prefix><i class="ti ti-key"></i></template>
-					<template #label>{{ i18n.ts.accessToken }}</template>
-				</MkInput>
-				<MkSwitch v-model="remoteLocalTimelineEnable1">
-					{{ i18n.ts.enable }}
-				</MkSwitch>
+			<div class="_gaps_m">
+				<FormSection v-if="maxLocalTimeline >= 1">
+					<div v-if="maxLocalTimeline >= 1" class="_gaps_s">
+						<MkInput v-model="remoteLocalTimelineName1" placeholder="hostDomain">
+							<template #label>{{ i18n.ts.name }}</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineDomain1" placeholder="hostDomain">
+							<template #label>サーバーURL</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineToken1" placeholder="">
+							<template #prefix><i class="ti ti-key"></i></template>
+							<template #label>{{ i18n.ts.accessToken }}</template>
+						</MkInput>
+						<MkSwitch v-model="remoteLocalTimelineEnable1">
+							{{ i18n.ts.enable }}
+						</MkSwitch>
+					</div>
+				</FormSection>
+
+				<FormSection v-if="maxLocalTimeline >= 2">
+					<div v-if="maxLocalTimeline >= 2" class="_gaps_m">
+						<MkInput v-model="remoteLocalTimelineName2" placeholder="hostDomain">
+							<template #label>{{ i18n.ts.name }}</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineDomain2" placeholder="hostDomain">
+							<template #label>サーバーURL</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineToken2" placeholder="">
+							<template #prefix><i class="ti ti-key"></i></template>
+							<template #label>{{ i18n.ts.accessToken }}</template>
+						</MkInput>
+						<MkSwitch v-model="remoteLocalTimelineEnable2">
+							{{ i18n.ts.enable }}
+						</MkSwitch>
+					</div>
+				</FormSection>
+
+				<FormSection v-if="maxLocalTimeline >= 3">
+					<div v-if="maxLocalTimeline >= 3" class="_gaps_m">
+						<MkInput v-model="remoteLocalTimelineName3" placeholder="hostDomain">
+							<template #label>{{ i18n.ts.name }}</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineDomain3" placeholder="hostDomain">
+							<template #label>サーバーURL</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineToken3" placeholder="">
+							<template #prefix><i class="ti ti-key"></i></template>
+							<template #label>{{ i18n.ts.accessToken }}</template>
+						</MkInput>
+						<MkSwitch v-model="remoteLocalTimelineEnable3">
+							{{ i18n.ts.enable }}
+						</MkSwitch>
+					</div>
+				</FormSection>
+
+				<FormSection v-if="maxLocalTimeline >= 4">
+					<div v-if="maxLocalTimeline >= 4" class="_gaps_m">
+						<MkInput v-model="remoteLocalTimelineName4" placeholder="hostDomain">
+							<template #label>{{ i18n.ts.name }}</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineDomain4" placeholder="hostDomain">
+							<template #label>サーバーURL</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineToken4" placeholder="">
+							<template #prefix><i class="ti ti-key"></i></template>
+							<template #label>{{ i18n.ts.accessToken }}</template>
+						</MkInput>
+						<MkSwitch v-model="remoteLocalTimelineEnable4">
+							{{ i18n.ts.enable }}
+						</MkSwitch>
+					</div>
+				</FormSection>
+
+				<FormSection v-if="maxLocalTimeline >= 5">
+					<div v-if="maxLocalTimeline >= 5" class="_gaps_m">
+						<MkInput v-model="remoteLocalTimelineName5" placeholder="hostDomain">
+							<template #label>{{ i18n.ts.name }}</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineDomain5" placeholder="hostDomain">
+							<template #label>サーバーURL</template>
+						</MkInput>
+						<MkInput v-model="remoteLocalTimelineToken5" placeholder="">
+							<template #prefix><i class="ti ti-key"></i></template>
+							<template #label>{{ i18n.ts.accessToken }}</template>
+						</MkInput>
+						<MkSwitch v-model="remoteLocalTimelineEnable5">
+							{{ i18n.ts.enable }}
+						</MkSwitch>
+					</div>
+				</FormSection>
+
+				<MkButton @click="remoteLocaltimelineSave">
+					{{ i18n.ts.save }}
+				</MkButton>
 			</div>
-
-		</FormSection>
-
-		<FormSection v-if="maxLocalTimeline >= 2">
-			<div v-if="maxLocalTimeline >= 2" class="_gaps_m">
-				<MkInput v-model="remoteLocalTimelineName2" placeholder="hostDomain">
-					<template #label>{{ i18n.ts.name }}</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineDomain2" placeholder="hostDomain">
-					<template #label>サーバーURL</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineToken2" placeholder="">
-					<template #prefix><i class="ti ti-key"></i></template>
-					<template #label>{{ i18n.ts.accessToken }}</template>
-				</MkInput>
-				<MkSwitch v-model="remoteLocalTimelineEnable2">
-					{{ i18n.ts.enable }}
-				</MkSwitch>
-			</div>
-		</FormSection>
-
-		<FormSection v-if="maxLocalTimeline >= 3">
-			<div v-if="maxLocalTimeline >= 3" class="_gaps_m">
-				<MkInput v-model="remoteLocalTimelineName3" placeholder="hostDomain">
-					<template #label>{{ i18n.ts.name }}</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineDomain3" placeholder="hostDomain">
-					<template #label>サーバーURL</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineToken3" placeholder="">
-					<template #prefix><i class="ti ti-key"></i></template>
-					<template #label>{{ i18n.ts.accessToken }}</template>
-				</MkInput>
-				<MkSwitch v-model="remoteLocalTimelineEnable3">
-					{{ i18n.ts.enable }}
-				</MkSwitch>
-			</div>
-		</FormSection>
-
-		<FormSection v-if="maxLocalTimeline >= 4">
-			<div v-if="maxLocalTimeline >= 4" class="_gaps_m">
-				<MkInput v-model="remoteLocalTimelineName4" placeholder="hostDomain">
-					<template #label>{{ i18n.ts.name }}</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineDomain4" placeholder="hostDomain">
-					<template #label>サーバーURL</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineToken4" placeholder="">
-					<template #prefix><i class="ti ti-key"></i></template>
-					<template #label>{{ i18n.ts.accessToken }}</template>
-				</MkInput>
-				<MkSwitch v-model="remoteLocalTimelineEnable4">
-					{{ i18n.ts.enable }}
-				</MkSwitch>
-			</div>
-		</FormSection>
-
-		<FormSection v-if="maxLocalTimeline >= 5">
-			<div v-if="maxLocalTimeline >= 5" class="_gaps_m">
-				<MkInput v-model="remoteLocalTimelineName5" placeholder="hostDomain">
-					<template #label>{{ i18n.ts.name }}</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineDomain5" placeholder="hostDomain">
-					<template #label>サーバーURL</template>
-				</MkInput>
-				<MkInput v-model="remoteLocalTimelineToken5" placeholder="">
-					<template #prefix><i class="ti ti-key"></i></template>
-					<template #label>{{ i18n.ts.accessToken }}</template>
-				</MkInput>
-				<MkSwitch v-model="remoteLocalTimelineEnable5">
-					{{ i18n.ts.enable }}
-				</MkSwitch>
-			</div>
-		</FormSection>
-
-			<MkButton @click="remoteLocaltimelineSave">
-				{{ i18n.ts.save }}
-			</MkButton>
-		</div>
-	</MkFolder>
+		</MkFolder>
 	</FormSection>
 
 	<FormSection>
@@ -439,7 +438,7 @@ const remoteLocalTimelineEnable4 = computed(defaultStore.makeGetterSetter('remot
 const remoteLocalTimelineEnable5 = computed(defaultStore.makeGetterSetter('remoteLocalTimelineEnable5'));
 
 const $i = signinRequired();
-const maxLocalTimeline = $i.policies.localTimelineAnyLimit;
+const maxLocalTimeline = $i.policies.remoteLocalTimelineAnyLimit;
 
 watch(lang, () => {
 	miLocalStorage.setItem('lang', lang.value as string);

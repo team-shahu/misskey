@@ -103,7 +103,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 			const noteIds = [];
 
 			if (i.softwareName === 'misskey') {
-				const remoteTimeline: string[] = await (await this.httpRequestService.send('https://' + ps.host + '/api/notes/local-timeline', {
+				// プロパティ 'id' は型 'string' に存在しません。
+				const remoteTimeline: any[] = await (await this.httpRequestService.send('https://' + ps.host + '/api/notes/local-timeline', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -133,7 +134,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 					const lastUri = packedNote[packedNote.length - 1].uri;
 					lastRemoteId = lastUri.split('/')[lastUri.split('/').length - 1];
 					do {
-						const remoteTimeline: string[] = await (await this.httpRequestService.send('https://' + ps.host + '/api/notes/local-timeline', {
+						// プロパティ 'id' は型 'string' に存在しません。
+						const remoteTimeline: any[] = await (await this.httpRequestService.send('https://' + ps.host + '/api/notes/local-timeline', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -161,7 +163,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 							}
 						}
 					} while (lastRemoteId !== ps.untilId);
-					const remoteTimeline: string[] = await (await this.httpRequestService.send('https://' + ps.host + '/api/notes/local-timeline', {
+					// プロパティ 'id' は型 'string' に存在しません。
+					const remoteTimeline: any[] = await (await this.httpRequestService.send('https://' + ps.host + '/api/notes/local-timeline', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
@@ -188,6 +191,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 				notes = await this.notesRepository.findBy({ id: In(noteIds) });
 				packedNote = await this.noteEntityService.packMany(notes, me, { detail: true });
+				// 型 '(ps: { limit: number; withFiles: SchemaType<{ readonly type: "boolean"; readonly default: false; }>; withRenotes: SchemaType<{ readonly type: "boolean"; readonly default: true; }>; withReplies: SchemaType<...>; allowPartial: SchemaType<...>; } & {} & { ...; }, me: MiLocalUser | null) => Promise<...>' の引数を型 'Executor<{ readonly tags: readonly ["notes"]; readonly res: { readonly type: "array"; readonly optional: false; readonly nullable: false; readonly items: { readonly type: "object"; readonly optional: false; readonly nullable: false; readonly ref: "Note"; }; }; readonly errors: { ...; }; }, { ...; }>' のパラメーターに割り当てることはできません。
 				return packedNote.reverse() as any;
 			}
 		});

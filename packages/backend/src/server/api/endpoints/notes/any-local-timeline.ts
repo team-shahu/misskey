@@ -43,7 +43,7 @@ export const meta = {
 		hostIsNull: {
 			message: 'Host is null',
 			code: 'HOST_NULL',
-			id: 'PRSMSK-ANY-LTL-0001',
+			id: '01292d9c-d1ae-11ee-8812-00155d186096',
 		},
 
 		bothWithRepliesAndWithFiles: {
@@ -54,7 +54,7 @@ export const meta = {
 		remoteTokenIsNull: {
 			message: 'remoteToken is null',
 			code: 'REMOTE_TOKEN_NULL',
-			id: 'PRSMSK-ANY-LTL-0002',
+			id: '6775b012-d275-11ee-97f2-00155d51a996',
 		},
 	},
 } as const;
@@ -113,7 +113,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 						withFiles: ps.withFiles,
 						withRenotes: ps.withRenotes,
 						withReplies: ps.withReplies,
-						limit: 30,
+						limit: ps.limit,
 					}),
 				})).json() as string[];
 
@@ -144,7 +144,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 								withRenotes: ps.withRenotes,
 								withReplies: ps.withReplies,
 								untilId: lastRemoteId,
-								limit: 30,
+								limit: ps.limit,
 							}),
 						})).json() as string[];
 
@@ -172,7 +172,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 							withRenotes: ps.withRenotes,
 							withReplies: ps.withReplies,
 							untilId: lastRemoteId,
-							limit: 30,
+							limit: ps.limit,
 						}),
 					})).json() as string[];
 
@@ -188,7 +188,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 				notes = await this.notesRepository.findBy({ id: In(noteIds) });
 				packedNote = await this.noteEntityService.packMany(notes, me, { detail: true });
-				return packedNote.reverse();
+				return packedNote.reverse() as any;
 			}
 		});
 	}
@@ -235,13 +235,11 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 		if (note != null) {
 			try {
 				const object = await this.noteEntityService.pack(note, me, { detail: true });
-
 				return object;
 			} catch (e) {
-				return null;
+
 			}
 		}
-
 		return null;
 	}
 }

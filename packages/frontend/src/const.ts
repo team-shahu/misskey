@@ -97,7 +97,7 @@ export const ROLE_POLICIES = [
 	'userEachUserListsLimit',
 	'rateLimitFactor',
 	'avatarDecorationLimit',
-	'localTimelineAnyLimit',
+	'remoteLocalTimelineAnyLimit',
 ] as const;
 
 // なんか動かない

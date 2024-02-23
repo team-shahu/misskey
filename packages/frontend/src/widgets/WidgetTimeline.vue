@@ -12,6 +12,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<i v-else-if="widgetProps.src === 'global'" class="ti ti-whirl"></i>
 		<i v-else-if="widgetProps.src === 'list'" class="ti ti-list"></i>
 		<i v-else-if="widgetProps.src === 'antenna'" class="ti ti-antenna"></i>
+		<i v-else-if="widgetProps.src === 'custom-timeline-1'" class="ti ti-plus"></i>
+		<i v-else-if="widgetProps.src === 'custom-timeline-2'" class="ti ti-plus"></i>
+		<i v-else-if="widgetProps.src === 'custom-timeline-3'" class="ti ti-plus"></i>
+		<i v-else-if="widgetProps.src === 'custom-timeline-4'" class="ti ti-plus"></i>
+		<i v-else-if="widgetProps.src === 'custom-timeline-5'" class="ti ti-plus"></i>
 	</template>
 	<template #header>
 		<button class="_button" @click="choose">

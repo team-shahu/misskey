@@ -1,4 +1,3 @@
----
 _lang_: "한국어"
 headlineMisskey: "노트로 연결되는 네트워크"
 introMisskey: "환영합니다! Misskey는 오픈 소스 분산형 마이크로 블로그 서비스입니다.\n'노트'를 작성해서 지금 일어나고 있는 일을 공유하거나, 당신만의 이야기를 모두에게 발신하세요📡\n'리액션' 기능으로 친구의 노트에 총알같이 반응을 추가할 수도 있습니다👍\n새로운 세계를 탐험해 보세요🚀"
@@ -494,7 +493,6 @@ emojiStyle: "이모지 스타일"
 native: "기본"
 disableDrawer: "드로어 메뉴를 사용하지 않기"
 showNoteActionsOnlyHover: "노트 액션 버튼을 마우스를 올렸을 때에만 표시"
-showReactionsCount: "노트의 반응 수를 표시하기"
 noHistory: "기록이 없습니다"
 signinHistory: "로그인 기록"
 enableAdvancedMfm: "고급 MFM을 활성화"
@@ -1752,7 +1750,6 @@ _plugin:
   installWarn: "신뢰할 수 없는 플러그인은 설치하지 않는 것이 좋습니다."
   manage: "플러그인 관리"
   viewSource: "소스 보기"
-  viewLog: "로그 보기"
 _preferencesBackups:
   list: "생성한 백업"
   saveNew: "새 백업 만들기"
@@ -2300,7 +2297,6 @@ _notification:
   sendTestNotification: "테스트 알림 보내기"
   notificationWillBeDisplayedLikeThis: "알림이 이렇게 표시됩니다"
   reactedBySomeUsers: "{n}명이 반응했습니다"
-  likedBySomeUsers: "{n}명이 좋아요를 했습니다"
   renotedBySomeUsers: "{n}명이 리노트했습니다"
   followedBySomeUsers: "{n}명에게 팔로우됨"
   flushNotification: "알림 이력을 초기화"

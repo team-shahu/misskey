@@ -1,4 +1,3 @@
----
 _lang_: "English"
 headlineMisskey: "A network connected by notes"
 introMisskey: "Welcome! Misskey is an open source, decentralized microblogging service.\nCreate \"notes\" to share your thoughts with everyone around you. 📡\nWith \"reactions\", you can also quickly express your feelings about everyone's notes. 👍\nLet's explore a new world! 🚀"
@@ -2298,7 +2297,6 @@ _notification:
   sendTestNotification: "Send test notification"
   notificationWillBeDisplayedLikeThis: "Notifications look like this"
   reactedBySomeUsers: "{n} users reacted"
-  likedBySomeUsers: "{n} users liked your note"
   renotedBySomeUsers: "Renote from {n} users"
   followedBySomeUsers: "Followed by {n} users"
   flushNotification: "Clear notifications"

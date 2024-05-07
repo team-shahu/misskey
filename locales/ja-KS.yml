@@ -1,4 +1,3 @@
----
 _lang_: "日本語 (関西弁)"
 headlineMisskey: "ノートでつながるネットワーク"
 introMisskey: "ようお越し！Misskeyは、オープンソースの分散型マイクロブログサービスやねん。\n「ノート」を作って、いま起こっとることを共有したり、あんたについて皆に発信しよう📡\n「ツッコミ」機能で、皆のノートに素早く反応を追加したりもできるで✌\nほな、新しい世界を探検しよか🚀"
@@ -494,7 +493,6 @@ emojiStyle: "絵文字のスタイル"
 native: "ネイティブ"
 disableDrawer: "メニューをドロワーで表示せえへん"
 showNoteActionsOnlyHover: "ノートの操作部をホバー時のみ表示するで"
-showReactionsCount: "ノートのリアクション数を表示する"
 noHistory: "履歴はないわ。"
 signinHistory: "ログイン履歴"
 enableAdvancedMfm: "ややこしいMFMもありにする"
@@ -1787,7 +1785,7 @@ _aboutMisskey:
   donate: "Misskeyに寄付"
   morePatrons: "他にもぎょうさんの人からサポートしてもろてんねん。ほんまおおきに🥰"
   patrons: "支援者"
-  projectMembers: ""
+  projectMembers: "プロジェクトメンバー"
 _displayOfSensitiveMedia:
   respect: "きわどいのは見とうない"
   ignore: "きわどいのも見たい"
@@ -2299,7 +2297,6 @@ _notification:
   sendTestNotification: "テスト通知を送信するで"
   notificationWillBeDisplayedLikeThis: "通知はこのように表示されるで"
   reactedBySomeUsers: "{n}人がツッコんだで"
-  likedBySomeUsers: "{n}人がいいねしたで"
   renotedBySomeUsers: "{n}人がリノートしたで"
   followedBySomeUsers: "{n}人にフォローされたで"
   flushNotification: "通知の履歴をリセットする"
@@ -2431,20 +2428,20 @@ _externalResourceInstaller:
     title: "このテーマインストールする？"
     metaTitle: "テーマ情報"
   _meta:
-    base: ""
+    base: "基本のカラースキーム"
   _vendorInfo:
-    title: ""
-    endpoint: ""
-    hashVerify: ""
+    title: "配布元情報"
+    endpoint: "参照したエンドポイント"
+    hashVerify: "ファイル整合性の確認"
   _errors:
     _invalidParams:
-      title: ""
-      description: ""
+      title: "パラメータが不足しています"
+      description: "外部サイトからデータを取得するために必要な情報が不足しています。URLをお確かめください。"
     _resourceTypeNotSupported:
-      title: ""
-      description: ""
+      title: "この外部リソースには対応していません"
+      description: "この外部サイトから取得したリソースの種別には対応していません。サイト管理者にお問い合わせください。"
     _failedToFetch:
-      title: ""
+      title: "データの取得に失敗しました"
       fetchErrorDescription: "他のサイトに繋がらんかったわ。もっかいやってもダメやったら、サイトの管理してる人に言っといて。"
       parseErrorDescription: "他のサイトから持ってきたデータ、よう分からんかったわ。サイトの管理してる人に言っといて。"
     _hashUnmatched:

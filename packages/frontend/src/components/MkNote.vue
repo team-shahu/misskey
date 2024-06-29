@@ -47,6 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	</div>
 	<article v-else :class="$style.article" @contextmenu.stop="onContextmenu">
 		<div v-if="appearNote.channel" :class="$style.colorBar" :style="{ background: appearNote.channel.color }"></div>
+		<MkInstanceIcon v-if="showTicker" :class="$style.instanceicon"/>
 		<MkAvatar :class="$style.avatar" :user="appearNote.user" :link="!mock" :preview="!mock"/>
 		<div :class="$style.main">
 			<MkNoteHeader :note="appearNote" :mini="true"/>
@@ -174,6 +175,7 @@ import MkPoll from '@/components/MkPoll.vue';
 import MkUsersTooltip from '@/components/MkUsersTooltip.vue';
 import MkUrlPreview from '@/components/MkUrlPreview.vue';
 import MkInstanceTicker from '@/components/MkInstanceTicker.vue';
+import MkInstanceIcon from '@/components/MkInstanceIcon.vue';
 import { pleaseLogin } from '@/scripts/please-login.js';
 import { focusPrev, focusNext } from '@/scripts/focus.js';
 import { checkWordMute } from '@/scripts/check-word-mute.js';
@@ -775,6 +777,16 @@ function emitUpdReaction(emoji: string, delta: number) {
 	position: sticky !important;
 	top: calc(22px + var(--stickyTop, 0px));
 	left: 0;
+}
+
+.instanceicon {
+	display: block !important;
+	padding-top: 33px;
+	margin-right: -25px;
+	height: 25px;
+	z-index: 10;
+	position: sticky !important;
+	top: calc(22px + var(--stickyTop, 0px));
 }
 
 .main {

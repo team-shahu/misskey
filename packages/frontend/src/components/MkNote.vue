@@ -929,6 +929,12 @@ function emitUpdReaction(emoji: string, delta: number) {
 		width: 50px;
 		height: 50px;
 	}
+
+	.instanceicon {
+		padding-top: 29px;
+		height: 21px;
+		margin-right: -21px;
+	}
 }
 
 @container (max-width: 500px) {
@@ -966,6 +972,10 @@ function emitUpdReaction(emoji: string, delta: number) {
 	.article {
 		padding: 14px 16px;
 	}
+
+	.instanceicon {
+		top: calc(14px + var(--stickyTop, 0px));
+	}
 }
 
 @container (max-width: 450px) {
@@ -974,6 +984,12 @@ function emitUpdReaction(emoji: string, delta: number) {
 		width: 46px;
 		height: 46px;
 		top: calc(14px + var(--stickyTop, 0px));
+	}
+
+	.instanceicon {
+		padding-top: 27px;
+		height: 19px;
+		margin-right: -19px;
 	}
 }
 
@@ -1008,6 +1024,12 @@ function emitUpdReaction(emoji: string, delta: number) {
 	.avatar {
 		width: 44px;
 		height: 44px;
+	}
+
+	.instanceicon {
+		padding-top: 27px;
+		height: 17px;
+		margin-right: -17px;
 	}
 
 	.root:not(.showActionsOnlyHover) {

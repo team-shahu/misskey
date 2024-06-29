@@ -32,4 +32,25 @@ const faviconUrl = computed(() => getProxiedImageUrlNullable(props.instance?.fav
 	background: var(--panel);
 	box-shadow: 0 0 0 2px var(--panel);
 }
+
+@container (max-width: 580px) {
+	.topleftIcon {
+		width: 21px;
+		height: 21px;
+	}
+}
+
+@container (max-width: 450px) {
+	.topleftIcon {
+		width: 19px;
+		height: 19px;
+	}
+}
+
+@container (max-width: 300px) {
+	.topleftIcon {
+		width: 17px;
+		height: 17px;
+	}
+}
 </style>

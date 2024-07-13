@@ -1,4 +1,3 @@
----
 _lang_: "日本語 (関西弁)"
 headlineMisskey: "ノートでつながるネットワーク"
 introMisskey: "ようお越し！Misskeyは、オープンソースの分散型マイクロブログサービスやねん。\n「ノート」を作って、いま起こっとることを共有したり、あんたについて皆に発信しよう📡\n「ツッコミ」機能で、皆のノートに素早く反応を追加したりもできるで✌\nほな、新しい世界を探検しよか🚀"
@@ -1238,10 +1237,6 @@ keepOriginalFilenameDescription: "この設定をオフにすると、アップ�
 noDescription: "説明文はあらへんで"
 alwaysConfirmFollow: "フォローの際常に確認する"
 inquiry: "問い合わせ"
-_delivery:
-  stop: "配信せぇへん"
-  _type:
-    none: "配信しとる"
 scheduledNoteDelete: "ほな消す"
 noteDeletationAt: "このノートは{time}に削除されるで"
 addToEmojiPicker: "絵文字ピッカーに追加する"
@@ -1252,7 +1247,10 @@ drafts: "下書き"
 draftSavingBehavior: "下書き保存とかの動作"
 saveAsDraft: "下書きとして保存"
 draftOverwriteConfirm: "下書きをやるといま入力されてる内容はリセットされるけどいい？"
-
+_delivery:
+  stop: "配信せぇへん"
+  _type:
+    none: "配信しとる"
 _bubbleGame:
   howToPlay: "遊び方"
   hold: "ホールド"
@@ -1822,7 +1820,6 @@ _aboutMisskey:
   donate: "Misskeyに寄付"
   morePatrons: "他にもぎょうさんの人からサポートしてもろてんねん。ほんまおおきに🥰"
   patrons: "支援者"
-  projectMembers: ""
 _displayOfSensitiveMedia:
   respect: "きわどいのは見とうない"
   ignore: "きわどいのも見たい"
@@ -2467,21 +2464,8 @@ _externalResourceInstaller:
   _theme:
     title: "このテーマインストールする？"
     metaTitle: "テーマ情報"
-  _meta:
-    base: ""
-  _vendorInfo:
-    title: ""
-    endpoint: ""
-    hashVerify: ""
   _errors:
-    _invalidParams:
-      title: ""
-      description: ""
-    _resourceTypeNotSupported:
-      title: ""
-      description: ""
     _failedToFetch:
-      title: ""
       fetchErrorDescription: "他のサイトに繋がらんかったわ。もっかいやってもダメやったら、サイトの管理してる人に言っといて。"
       parseErrorDescription: "他のサイトから持ってきたデータ、よう分からんかったわ。サイトの管理してる人に言っといて。"
     _hashUnmatched:

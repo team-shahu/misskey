@@ -14,7 +14,7 @@
 [しゃふすきー](https://shahu.ski)で使われている[Misskey](https://github.com/misskey-dev/misskey)のフォークです。  
   
 ## 独自機能
-- ノートを一定期間で自動消去する「すぐ消す」機能　不明, https://github.com/team-shahu/misskey/pull/32
+- ノートを一定期間で自動消去する「すぐ消す」機能　不明, https://github.com/team-shahu/misskey/pull/32 https://github.com/team-shahu/misskey/pull/34
 - チャンネル内お知らせ機能 https://github.com/team-shahu/misskey/pull/2
 - 他インスタンスの絵文字でもローカルに存在すればリアクションできるように
 - フォローリクエストを自動的に拒否する機能

@@ -85,19 +85,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 	<!-- <div v-if="showingOptions" style="padding: 8px 16px;">
 	</div> -->
 	<footer :class="$style.footer">
-    <div :class="$style.footerLeft">
-      <template v-for="item in defaultStore.state.postFormActions">
-        <button v-if="!bottomItemActionDef[item].hide" :key="item" v-tooltip="bottomItemDef[item].title" class="_button" :class="[$style.footerButton, { [$style.footerButtonActive]: bottomItemActionDef[item].active }]" v-on="bottomItemActionDef[item].action ? { click: bottomItemActionDef[item].action } : {}">
-          <i class="ti" :class="bottomItemDef[item].icon"></i>
-        </button>
-      </template>
-    </div>
-    <div :class="$style.footerRight">
-      <button v-tooltip="i18n.ts.previewNoteText" class="_button" :class="[$style.footerButton, { [$style.previewButtonActive]: showPreview }]" @click="showPreview = !showPreview">
-        <i class="ti ti-eye"></i>
-      </button>
-    </div>
-  </footer>
+		<div :class="$style.footerLeft">
+			<template v-for="item in defaultStore.state.postFormActions">
+				<button v-if="!bottomItemActionDef[item].hide" :key="item" v-tooltip="bottomItemDef[item].title" class="_button" :class="[$style.footerButton, { [$style.footerButtonActive]: bottomItemActionDef[item].active }]" v-on="bottomItemActionDef[item].action ? { click: bottomItemActionDef[item].action } : {}">
+					<i class="ti" :class="bottomItemDef[item].icon"></i>
+				</button>
+			</template>
+		</div>
+		<div :class="$style.footerRight">
+			<button v-tooltip="i18n.ts.previewNoteText" class="_button" :class="[$style.footerButton, { [$style.previewButtonActive]: showPreview }]" @click="showPreview = !showPreview">
+				<i class="ti ti-eye"></i>
+			</button>
+		</div>
+	</footer>
 	<datalist id="hashtags">
 		<option v-for="hashtag in recentHashtags" :key="hashtag" :value="hashtag"/>
 	</datalist>
@@ -106,21 +106,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { inject, watch, nextTick, onMounted, defineAsyncComponent, provide, shallowRef, ref, computed } from 'vue';
-import type { ShallowRef, reactive } from 'vue';
 import * as mfm from 'mfm-js';
 import * as Misskey from 'misskey-js';
 import insertTextAtCursor from 'insert-text-at-cursor';
 import { toASCII } from 'punycode.js';
 import { host, url } from '@@/js/config.js';
+import { reactive } from 'vue';
+import type { ShallowRef } from 'vue';
 import type { PostFormProps } from '@/types/post-form.js';
 import type { MenuItem } from '@/types/menu.js';
-import MkNoteSimple from '@/components/MkNoteSimple.vue';
+import type { PollEditorModelValue } from '@/components/MkPollEditor.vue';
+import type { DeleteScheduleEditorModelValue } from '@/components/MkDeleteScheduleEditor.vue';
 import MkNotePreview from '@/components/MkNotePreview.vue';
 import XPostFormAttaches from '@/components/MkPostFormAttaches.vue';
 import MkPollEditor from '@/components/MkPollEditor.vue';
-import type { PollEditorModelValue } from '@/components/MkPollEditor.vue';
 import MkDeleteScheduleEditor from '@/components/MkDeleteScheduleEditor.vue';
-import type { DeleteScheduleEditorModelValue } from '@/components/MkDeleteScheduleEditor.vue';
 import { erase, unique } from '@/scripts/array.js';
 import { extractMentions } from '@/scripts/extract-mentions.js';
 import { formatTimeString } from '@/scripts/format-time-string.js';
@@ -143,6 +143,7 @@ import { emojiPicker } from '@/scripts/emoji-picker.js';
 import { mfmFunctionPicker } from '@/scripts/mfm-function-picker.js';
 import { bottomItemDef } from '@/scripts/post-form.js';
 import MkScheduleEditor from '@/components/MkScheduleEditor.vue';
+import { transformTextWithGemini } from '@/scripts/shahu-script/text-transformations.js';
 
 const $i = signinRequired();
 
@@ -343,15 +344,22 @@ const bottomItemActionDef: Record<keyof typeof bottomItemDef, {
 		action: toggleScheduleNote,
 	},
 	schedulePostList: {
-    hide: computed(() => $i.policies.scheduleNoteMax === 0),
-    action: () => {
-      const { dispose } = os.popup(defineAsyncComponent(() => import('@/components/MkSchedulePostListDialog.vue')), {}, {
-        closed: () => {
-          dispose();
-        },
-      });
-    },
-  },
+		hide: computed(() => $i.policies.scheduleNoteMax === 0),
+		action: () => {
+			const { dispose } = os.popup(defineAsyncComponent(() => import('@/components/MkSchedulePostListDialog.vue')), {}, {
+				closed: () => {
+					dispose();
+				},
+			});
+		},
+	},
+	notesTransformation: {
+		action: () => {
+			transformTextWithGemini(text.value, (newText: string) => {
+				text.value = newText;
+			});
+		},
+	},
 });
 
 watch(text, () => {
@@ -442,7 +450,7 @@ function initialize() {
 	}
 
 	// 自身のセミパブリックノートへのリプライである場合かつパブリック投稿へのリプライでセミパブリック投稿にする
-	if (reply.value && reply.value.visibility === 'public' && reply.value.reply?.userId === $i.id && reply.value.reply?.dontShowOnLtl === true) {
+	if (reply.value && reply.value.visibility === 'public' && reply.value.reply?.userId === $i.id && reply.value.reply.dontShowOnLtl === true) {
 		visibility.value = 'public_non_ltl';
 	}
 	// #endregion

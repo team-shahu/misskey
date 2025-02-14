@@ -5230,6 +5230,88 @@ export interface Locale extends ILocale {
      * お問い合わせ
      */
     "inquiry": string;
+    "_llm": {
+        /**
+         * LLM設定
+         */
+        "title": string;
+        /**
+         * Geminiトークン
+         */
+        "geminiTokenLabel": string;
+        /**
+         * Gemini API の認証に使用するトークンを設定します。
+         */
+        "geminiTokenCaption": string;
+        /**
+         * Geminiモデル
+         */
+        "geminiModelLabel": string;
+        /**
+         * Gemini要約プロンプト
+         */
+        "geminiSummarizePromptLabel": string;
+        /**
+         * ノートを要約するためのプロンプトを設定します。
+         */
+        "geminiSummarizePromptCaption": string;
+        /**
+         * プロフィール要約プロンプト
+         */
+        "geminiProfileSummarizePromptLabel": string;
+        /**
+         * プロフィールを要約するためのプロンプトを設定します。
+         */
+        "geminiProfileSummarizePromptCaption": string;
+        /**
+         * ノートを要約
+         */
+        "summarizeNote": string;
+        /**
+         * プロフィールを要約
+         */
+        "summarizeProfile": string;
+        /**
+         * ノートの変換
+         */
+        "notesTransformation": string;
+        /**
+         * ノートのプロンプト
+         */
+        "notesPrompt": string;
+        /**
+         * ノートを作成する際のプロンプトを設定します。
+         */
+        "notesPromptDescription": string;
+        /**
+         * 長文
+         */
+        "geminiNoteLongText": string;
+        /**
+         * 短文
+         */
+        "geminiNoteShortText": string;
+        /**
+         * シンプル
+         */
+        "geminiNoteSimpleText": string;
+        /**
+         * カジュアル
+         */
+        "geminiNoteCasualText": string;
+        /**
+         * プロフェッショナル
+         */
+        "geminiNoteProfessionalText": string;
+        /**
+         * 猫っぽく
+         */
+        "geminiNoteCatText": string;
+        /**
+         * カスタム
+         */
+        "geminiNoteCustomText": string;
+    };
     /**
      * すぐ消す
      */

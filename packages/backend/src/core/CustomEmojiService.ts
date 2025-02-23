@@ -123,7 +123,7 @@ export class CustomEmojiService implements OnApplicationShutdown {
 			if (originalDriveFile) {
 				await this.driveService.deleteFile(originalDriveFile);
 			}
-			
+
 			// dataの更新
 			data.originalUrl = copyDriveFile.url;
 			data.publicUrl = copyDriveFile.webpublicUrl ?? copyDriveFile.url;
@@ -194,6 +194,34 @@ export class CustomEmojiService implements OnApplicationShutdown {
 		if (doNameUpdate) {
 			const isDuplicate = await this.checkDuplicate(data.name!);
 			if (isDuplicate) return 'SAME_NAME_EMOJI_EXISTS';
+		}
+
+		// ファイルの更新があった場合
+		if ( data.originalUrl && data.originalUrl !== emoji.originalUrl ) {
+			// driveFileの取得
+			const driveFile = await this.driveFilesRepository.findOneBy({ url: data.originalUrl });
+
+			if (!driveFile?.user?.isRoot) {
+				// システムユーザーとして再アップロード
+				const copyDriveFile = await this.driveService.uploadFromUrl({
+					url: data.originalUrl,
+					user: null,
+					force: true,
+				});
+
+				// 元データの削除
+				const originalDriveFile = await this.driveFilesRepository.findOneBy({ url: data.originalUrl });
+				if (originalDriveFile) {
+					await this.driveService.deleteFile(originalDriveFile);
+				}
+
+				// dataの更新
+				data.originalUrl = copyDriveFile.url;
+				data.publicUrl = copyDriveFile.webpublicUrl ?? copyDriveFile.url;
+				data.fileType = copyDriveFile.webpublicType ?? copyDriveFile.type;
+			} else {
+				console.log('[DEBUG] Reupload skipped. Condition not met:', { driveFileUserId: driveFile.userId });
+			}
 		}
 
 		await this.emojisRepository.update(emoji.id, {

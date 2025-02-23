@@ -9,9 +9,9 @@
 
 ---
 </div>
-
+  
 # これは何？
 [しゃふすきー](https://shahu.ski)で使われている[Misskey](https://github.com/misskey-dev/misskey)のフォークです。  
   
-## フォークの変更履歴
+# フォークの変更履歴
 [CHANGELOG_SHAHU.md](CHANGELOG_SHAHU.md)をご覧ください。  

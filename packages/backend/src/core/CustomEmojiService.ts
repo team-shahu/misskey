@@ -9,15 +9,15 @@ import { In, IsNull } from 'typeorm';
 import { EmojiEntityService } from '@/core/entities/EmojiEntityService.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
 import { IdService } from '@/core/IdService.js';
-import { ModerationLogService } from '@/core/ModerationLogService.js';
 import { UtilityService } from '@/core/UtilityService.js';
 import { bindThis } from '@/decorators.js';
 import { DI } from '@/di-symbols.js';
 import { MemoryKVCache, RedisSingleCache } from '@/misc/cache.js';
 import { sqlLikeEscape } from '@/misc/sql-like-escape.js';
-import type { EmojisRepository, MiRole, MiUser } from '@/models/_.js';
+import type { DriveFilesRepository, EmojisRepository, MiRole, MiUser } from '@/models/_.js';
 import type { MiEmoji } from '@/models/Emoji.js';
 import type { Serialized } from '@/types.js';
+import { ModerationLogService } from '@/core/ModerationLogService.js';
 import { DriveService } from '@/core/DriveService.js';
 
 const parseEmojiStrRegexp = /^([-\w]+)(?:@([\w.-]+))?$/;
@@ -68,6 +68,8 @@ export class CustomEmojiService implements OnApplicationShutdown {
 		private redisClient: Redis.Redis,
 		@Inject(DI.emojisRepository)
 		private emojisRepository: EmojisRepository,
+		@Inject(DI.driveFilesRepository)
+		private driveFilesRepository: DriveFilesRepository,
 		private utilityService: UtilityService,
 		private idService: IdService,
 		private emojiEntityService: EmojiEntityService,
@@ -105,18 +107,29 @@ export class CustomEmojiService implements OnApplicationShutdown {
 		localOnly: boolean;
 		roleIdsThatCanBeUsedThisEmojiAsReaction: MiRole['id'][];
 	}, moderator?: MiUser): Promise<MiEmoji> {
-		const originalDriveData: MiDriveFile = data.driveFile;
+		// driveFileの取得
+		const driveFile = await this.driveFilesRepository.findOneBy({ url: data.originalUrl });
 
-		// システムユーザーとして再アップロード
-		if (!data.driveFile.user?.isRoot) {
-			data.driveFile = await this.driveService.uploadFromUrl({
-				url: data.driveFile.url,
+		if (!driveFile?.user?.isRoot) {
+			// システムユーザーとして再アップロード
+			const copyDriveFile = await this.driveService.uploadFromUrl({
+				url: data.originalUrl,
 				user: null,
 				force: true,
 			});
 
 			// 元データの削除
-			this.driveService.deleteFile(originalDriveData);
+			const originalDriveFile = await this.driveFilesRepository.findOneBy({ url: data.originalUrl });
+			if (originalDriveFile) {
+				await this.driveService.deleteFile(originalDriveFile);
+			}
+			
+			// dataの更新
+			data.originalUrl = copyDriveFile.url;
+			data.publicUrl = copyDriveFile.webpublicUrl ?? copyDriveFile.url;
+			data.fileType = copyDriveFile.webpublicType ?? copyDriveFile.type;
+		} else {
+			console.log('[DEBUG] Reupload skipped. Condition not met:', { driveFileUserId: driveFile.userId });
 		}
 		const emoji = await this.emojisRepository.insertOne({
 			id: this.idService.gen(),

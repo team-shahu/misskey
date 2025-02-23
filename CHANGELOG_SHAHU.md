@@ -9,7 +9,7 @@
 ### Server
 -->
 
-## shahu　1.9.0
+## shahu.1.9.0
 ### General
 
 ### Client
@@ -24,7 +24,7 @@
 ### etc
 過去のバージョン (1.9.0未満) の詳細な変更履歴は記録されていません。
 
-## 過去に実装された独自機能
+#### 過去に実装された独自機能
 - ノートを一定期間で自動消去する「すぐ消す」機能　不明, https://github.com/team-shahu/misskey/pull/32
 - チャンネル内お知らせ機能 https://github.com/team-shahu/misskey/pull/2
 - 他インスタンスの絵文字でもローカルに存在すればリアクションできるように

@@ -76,13 +76,20 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</MkSwitch>
 			</div>
 
-			<MkSelect v-if="instance.federation !== 'none'" v-model="instanceTicker">
-				<template #label>{{ i18n.ts.instanceTicker }}</template>
-				<option value="none">{{ i18n.ts._instanceTicker.none }}</option>
-				<option value="remote">{{ i18n.ts._instanceTicker.remote }}</option>
-				<option value="always">{{ i18n.ts._instanceTicker.always }}</option>
-			</MkSelect>
-			<MkSwitch v-if="instanceTicker !== 'none'" v-model="instanceIcon">{{ i18n.ts.instanceIcon }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></MkSwitch>
+			<div class="_gaps_s">
+				<MkSelect v-if="instance.federation !== 'none'" v-model="instanceTicker">
+					<template #label>{{ i18n.ts.instanceTicker }}</template>
+					<option value="none">{{ i18n.ts._instanceTicker.none }}</option>
+					<option value="remote">{{ i18n.ts._instanceTicker.remote }}</option>
+					<option value="always">{{ i18n.ts._instanceTicker.always }}</option>
+				</MkSelect>
+				<MkSwitch v-if="instance.federation !== 'none' && instanceTicker !== 'none'" v-model="instanceIcon">
+					<template #caption>{{ i18n.ts.instanceIconDescription }}</template>
+					{{ i18n.ts.instanceIcon }}
+					<span class="_beta">{{ i18n.ts.originalFeature }}</span>
+				</MkSwitch>
+			</div>
+
 			<MkSelect v-model="nsfw">
 				<template #label>{{ i18n.ts.displayOfSensitiveMedia }}</template>
 				<option value="respect">{{ i18n.ts._displayOfSensitiveMedia.respect }}</option>

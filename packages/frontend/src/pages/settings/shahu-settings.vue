@@ -29,7 +29,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</MkSwitch>
 			</div>
 
-			<MkSwitch v-if="instanceTicker !== 'none'" v-model="instanceIcon">{{ i18n.ts.instanceIcon }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></MkSwitch>
+			<MkSwitch v-if="instance.federation !== 'none' && instanceTicker !== 'none'" v-model="instanceIcon">
+				<template #caption>{{ i18n.ts.instanceIconDescription }}</template>
+				{{ i18n.ts.instanceIcon }}
+				<span class="_beta">{{ i18n.ts.originalFeature }}</span>
+			</MkSwitch>
 
 			<MkSwitch v-model="disableNoteNyaize">{{ i18n.ts.disableNoteNyaize }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></MkSwitch>
 

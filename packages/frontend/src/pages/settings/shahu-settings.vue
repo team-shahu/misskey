@@ -139,6 +139,7 @@ import { reloadAsk } from '@/scripts/reload-ask.js';
 import { i18n } from '@/i18n.js';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { fontList } from '@/scripts/font';
+import { instance } from '@/instance.js';
 
 const hideReactionUsers = computed(defaultStore.makeGetterSetter('hideReactionUsers'));
 const hideReactionCount = computed(defaultStore.makeGetterSetter('hideReactionCount'));

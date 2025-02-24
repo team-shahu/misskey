@@ -68,7 +68,6 @@ const props = withDefaults(defineProps<{
 	decorations?: (Omit<Misskey.entities.UserDetailed['avatarDecorations'][number], 'id'> & { blink?: boolean; })[];
 	forceShowDecoration?: boolean;
 	showInstance?: boolean;
-	host?: string | null;
 }>(), {
 	target: null,
 	link: false,
@@ -77,7 +76,6 @@ const props = withDefaults(defineProps<{
 	decorations: undefined,
 	forceShowDecoration: false,
 	showInstance: false,
-	host: null,
 });
 
 const emit = defineEmits<{
@@ -86,11 +84,11 @@ const emit = defineEmits<{
 
 const showDecoration = props.forceShowDecoration || defaultStore.state.showAvatarDecorations;
 
-const instanceName = computed(() => props.host == null ? localInstanceName : props.user.instance?.name ?? props.host);
+const instanceName = computed(() => props.user.host == null ? localInstanceName : props.user.instance?.name ?? props.user.host);
 
 const faviconUrl = computed(() => {
 	let imageSrc: string | null = null;
-	if (props.host == null) {
+	if (props.user.host == null) {
 		if (localInstance.iconUrl == null) {
 			return '/favicon.ico';
 		} else {

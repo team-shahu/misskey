@@ -86,7 +86,7 @@ const emit = defineEmits<{
 
 const showDecoration = props.forceShowDecoration || defaultStore.state.showAvatarDecorations;
 
-const instanceName = computed(() => props.host == null ? localInstanceName : props.instance?.name ?? props.host);
+const instanceName = computed(() => props.host == null ? localInstanceName : props.user.instance?.name ?? props.host);
 
 const faviconUrl = computed(() => {
 	let imageSrc: string | null = null;

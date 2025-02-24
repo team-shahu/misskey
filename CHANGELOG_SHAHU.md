@@ -10,12 +10,9 @@
 
   
 -->
-## Unlereased
-### General
-
+## shahu.1.9.2
 ### Client
 - サーバーアイコンがすべて自鯖のものになってしまうバグの修正
-### Server
 
   
 ## shahu.1.9.1

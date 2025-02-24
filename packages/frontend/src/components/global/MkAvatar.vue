@@ -69,10 +69,6 @@ const props = withDefaults(defineProps<{
 	forceShowDecoration?: boolean;
 	showInstance?: boolean;
 	host?: string | null;
-	instance?: {
-		faviconUrl?: string | null
-		name?: string | null
-	}
 }>(), {
 	target: null,
 	link: false,
@@ -82,7 +78,6 @@ const props = withDefaults(defineProps<{
 	forceShowDecoration: false,
 	showInstance: false,
 	host: null,
-	instance: undefined,
 });
 
 const emit = defineEmits<{
@@ -93,7 +88,19 @@ const showDecoration = props.forceShowDecoration || defaultStore.state.showAvata
 
 const instanceName = computed(() => props.host == null ? localInstanceName : props.instance?.name ?? props.host);
 
-const faviconUrl = computed(() => getProxiedImageUrlNullable(props.instance?.faviconUrl, 'preview') ?? '/favicon.ico');
+const faviconUrl = computed(() => {
+	let imageSrc: string | null = null;
+	if (props.host == null) {
+		if (localInstance.iconUrl == null) {
+			return '/favicon.ico';
+		} else {
+			imageSrc = localInstance.iconUrl;
+		}
+	} else {
+		imageSrc = props.user.instance?.faviconUrl ?? null;
+	}
+	return getProxiedImageUrlNullable(imageSrc);
+});
 
 const bound = computed(() => props.link
 	? { to: userPage(props.user), target: props.target }

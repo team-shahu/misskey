@@ -26,7 +26,7 @@ type NoteKeys = {
 	reply: (replyId: string) => unknown,
 	quote: (renoteId: string) => unknown,
 	channel: (channelId: string) => unknown,
-}
+};
 
 export async function migrate(userId: string) {
 	const raw = miLocalStorage.getItem('drafts');

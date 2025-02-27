@@ -119,7 +119,8 @@ import MkNotePreview from '@/components/MkNotePreview.vue';
 import XPostFormAttaches from '@/components/MkPostFormAttaches.vue';
 import MkPollEditor from '@/components/MkPollEditor.vue';
 import type { PollEditorModelValue } from '@/components/MkPollEditor.vue';
-import MkDeleteScheduleEditor, { type DeleteScheduleEditorModelValue } from '@/components/MkDeleteScheduleEditor.vue';
+import MkDeleteScheduleEditor from '@/components/MkDeleteScheduleEditor.vue';
+import type { DeleteScheduleEditorModelValue } from '@/components/MkDeleteScheduleEditor.vue';
 import { erase, unique } from '@/scripts/array.js';
 import { extractMentions } from '@/scripts/extract-mentions.js';
 import { formatTimeString } from '@/scripts/format-time-string.js';
@@ -147,7 +148,7 @@ const $i = signinRequired();
 
 const modal = inject('modal');
 
-const props = withDefaults(defineProps<PostFormProps &{
+const props = withDefaults(defineProps<PostFormProps & {
 	fixed?: boolean;
 	autofocus?: boolean;
 	freezeAfterPosted?: boolean;

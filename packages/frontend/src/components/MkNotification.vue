@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div :class="$style.root">
 	<div :class="$style.head">
 		<MkAvatar v-if="['pollEnded', 'note', 'scheduledNotePosted'].includes(notification.type) && 'note' in notification" :class="$style.icon" :user="notification.note.user" link preview/>
-		<MkAvatar v-else-if="['roleAssigned', 'achievementEarned', 'exportCompleted', 'login', 'loginFailed', 'scheduledNoteFailed'].includes(notification.type)" :class="$style.icon" :user="$i" link preview/>
+		<MkAvatar v-else-if="['roleAssigned', 'achievementEarned', 'exportCompleted', 'login', 'loginFailed', 'createToken', 'scheduledNoteFailed'].includes(notification.type)" :class="$style.icon" :user="$i" link preview/>
 		<div v-else-if="notification.type === 'reaction:grouped' && notification.note.reactionAcceptance === 'likeOnly'" :class="[$style.icon, $style.icon_reactionGroupHeart]"><i class="ti ti-heart" style="line-height: 1;"></i></div>
 		<div v-else-if="notification.type === 'reaction:grouped'" :class="[$style.icon, $style.icon_reactionGroup]"><i class="ti ti-plus" style="line-height: 1;"></i></div>
 		<div v-else-if="notification.type === 'renote:grouped'" :class="[$style.icon, $style.icon_renoteGroup]"><i class="ti ti-repeat" style="line-height: 1;"></i></div>
@@ -28,6 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				[$style.t_achievementEarned]: notification.type === 'achievementEarned',
 				[$style.t_exportCompleted]: notification.type === 'exportCompleted',
 				[$style.t_login]: notification.type === 'login',
+				[$style.t_createToken]: notification.type === 'createToken',
 				[$style.t_loginFailed]: notification.type === 'loginFailed',
 				[$style.t_roleAssigned]: notification.type === 'roleAssigned' && notification.role.iconUrl == null,
 				[$style.t_roleAssigned]: notification.type === 'scheduledNoteFailed',
@@ -45,6 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<i v-else-if="notification.type === 'achievementEarned'" class="ti ti-medal"></i>
 			<i v-else-if="notification.type === 'exportCompleted'" class="ti ti-archive"></i>
 			<i v-else-if="notification.type === 'login'" class="ti ti-login-2"></i>
+			<i v-else-if="notification.type === 'createToken'" class="ti ti-key"></i>
 			<i v-else-if="notification.type === 'loginFailed'" class="ti ti-lock-exclamation"></i>
 			<template v-else-if="notification.type === 'roleAssigned'">
 				<img v-if="notification.role.iconUrl" style="height: 1.3em; vertical-align: -22%;" :src="notification.role.iconUrl" alt=""/>
@@ -68,6 +70,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<span v-else-if="notification.type === 'roleAssigned'">{{ i18n.ts._notification.roleAssigned }}</span>
 			<span v-else-if="notification.type === 'achievementEarned'">{{ i18n.ts._notification.achievementEarned }}</span>
 			<span v-else-if="notification.type === 'login'">{{ i18n.ts._notification.login }}</span>
+			<span v-else-if="notification.type === 'createToken'">{{ i18n.ts._notification.createToken }}</span>
 			<span v-else-if="notification.type === 'loginFailed'">{{ i18n.ts._notification.loginFailed }}</span>
 			<span v-else-if="notification.type === 'test'">{{ i18n.ts._notification.testNotification }}</span>
 			<span v-else-if="notification.type === 'exportCompleted'">{{ i18n.tsx._notification.exportOfXCompleted({ x: exportEntityName[notification.exportedEntity] }) }}</span>
@@ -117,6 +120,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</MkA>
 			<MkA v-else-if="notification.type === 'exportCompleted'" :class="$style.text" :to="`/my/drive/file/${notification.fileId}`">
 				{{ i18n.ts.showFile }}
+			</MkA>
+			<MkA v-else-if="notification.type === 'createToken'" :class="$style.text" to="/settings/apps">
+				<Mfm :text="i18n.tsx._notification.createTokenDescription({ text: i18n.ts.manageAccessTokens })"/>
 			</MkA>
 			<div v-else-if="notification.type === 'scheduledNoteFailed'" :class="$style.text">
 				{{ notification.reason }}
@@ -396,6 +402,12 @@ function getActualReactedUsersCount(notification: Misskey.entities.Notification)
 .t_login {
 	padding: 3px;
 	background: var(--eventLogin);
+	pointer-events: none;
+}
+
+.t_createToken {
+	padding: 3px;
+	background: var(--eventOther);
 	pointer-events: none;
 }
 

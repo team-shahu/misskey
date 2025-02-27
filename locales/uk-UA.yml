@@ -1626,3 +1626,6 @@ _reversi:
 _remoteLookupErrors:
   _noSuchObject:
     title: "Не знайдено"
+_search:
+  searchScopeAll: "Всі"
+  searchScopeLocal: "Локальна"

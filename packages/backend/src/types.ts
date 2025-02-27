@@ -18,6 +18,7 @@
  * achievementEarned - 実績を獲得
  * exportCompleted - エクスポートが完了
  * login - ログイン
+ * createToken - トークン作成
  * loginFailed - ログインに失敗
  * scheduledNoteFailed - 予約投稿に失敗
  * scheduledNotePosted - 予約投稿をノート
@@ -39,6 +40,7 @@ export const notificationTypes = [
 	'achievementEarned',
 	'exportCompleted',
 	'login',
+	'createToken',
 	'loginFailed',
 	'scheduledNoteFailed',
 	'scheduledNotePosted',

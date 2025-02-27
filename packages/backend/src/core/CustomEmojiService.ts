@@ -119,9 +119,8 @@ export class CustomEmojiService implements OnApplicationShutdown {
 			});
 
 			// 元データの削除
-			const originalDriveFile = await this.driveFilesRepository.findOneBy({ url: data.originalUrl });
-			if (originalDriveFile) {
-				await this.driveService.deleteFile(originalDriveFile);
+			if (driveFile) {
+				await this.driveService.deleteFile(driveFile);
 			}
 
 			// dataの更新

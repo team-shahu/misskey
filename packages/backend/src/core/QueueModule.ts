@@ -31,7 +31,7 @@ export type ObjectStorageQueue = Bull.Queue;
 export type UserWebhookDeliverQueue = Bull.Queue<UserWebhookDeliverJobData>;
 export type SystemWebhookDeliverQueue = Bull.Queue<SystemWebhookDeliverJobData>;
 export type ScheduleNotePostQueue = Bull.Queue<ScheduleNotePostJobData>;
-export type ScheduledNoteDeleteQueue = Bull.Queue<ScheduledNoteDeleteJobData>
+export type ScheduledNoteDeleteQueue = Bull.Queue<ScheduledNoteDeleteJobData>;
 
 const $system: Provider = {
 	provide: 'queue:system',

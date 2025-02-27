@@ -4405,13 +4405,6 @@ export type components = {
       createdAt: string;
       /** @enum {string} */
       type: 'login';
-    } | {
-      /** Format: id */
-      id: string;
-      /** Format: date-time */
-      createdAt: string;
-      /** @enum {string} */
-      type: 'createToken';
       ip: string;
     } | {
       /** Format: id */
@@ -4421,6 +4414,13 @@ export type components = {
       /** @enum {string} */
       type: 'loginFailed';
       ip: string;
+    } | {
+      /** Format: id */
+      id: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** @enum {string} */
+      type: 'createToken';
     } | ({
       /** Format: id */
       id: string;

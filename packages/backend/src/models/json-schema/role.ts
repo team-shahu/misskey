@@ -300,6 +300,10 @@ export const packedRolePoliciesSchema = {
 			type: 'boolean',
 			optional: false, nullable: false,
 		},
+		canUseServerLlmApi: {
+			type: 'boolean',
+			optional: false, nullable: false,
+		},
 	},
 } as const;
 

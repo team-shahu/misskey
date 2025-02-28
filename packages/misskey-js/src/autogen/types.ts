@@ -5019,6 +5019,7 @@ export type components = {
       canImportUserLists: boolean;
       scheduleNoteMax: number;
       canReadFollowHistory: boolean;
+      canUseServerLlmApi: boolean;
     };
     ReversiGameLite: {
       /** Format: id */

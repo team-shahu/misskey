@@ -1882,6 +1882,7 @@ _role:
     canImportUserLists: "リストのインポートを許可"
     scheduleNoteMax: "予約投稿の最大数"
     canReadFollowHistory: "フォロー/フォロリク履歴の閲覧"
+    canUseServerLlmApi: "サーバーLLM APIの利用"
 
   _condition:
     roleAssignedTo: "マニュアルロールにアサイン済み"

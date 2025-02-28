@@ -7283,6 +7283,10 @@ export interface Locale extends ILocale {
              * フォロー/フォロリク履歴の閲覧
              */
             "canReadFollowHistory": string;
+            /**
+             * サーバーLLM APIの利用
+             */
+            "canUseServerLlmApi": string;
         };
         "_condition": {
             /**

@@ -114,6 +114,7 @@ export const ROLE_POLICIES = [
 	'canImportMuting',
 	'canImportUserLists',
 	'canReadFollowHistory',
+	'canUseServerLlmApi',
 ] as const;
 
 // なんか動かない

@@ -1305,7 +1305,13 @@ alwaysConfirmFollow: "フォローの際常に確認する"
 inquiry: "お問い合わせ"
 
 _llm:
+  _server:
+    serverGeminiApiKey: "Gemini APIキー"
+    serverGeminiApiKeyDescription: "サーバーが提供するGemini APIのAPIキーを入力します。"
+    serverGeminiModelsDescription: "サーバーで提供するGemini APIで使用するモデルを選択します。"
   title: "LLM設定"
+  useGeminiLLMAPI: "サーバーのLLM APIを使用"
+  useGeminiLLMAPIDescription: "サーバーが提供するGemini APIを使用して、LLMを実行します。"
   geminiTokenLabel: "Geminiトークン"
   geminiTokenCaption: "Gemini API の認証に使用するトークンを設定します。"
   geminiModelLabel: "Geminiモデル"
@@ -1882,7 +1888,7 @@ _role:
     canImportUserLists: "リストのインポートを許可"
     scheduleNoteMax: "予約投稿の最大数"
     canReadFollowHistory: "フォロー/フォロリク履歴の閲覧"
-    canUseServerLlmApi: "サーバーLLM APIの利用"
+    canUseGeminiLLMAPI: "サーバーLLM APIの利用"
 
   _condition:
     roleAssignedTo: "マニュアルロールにアサイン済み"

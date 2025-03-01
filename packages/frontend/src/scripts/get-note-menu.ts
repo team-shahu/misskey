@@ -23,7 +23,7 @@ import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import { isSupportShare } from '@/scripts/navigator.js';
 import { getAppearNote } from '@/scripts/get-appear-note.js';
 import { genEmbedCode } from '@/scripts/get-embed-code.js';
-import { summarizeNoteText } from '@/scripts/shahu-script/summarization.js';
+import { summarizeNoteText } from '@/scripts/shahu-script/note-summarization.js';
 
 export async function getNoteClipMenu(props: {
 	note: Misskey.entities.Note;
@@ -376,8 +376,8 @@ export function getNoteMenu(props: {
 						text: summary,
 					});
 				} catch (error) {
-					console.error('Summarization failed:', error);
 					showing.value = false;
+					console.error('Summarization failed:', error);
 					os.alert({ type: 'error', text: '要約の取得に失敗しました。' });
 				}
 			},

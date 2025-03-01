@@ -538,6 +538,14 @@ export const meta = {
 					type: 'string',
 				},
 			},
+			serverGeminiApiKey: {
+				type: 'string',
+				optional: false, nullable: true,
+			},
+			serverGeminiModels: {
+				type: 'string',
+				optional: false, nullable: false,
+			},
 		},
 	},
 } as const;
@@ -681,6 +689,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				federation: instance.federation,
 				federationHosts: instance.federationHosts,
 				customSplashText: instance.customSplashText,
+				serverGeminiApiKey: instance.serverGeminiApiKey,
+				serverGeminiModels: instance.serverGeminiModels,
 			};
 		});
 	}

@@ -190,6 +190,8 @@ export const paramDef = {
 		customSplashText: { type: 'array', nullable: true, items: {
 			type: 'string',
 		} },
+		serverGeminiApiKey: { type: 'string', nullable: true },
+		serverGeminiModels: { type: 'string', nullable: false },
 	},
 	required: [],
 } as const;
@@ -695,6 +697,14 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (Array.isArray(ps.customSplashText)) {
 				set.customSplashText = ps.customSplashText.filter(Boolean);
+			}
+
+			if ( ps.serverGeminiApiKey !== undefined) {
+				set.serverGeminiApiKey = ps.serverGeminiApiKey;
+			}
+
+			if ( ps.serverGeminiModels !== undefined) {
+				set.serverGeminiModels = ps.serverGeminiModels;
 			}
 
 			const before = await this.metaService.fetch(true);

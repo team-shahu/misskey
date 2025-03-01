@@ -65,7 +65,7 @@ export type RolePolicies = {
 	canImportMuting: boolean;
 	canImportUserLists: boolean;
 	canReadFollowHistory: boolean;
-	canUseServerLlmApi: boolean;
+	canUseGeminiLLMAPI: boolean;
 };
 
 export const DEFAULT_POLICIES: RolePolicies = {
@@ -102,7 +102,7 @@ export const DEFAULT_POLICIES: RolePolicies = {
 	canImportMuting: true,
 	canImportUserLists: true,
 	canReadFollowHistory: false,
-	canUseServerLlmApi: false,
+	canUseGeminiLLMAPI: false,
 };
 
 @Injectable()
@@ -459,7 +459,7 @@ export class RoleService implements OnApplicationShutdown, OnModuleInit {
 			canImportMuting: calc('canImportMuting', vs => vs.some(v => v === true)),
 			canImportUserLists: calc('canImportUserLists', vs => vs.some(v => v === true)),
 			canReadFollowHistory: calc('canReadFollowHistory', vs => vs.some(v => v === true)),
-			canUseServerLlmApi: calc('canUseServerLlmApi', vs => vs.some(v => v === true)),
+			canUseGeminiLLMAPI: calc('canUseGeminiLLMAPI', vs => vs.some(v => v === true)),
 		};
 	}
 

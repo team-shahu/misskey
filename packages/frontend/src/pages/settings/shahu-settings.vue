@@ -118,15 +118,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 			<MkFolder>
 				<template #icon><i class="ti ti-robot"></i></template>
-				<template #label>{{ i18n.ts._llm.title }}</template>
-
+				<template #label>{{ i18n.ts._llm.title }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
 				<div class="_gaps_m">
-					<MkInput v-model="geminiToken" type="text">
+					<MkSwitch v-if="$i?.policies.canUseGeminiLLMAPI" v-model="useGeminiLLMAPI">
+						{{ i18n.ts._llm.useGeminiLLMAPI }}
+						<template #caption>{{ i18n.ts._llm.useGeminiLLMAPIDescription }}</template>
+					</MkSwitch>
+
+					<MkInput v-model="geminiToken" type="text" :disabled="useGeminiLLMAPI">
 						<template #label>{{ i18n.ts._llm.geminiTokenLabel }}</template>
 						<template #caption>{{ i18n.ts._llm.geminiTokenCaption }}</template>
 					</MkInput>
 
-					<MkSelect v-model="geminiModels">
+					<MkSelect v-model="geminiModels" :disabled="useGeminiLLMAPI">
 						<template #label>{{ i18n.ts._llm.geminiModelLabel }}</template>
 						<option value="gemini-2.0-flash">gemini-2.0-flash</option>
 						<option value="gemini-1.5-flash">gemini-1.5-flash</option>
@@ -210,7 +214,9 @@ import { i18n } from '@/i18n.js';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { fontList } from '@/scripts/font';
 import { instance } from '@/instance.js';
+import { $i } from '@/account.js';
 
+const useGeminiLLMAPI = computed(defaultStore.makeGetterSetter('useGeminiLLMAPI'));
 const hideReactionUsers = computed(defaultStore.makeGetterSetter('hideReactionUsers'));
 const hideReactionCount = computed(defaultStore.makeGetterSetter('hideReactionCount'));
 const showReactionsCount = computed(defaultStore.makeGetterSetter('showReactionsCount'));

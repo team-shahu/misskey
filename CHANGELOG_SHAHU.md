@@ -13,11 +13,13 @@
 ## Unlereased
 ### General
 - Feat: LLMによる拡張機能(ノート要約, プロフィール要約, ノート作成補助)
+- Enhance: LLM利用ロールの追加
 
 ### Client
 - Fix: セミパブリック投稿の公開範囲が削除して編集で引き継がれない問題
 
 ### Server
+- Enhance: サーバーサイドで使用するLLMトークンを指定できるように
 
 ## shahu.1.9.3
 ### Client

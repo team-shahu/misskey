@@ -120,7 +120,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<template #icon><i class="ti ti-robot"></i></template>
 				<template #label>{{ i18n.ts._llm.title }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
 				<div class="_gaps_m">
-					<MkSwitch v-if="$i?.policies.canUseGeminiLLMAPI" v-model="useGeminiLLMAPI">
+					<MkSwitch v-if="instance?.serverGeminiEnabled && $i?.policies.canUseGeminiLLMAPI" v-model="useGeminiLLMAPI">
 						{{ i18n.ts._llm.useGeminiLLMAPI }}
 						<template #caption>{{ i18n.ts._llm.useGeminiLLMAPIDescription }}</template>
 					</MkSwitch>
@@ -194,7 +194,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
+import { computed, watch, ref } from 'vue';
 import * as Misskey from 'misskey-js';
 import MkInput from '@/components/MkInput.vue';
 import MkSwitch from '@/components/MkSwitch.vue';
@@ -213,7 +213,7 @@ import { reloadAsk } from '@/scripts/reload-ask.js';
 import { i18n } from '@/i18n.js';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { fontList } from '@/scripts/font';
-import { instance } from '@/instance.js';
+import { instance, fetchInstance } from '@/instance.js';
 import { $i } from '@/account.js';
 
 const useGeminiLLMAPI = computed(defaultStore.makeGetterSetter('useGeminiLLMAPI'));

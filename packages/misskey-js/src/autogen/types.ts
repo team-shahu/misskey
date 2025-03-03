@@ -5180,6 +5180,7 @@ export type components = {
       maxFileSize: number;
       /** @enum {string} */
       federation: 'all' | 'specified' | 'none';
+      serverGeminiEnabled: boolean;
     };
     MetaDetailedOnly: {
       features?: {
@@ -8466,6 +8467,7 @@ export type operations = {
             federation: 'all' | 'specified' | 'none';
             federationHosts: string[];
             customSplashText: string[];
+            serverGeminiEnabled: boolean;
             serverGeminiApiKey: string | null;
             serverGeminiModels: string;
           };
@@ -10808,6 +10810,7 @@ export type operations = {
           federation?: 'all' | 'none' | 'specified';
           federationHosts?: string[];
           customSplashText?: string[] | null;
+          serverGeminiEnabled?: boolean;
           serverGeminiApiKey?: string | null;
           serverGeminiModels?: string;
         };

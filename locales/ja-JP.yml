@@ -1306,6 +1306,8 @@ inquiry: "お問い合わせ"
 
 _llm:
   _server:
+    serverGeminiEnabled: "Gemini APIを有効にする"
+    serverGeminiEnabledDescription: "有効にすることで、サーバーが提供するGemini APIを使用して、LLMを実行できます。"
     serverGeminiApiKey: "Gemini APIキー"
     serverGeminiApiKeyDescription: "サーバーが提供するGemini APIのAPIキーを入力します。"
     serverGeminiModelsDescription: "サーバーで提供するGemini APIで使用するモデルを選択します。"

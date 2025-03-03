@@ -190,6 +190,7 @@ export const paramDef = {
 		customSplashText: { type: 'array', nullable: true, items: {
 			type: 'string',
 		} },
+		serverGeminiEnabled: { type: 'boolean' },
 		serverGeminiApiKey: { type: 'string', nullable: true },
 		serverGeminiModels: { type: 'string', nullable: false },
 	},
@@ -697,6 +698,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (Array.isArray(ps.customSplashText)) {
 				set.customSplashText = ps.customSplashText.filter(Boolean);
+			}
+
+			if (ps.serverGeminiEnabled !== undefined) {
+				set.serverGeminiEnabled = ps.serverGeminiEnabled;
 			}
 
 			if ( ps.serverGeminiApiKey !== undefined) {

@@ -677,6 +677,11 @@ export class MiMeta {
 	})
 	public customSplashText: string[];
 
+	@Column('boolean', {
+		default: false,
+	})
+	public serverGeminiEnabled: boolean;
+
 	@Column('varchar', {
 		length: 50,
 		nullable: true,

@@ -357,28 +357,40 @@ export function getNoteMenu(props: {
 			text: i18n.ts._llm.summarizeNote,
 			action: async () => {
 				const showing = ref(true);
-				const { dispose } = os.popup(defineAsyncComponent(() => import('@/components/MkWaitingDialog.vue')), {
-					success: false,
-					showing: showing,
-				}, {
-					closed: () => dispose(),
-				});
+				let disposeDialog: (() => void) | undefined;
+
 				try {
+					// 先にテキストチェックを行う
 					if (!appearNote.text) {
-						showing.value = false;
 						os.alert({ type: 'error', text: 'ノート本文がありません。' });
 						return;
 					}
+
+					// ダイアログを表示
+					const popup = os.popup(defineAsyncComponent(() => import('@/components/MkWaitingDialog.vue')), {
+						success: false,
+						showing: showing,
+					}, {
+						closed: () => popup.dispose(),
+					});
+
+					disposeDialog = popup.dispose;
+
+					// 要約を取得
 					const summary = await summarizeNoteText(appearNote.text);
-					showing.value = false;
+
+					// 結果を表示
 					os.popup(defineAsyncComponent(() => import('@/components/MkDialog.vue')), {
 						title: i18n.ts._llm.summarizeNote,
 						text: summary,
 					});
 				} catch (error) {
-					showing.value = false;
 					console.error('Summarization failed:', error);
 					os.alert({ type: 'error', text: '要約の取得に失敗しました。' });
+				} finally {
+					// 常にロード画面を閉じる
+					showing.value = false;
+					if (disposeDialog) disposeDialog();
 				}
 			},
 		});

@@ -7,8 +7,8 @@ import { defineAsyncComponent, ref } from 'vue';
 import { defaultStore } from '@/store.js';
 import * as os from '@/os.js';
 import { generateGeminiSummary } from '@/scripts/shahu-script/llm.js';
-import { i18n } from '@/i18n.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
+import { displayLlmError } from '@/utils/errorHandler.js';
 import { popup } from '@/os.js';
 
 /**
@@ -30,8 +30,7 @@ export async function summarizeUserProfile(userId: string): Promise<void> {
 		const profile = await misskeyApi('users/show', { userId });
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		if (!profile) {
-			os.alert({ type: 'error', text: 'プロフィール情報が取得できませんでした。' });
-			return;
+			displayLlmError(new Error('プロフィール情報が取得できませんでした。'));
 		}
 		const { name, location, description } = profile;
 
@@ -68,21 +67,21 @@ export async function summarizeUserProfile(userId: string): Promise<void> {
 		});
 
 		if (!summaryResult.candidates || summaryResult.candidates.length === 0) {
-			throw new Error('Gemini API からの候補がありません。');
+			displayLlmError(new Error('Gemini API からの候補がありません。'));
 		}
 		const candidate = summaryResult.candidates[0];
 		if (!candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
-			throw new Error('Gemini API のレスポンスフォーマットが不正です。');
+			displayLlmError(new Error('Gemini API のレスポンスフォーマットが不正です。'));
 		}
 		const summarizedText = candidate.content.parts[0].text;
 
 		showing.value = false;
 
 		os.alert({ type: 'info', text: summarizedText });
-	} catch (error) {
+	} catch (error: any) {
 		showing.value = false;
 
-		console.error('プロフィール要約エラー:', error);
-		os.alert({ type: 'error', text: 'プロフィール要約の取得に失敗しました。' });
+		// catch節内も統一してハンドリング（この呼び出しによりalertとthrowが行われる）
+		displayLlmError(error, 'プロフィール要約の取得に失敗しました。');
 	}
 }

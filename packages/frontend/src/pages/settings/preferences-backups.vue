@@ -127,17 +127,6 @@ const defaultStoreSaveKeys: (keyof typeof defaultStore['state'])[] = [
 	'showLikeButton',
 	'disableNoteNyaize',
 	'selectReaction',
-	'geminiToken',
-	'geminiModels',
-	'geminiPromptNote',
-	'geminiPromptProfile',
-	'geminiNoteLongText',
-	'geminiNoteShortText',
-	'geminiNoteSimpleText',
-	'geminiNoteCasualText',
-	'geminiNoteProfessionalText',
-	'geminiNoteCatText',
-	'geminiNoteCustomText',
 ];
 const coldDeviceStorageSaveKeys: (keyof typeof ColdDeviceStorage.default)[] = [
 	'lightTheme',

@@ -1,3 +1,15 @@
+## Unreleased
+
+### General
+-
+
+### Client
+-
+
+### Server
+- Fix: DBマイグレーション際にシステムアカウントのユーザーID判定が正しくない問題を修正
+
+
 ## 2025.3.0
 
 ### General

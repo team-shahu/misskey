@@ -5277,7 +5277,7 @@ export interface Locale extends ILocale {
          * Geminiモデル
          */
         "geminiModelLabel": string;
-				/**
+        /**
          * Geminiシステムプロンプト
          */
         "geminiSystemPromptLabel": string;

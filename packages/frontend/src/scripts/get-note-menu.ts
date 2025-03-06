@@ -602,7 +602,7 @@ export function getRenoteMenu(props: {
 			icon: 'ti ti-repeat',
 			action: () => {
 				const el = props.renoteButton.value;
-				if (el) {
+				if (el && defaultStore.state.animation) {
 					const rect = el.getBoundingClientRect();
 					const x = rect.left + (el.offsetWidth / 2);
 					const y = rect.top + (el.offsetHeight / 2);
@@ -640,7 +640,7 @@ export function getRenoteMenu(props: {
 			icon: 'ti ti-repeat',
 			action: () => {
 				const el = props.renoteButton.value;
-				if (el) {
+				if (el && defaultStore.state.animation) {
 					const rect = el.getBoundingClientRect();
 					const x = rect.left + (el.offsetWidth / 2);
 					const y = rect.top + (el.offsetHeight / 2);
@@ -691,7 +691,7 @@ export function getRenoteMenu(props: {
 					text: channel.name,
 					action: () => {
 						const el = props.renoteButton.value;
-						if (el) {
+						if (el && defaultStore.state.animation) {
 							const rect = el.getBoundingClientRect();
 							const x = rect.left + (el.offsetWidth / 2);
 							const y = rect.top + (el.offsetHeight / 2);

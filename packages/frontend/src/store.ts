@@ -619,11 +619,11 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	geminiPromptNote: {
 		where: 'account',
-		default: '以下のSNSの投稿をわかりやすく簡潔にユーザーに要約してください。また、リスト記法は使用禁止です。列挙する場合は「・」を使ってください。' as string | null,
+		default: '以下のSNSの投稿をわかりやすく簡潔にユーザーに要約してください。' as string | null,
 	},
 	geminiPromptProfile: {
 		where: 'account',
-		default: 'プロフィール情報と投稿からこのユーザーの特徴を簡潔に教えてください。また、リスト記法は使用禁止です。列挙する場合は「・」を使ってください。' as string | null,
+		default: 'プロフィール情報と投稿からこのユーザーの特徴を簡潔に教えてください。' as string | null,
 	},
 	geminiNoteLongText: {
 		where: 'account',

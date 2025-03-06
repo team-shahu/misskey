@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { defineAsyncComponent } from 'vue';
-import type { Ref, ShallowRef } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import * as Misskey from 'misskey-js';
 import { url } from '@@/js/config.js';
 import { claimAchievement } from './achievements.js';
+import type { Ref, ShallowRef } from 'vue';
 import type { MenuItem } from '@/types/menu.js';
 import { $i } from '@/account.js';
 import { i18n } from '@/i18n.js';
@@ -23,6 +23,7 @@ import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import { isSupportShare } from '@/scripts/navigator.js';
 import { getAppearNote } from '@/scripts/get-appear-note.js';
 import { genEmbedCode } from '@/scripts/get-embed-code.js';
+import { summarizeNoteText } from '@/scripts/shahu-script/note-summarization.js';
 
 export async function getNoteClipMenu(props: {
 	note: Misskey.entities.Note;
@@ -350,6 +351,49 @@ export function getNoteMenu(props: {
 				action: translate,
 			});
 		}
+
+		menuItems.push({
+			icon: 'ti ti-file-text',
+			text: i18n.ts._llm.summarizeNote,
+			action: async () => {
+				const showing = ref(true);
+				let disposeDialog: (() => void) | undefined;
+
+				try {
+					// 先にテキストチェックを行う
+					if (!appearNote.text) {
+						os.alert({ type: 'error', text: 'ノート本文がありません。' });
+						return;
+					}
+
+					// ダイアログを表示
+					const popup = os.popup(defineAsyncComponent(() => import('@/components/MkWaitingDialog.vue')), {
+						success: false,
+						showing: showing,
+					}, {
+						closed: () => popup.dispose(),
+					});
+
+					disposeDialog = popup.dispose;
+
+					// 要約を取得
+					const summary = await summarizeNoteText(appearNote.text);
+
+					// 結果を表示
+					os.popup(defineAsyncComponent(() => import('@/components/MkDialog.vue')), {
+						title: i18n.ts._llm.summarizeNote,
+						text: summary,
+					});
+				} catch (error) {
+					console.error('Summarization failed:', error);
+					os.alert({ type: 'error', text: '要約の取得に失敗しました。' });
+				} finally {
+					// 常にロード画面を閉じる
+					showing.value = false;
+					if (disposeDialog) disposeDialog();
+				}
+			},
+		});
 
 		menuItems.push({ type: 'divider' });
 

@@ -497,6 +497,10 @@ const routes: RouteDef[] = [{
 		name: 'system-webhook',
 		component: page(() => import('@/pages/admin/system-webhook.vue')),
 	}, {
+		path: '/shahu-admin',
+		name: 'shahu-admin',
+		component: page(() => import('@/pages/admin/shahu-admin.vue')),
+	}, {
 		path: '/',
 		component: page(() => import('@/pages/_empty_.vue')),
 	}],

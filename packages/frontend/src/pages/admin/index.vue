@@ -32,9 +32,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { onActivated, onMounted, onUnmounted, provide, watch, ref, computed } from 'vue';
+import type { SuperMenuDef } from '@/components/MkSuperMenu.vue';
+import type { PageMetadata } from '@/scripts/page-metadata.js';
 import { i18n } from '@/i18n.js';
 import MkSuperMenu from '@/components/MkSuperMenu.vue';
-import type { SuperMenuDef } from '@/components/MkSuperMenu.vue';
 import MkInfo from '@/components/MkInfo.vue';
 import { instance } from '@/instance.js';
 import { lookup } from '@/scripts/lookup.js';
@@ -42,7 +43,6 @@ import * as os from '@/os.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
 import { lookupUser, lookupUserByEmail, lookupFile } from '@/scripts/admin-lookup.js';
 import { definePageMetadata, provideMetadataReceiver, provideReactiveMetadata } from '@/scripts/page-metadata.js';
-import type { PageMetadata } from '@/scripts/page-metadata.js';
 import { useRouter } from '@/router/supplier.js';
 
 const isEmpty = (x: string | null) => x == null || x === '';
@@ -221,6 +221,11 @@ const menuDef = computed<SuperMenuDef[]>(() => [{
 		text: i18n.ts.performance,
 		to: '/admin/performance',
 		active: currentPage.value?.route.name === 'performance',
+	}, {
+		icon: 'ti ti-git-fork',
+		text: i18n.ts.originalFeature,
+		to: '/admin/shahu-admin',
+		active: currentPage.value?.route.name === 'shahu-admin',
 	}],
 }, {
 	title: i18n.ts.info,

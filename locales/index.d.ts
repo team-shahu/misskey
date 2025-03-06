@@ -5230,6 +5230,126 @@ export interface Locale extends ILocale {
      * お問い合わせ
      */
     "inquiry": string;
+    "_llm": {
+        "_server": {
+            /**
+             * Gemini APIを有効にする
+             */
+            "serverGeminiEnabled": string;
+            /**
+             * 有効にすることで、サーバーが提供するGemini APIを使用して、LLMを実行できます。
+             */
+            "serverGeminiEnabledDescription": string;
+            /**
+             * Gemini APIキー
+             */
+            "serverGeminiApiKey": string;
+            /**
+             * サーバーが提供するGemini APIのAPIキーを入力します。
+             */
+            "serverGeminiApiKeyDescription": string;
+            /**
+             * サーバーで提供するGemini APIで使用するモデルを選択します。
+             */
+            "serverGeminiModelsDescription": string;
+        };
+        /**
+         * LLM設定
+         */
+        "title": string;
+        /**
+         * サーバーのLLM APIを使用
+         */
+        "useGeminiLLMAPI": string;
+        /**
+         * サーバーが提供するGemini APIを使用して、LLMを実行します。
+         */
+        "useGeminiLLMAPIDescription": string;
+        /**
+         * Geminiトークン
+         */
+        "geminiTokenLabel": string;
+        /**
+         * Gemini API の認証に使用するトークンを設定します。
+         */
+        "geminiTokenCaption": string;
+        /**
+         * Geminiモデル
+         */
+        "geminiModelLabel": string;
+        /**
+         * Geminiシステムプロンプト
+         */
+        "geminiSystemPromptLabel": string;
+        /**
+         * システムプロンプトを設定します。
+         */
+        "geminiSystemPromptCaption": string;
+        /**
+         * Gemini要約プロンプト
+         */
+        "geminiSummarizePromptLabel": string;
+        /**
+         * ノートを要約するためのプロンプトを設定します。
+         */
+        "geminiSummarizePromptCaption": string;
+        /**
+         * プロフィール要約プロンプト
+         */
+        "geminiProfileSummarizePromptLabel": string;
+        /**
+         * プロフィールを要約するためのプロンプトを設定します。
+         */
+        "geminiProfileSummarizePromptCaption": string;
+        /**
+         * ノートを要約
+         */
+        "summarizeNote": string;
+        /**
+         * プロフィールを要約
+         */
+        "summarizeProfile": string;
+        /**
+         * ノートの変換
+         */
+        "notesTransformation": string;
+        /**
+         * ノートのプロンプト
+         */
+        "notesPrompt": string;
+        /**
+         * ノートを作成する際のプロンプトを設定します。
+         */
+        "notesPromptDescription": string;
+        /**
+         * 長文
+         */
+        "geminiNoteLongText": string;
+        /**
+         * 短文
+         */
+        "geminiNoteShortText": string;
+        /**
+         * シンプル
+         */
+        "geminiNoteSimpleText": string;
+        /**
+         * カジュアル
+         */
+        "geminiNoteCasualText": string;
+        /**
+         * プロフェッショナル
+         */
+        "geminiNoteProfessionalText": string;
+        /**
+         * 猫っぽく
+         */
+        "geminiNoteCatText": string;
+        /**
+         * カスタム
+         */
+        "geminiNoteCustomText": string;
+    };
     /**
      * すぐ消す
      */
@@ -7201,6 +7321,10 @@ export interface Locale extends ILocale {
              * フォロー/フォロリク履歴の閲覧
              */
             "canReadFollowHistory": string;
+            /**
+             * サーバーLLM APIの利用
+             */
+            "canUseGeminiLLMAPI": string;
         };
         "_condition": {
             /**

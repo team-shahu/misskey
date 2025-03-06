@@ -10,8 +10,8 @@ import lightTheme from '@@/themes/l-light.json5';
 import darkTheme from '@@/themes/d-green-lime.json5';
 import type { SoundType } from '@/scripts/sound.js';
 import type { Ast } from '@syuilo/aiscript';
-import { DEFAULT_DEVICE_KIND } from '@/scripts/device-kind.js';
 import type { DeviceKind } from '@/scripts/device-kind.js';
+import { DEFAULT_DEVICE_KIND } from '@/scripts/device-kind.js';
 import { miLocalStorage } from '@/local-storage.js';
 import { Storage } from '@/pizzax.js';
 
@@ -600,6 +600,58 @@ export const defaultStore = markRaw(new Storage('base', {
 	reactionChecksMuting: {
 		where: 'device',
 		default: true,
+	},
+	useGeminiLLMAPI: {
+		where: 'account',
+		default: false,
+	},
+	geminiToken: {
+		where: 'account',
+		default: null as string | null,
+	},
+	geminiModels: {
+		where: 'account',
+		default: 'gemini-2.0-flash' as 'gemini-2.0-flash' | 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-2.0-pro-exp-02-05' | null,
+	},
+	geminiSystemPrompt: {
+		where: 'account',
+		default: 'リスト記法は対応しておらず、パーサーが壊れるため使用禁止です。列挙する場合は「・」を使ってください。' as string | null,
+	},
+	geminiPromptNote: {
+		where: 'account',
+		default: '以下のSNSの投稿をわかりやすく簡潔にユーザーに要約してください。' as string | null,
+	},
+	geminiPromptProfile: {
+		where: 'account',
+		default: 'プロフィール情報と投稿からこのユーザーの特徴を簡潔に教えてください。' as string | null,
+	},
+	geminiNoteLongText: {
+		where: 'account',
+		default: '以下の文章を長文にしてください。' as string | null,
+	},
+	geminiNoteShortText: {
+		where: 'account',
+		default: '以下の文章を短文にしてください。' as string | null,
+	},
+	geminiNoteSimpleText: {
+		where: 'account',
+		default: '以下の文章を簡潔にしてください。' as string | null,
+	},
+	geminiNoteCasualText: {
+		where: 'account',
+		default: '以下の文章をカジュアルにしてください。' as string | null,
+	},
+	geminiNoteProfessionalText: {
+		where: 'account',
+		default: '以下の文章を専門的にしてください。' as string | null,
+	},
+	geminiNoteCatText: {
+		where: 'account',
+		default: '以下の文章を猫っぽくしてください。' as string | null,
+	},
+	geminiNoteCustomText: {
+		where: 'account',
+		default: null as string | null,
 	},
 }));
 

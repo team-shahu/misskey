@@ -20,6 +20,7 @@
 
 ### Server
 - Enhance: サーバーサイドで使用するLLMトークンを指定できるように
+- Fix: 2025.3.0の変更に合わせてisRoot処理系を廃止
 
 ## shahu.1.9.3
 ### Client

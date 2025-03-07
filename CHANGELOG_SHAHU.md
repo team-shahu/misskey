@@ -10,7 +10,7 @@
 
   
 -->
-## Unlereased
+## shahu.1.10.0
 ### General
 - Feat: LLMによる拡張機能(ノート要約, プロフィール要約, ノート作成補助)
 - Enhance: LLM利用ロールの追加

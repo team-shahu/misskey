@@ -181,12 +181,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<template #caption>{{ i18n.ts._llm.geminiSystemPromptCaption }}</template>
 					</MkInput>
 
-					<MkInput v-model="llmSettingsForm.state.geminiPromptNote" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+					<MkInput v-model="llmSettingsForm.state.geminiPromptNote" type="text">
 						<template #label>{{ i18n.ts._llm.geminiSummarizePromptLabel }}</template>
 						<template #caption>{{ i18n.ts._llm.geminiSummarizePromptCaption }}</template>
 					</MkInput>
 
-					<MkInput v-model="llmSettingsForm.state.geminiPromptProfile" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+					<MkInput v-model="llmSettingsForm.state.geminiPromptProfile" type="text">
 						<template #label>{{ i18n.ts._llm.geminiProfileSummarizePromptLabel }}</template>
 						<template #caption>{{ i18n.ts._llm.geminiProfileSummarizePromptCaption }}</template>
 					</MkInput>
@@ -196,31 +196,31 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<template #label>{{ i18n.ts._llm.notesPrompt }}</template>
 
 						<div class="_gaps_m">
-							<MkInput v-model="llmSettingsForm.state.geminiNoteLongText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteLongText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteLongText }}</template>
 							</MkInput>
 
-							<MkInput v-model="llmSettingsForm.state.geminiNoteShortText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteShortText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteShortText }}</template>
 							</MkInput>
 
-							<MkInput v-model="llmSettingsForm.state.geminiNoteSimpleText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteSimpleText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteSimpleText }}</template>
 							</MkInput>
 
-							<MkInput v-model="llmSettingsForm.state.geminiNoteCasualText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteCasualText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteCasualText }}</template>
 							</MkInput>
 
-							<MkInput v-model="llmSettingsForm.state.geminiNoteProfessionalText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteProfessionalText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteProfessionalText }}</template>
 							</MkInput>
 
-							<MkInput v-model="llmSettingsForm.state.geminiNoteCatText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteCatText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteCatText }}</template>
 							</MkInput>
 
-							<MkInput v-model="llmSettingsForm.state.geminiNoteCustomText" type="text" :disabled="!llmSettingsForm.state.geminiToken">
+							<MkInput v-model="llmSettingsForm.state.geminiNoteCustomText" type="text">
 								<template #label>{{ i18n.ts._llm.geminiNoteCustomText }}</template>
 							</MkInput>
 						</div>

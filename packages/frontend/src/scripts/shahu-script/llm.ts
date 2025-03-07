@@ -9,6 +9,7 @@ import { defaultStore } from '@/store.js';
 import { misskeyApi } from '@/scripts/misskey-api.js';
 import { fetchInstance } from '@/instance.js';
 import { displayLlmError } from '@/utils/errorHandler.js';
+import { $i } from '@/account.js';
 
 const instance = ref<Misskey.entities.MetaDetailed | null>(null);
 
@@ -26,7 +27,7 @@ export async function generateGeminiSummary({
 	const { geminiToken, geminiModels, useGeminiLLMAPI } = defaultStore.state;
 
 	// サーバー提供のLLM APIを使用する場合
-	if (useGeminiLLMAPI) {
+	if (useGeminiLLMAPI && $i?.policies.canUseGeminiLLMAPI) {
 		// サーバーでGeminiが有効になっているかチェック
 		if (!instance.value || !instance.value.serverGeminiEnabled) {
 			return displayLlmError(new Error('サーバー提供のLLM APIが有効になっていません。'));

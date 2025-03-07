@@ -10,13 +10,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<MkSpacer :contentMax="700" :marginMin="16" :marginMax="32">
 			<FormSuspense :p="init">
 				<div class="_gaps_m">
-					<div class="_gaps">
-						<MkTextarea v-model="customSplashText">
-							<template #label>{{ i18n.ts.customSplashText }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-							<template #caption>{{ i18n.ts.customSplashTextDescription }}</template>
-						</MkTextarea>
-						<MkButton primary @click="save_customSplashText">{{ i18n.ts.save }}</MkButton>
-					</div>
+					<MkFolder>
+						<template #icon><i class="ti ti-text-caption"></i></template>
+						<template #label>{{ i18n.ts.customSplashText }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
+						<template v-if="customSplashTextForm.modified.value" #footer>
+							<MkFormFooter :form="customSplashTextForm"/>
+						</template>
+
+						<div class="_gaps">
+							<MkTextarea v-model="customSplashTextForm.state.customSplashText">
+								<template #caption>{{ i18n.ts.customSplashTextDescription }}</template>
+							</MkTextarea>
+						</div>
+					</MkFolder>
 
 					<MkFolder>
 						<template #icon><i class="ti ti-robot"></i></template>
@@ -87,13 +93,14 @@ async function init() {
 	serverGeminiModels.value = meta.serverGeminiModels;
 }
 
-function save_customSplashText() {
-	os.apiWithDialog('admin/update-meta', {
-		customSplashText: customSplashText.value.split('\n'),
-	}).then(() => {
-		fetchInstance(true);
+const customSplashTextForm = useForm({
+	customSplashText: meta.customSplashText.join('\n'),
+}, async (state) => {
+	await os.apiWithDialog('admin/update-meta', {
+		customSplashText: state.customSplashText.split('\n'),
 	});
-}
+	fetchInstance(true);
+});
 
 const geminiSettingsForm = useForm({
 	serverGeminiEnabled: meta.serverGeminiEnabled,

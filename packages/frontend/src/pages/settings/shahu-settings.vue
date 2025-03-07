@@ -158,7 +158,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</template>
 
 				<div class="_gaps_m">
-					<MkSwitch v-if="$i?.policies.canUseGeminiLLMAPI" v-model="llmSettingsForm.state.useGeminiLLMAPI">
+					<MkSwitch v-model="llmSettingsForm.state.useGeminiLLMAPI" :disabled="!$i?.policies.canUseGeminiLLMAPI">
 						{{ i18n.ts._llm.useGeminiLLMAPI }}
 						<template #caption>{{ i18n.ts._llm.useGeminiLLMAPIDescription }}</template>
 					</MkSwitch>
@@ -332,7 +332,7 @@ const llmSettingsForm = useForm({
 	geminiNoteCatText: defaultStore.state.geminiNoteCatText || '',
 	geminiNoteCustomText: defaultStore.state.geminiNoteCustomText || '',
 }, async (state) => {
-	defaultStore.set('useGeminiLLMAPI', state.useGeminiLLMAPI);
+	defaultStore.set('useGeminiLLMAPI', $i?.policies.canUseGeminiLLMAPI ? state.useGeminiLLMAPI : false);
 	defaultStore.set('geminiToken', state.geminiToken);
 	defaultStore.set('geminiModels', state.geminiModels);
 	defaultStore.set('geminiSystemPrompt', state.geminiSystemPrompt);

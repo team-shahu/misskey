@@ -209,10 +209,10 @@ watch(okWaitInitiated, () => {
 onMounted(() => {
 	sec.value = props.okWaitDuration;
 	if (sec.value > 0) {
-		const waitTimer = setInterval(() => {
+		const waitTimer = window.setInterval(() => {
 			if (!okWaitInitiated.value) return;
 			if (sec.value < 0) {
-				clearInterval(waitTimer);
+				window.clearInterval(waitTimer);
 			}
 			sec.value = sec.value - 1;
 		}, 1000);

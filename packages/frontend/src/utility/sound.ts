@@ -107,7 +107,7 @@ export async function loadAudio(url: string, options?: { useCache?: boolean; }) 
 	let response: Response;
 
 	try {
-		response = await fetch(url);
+		response = await window.fetch(url);
 	} catch (err) {
 		return;
 	}
@@ -156,7 +156,7 @@ export async function playMisskeySfxFile(soundStore: SoundStore): Promise<boolea
 	canPlay = false;
 	return await playMisskeySfxFileInternal(soundStore).finally(() => {
 		// ごく短時間に音が重複しないように
-		setTimeout(() => {
+		window.setTimeout(() => {
 			canPlay = true;
 		}, 25);
 	});
@@ -225,13 +225,13 @@ export function createSourceNode(buffer: AudioBuffer, opts: {
  * @param file ファイルのURL（ドライブIDではない）
  */
 export async function getSoundDuration(file: string): Promise<number> {
-	const audioEl = document.createElement('audio');
+	const audioEl = window.document.createElement('audio');
 	audioEl.src = file;
 	return new Promise((resolve) => {
-		const si = setInterval(() => {
+		const si = window.setInterval(() => {
 			if (audioEl.readyState > 0) {
 				resolve(audioEl.duration * 1000);
-				clearInterval(si);
+				window.clearInterval(si);
 				audioEl.remove();
 			}
 		}, 100);
@@ -248,7 +248,7 @@ export function isMute(): boolean {
 	}
 
 	// noinspection RedundantIfStatementJS
-	if (prefer.s.sound_useSoundOnlyWhenActive && document.visibilityState === 'hidden') {
+	if (prefer.s.sound_useSoundOnlyWhenActive && window.document.visibilityState === 'hidden') {
 		// ブラウザがアクティブな時のみサウンドを出力する
 		return true;
 	}

@@ -28,8 +28,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
-import { useWidgetPropsManager, WidgetComponentEmits, WidgetComponentExpose, WidgetComponentProps } from './widget.js';
-import { GetFormResultType } from '@/utility/form.js';
+import { useWidgetPropsManager } from './widget.js';
+import type { WidgetComponentEmits, WidgetComponentExpose, WidgetComponentProps } from './widget.js';
+import type { GetFormResultType } from '@/utility/form.js';
 import MkContainer from '@/components/MkContainer.vue';
 import MkButton from '@/components/MkButton.vue';
 import MkLoading from '@/components/global/MkLoading.vue';
@@ -83,7 +84,7 @@ const { widgetProps, configure, save } = useWidgetPropsManager(name, widgetProps
 const playingNow = ref(false);
 const trackMetadata = ref<any>(null);
 const fetching = ref(true);
-let intervalId: ReturnType<typeof setTimeout> | null = null;
+let intervalId: number | null = null;
 
 const formattedNote = computed(() => {
 	if (!trackMetadata.value) return '';
@@ -101,7 +102,7 @@ const fetchPlayingNow = async () => {
 	if (!widgetProps.userId) return;
 
 	const url = `https://api.listenbrainz.org/1/user/${widgetProps.userId}/playing-now`;
-	const response = await fetch(url);
+	const response = await window.fetch(url);
 	const data = await response.json();
 
 	if (data.payload.count > 0) {
@@ -128,20 +129,20 @@ const postNote = async () => {
 watch(() => widgetProps.userId, fetchPlayingNow, { immediate: true });
 
 watch(() => widgetProps.refreshIntervalSec, (newInterval) => {
-	if (intervalId) clearInterval(intervalId);
+	if (intervalId) window.clearInterval(intervalId);
 	if (newInterval > 0) {
-		intervalId = setInterval(fetchPlayingNow, newInterval * 1000);
+		intervalId = window.setInterval(fetchPlayingNow, newInterval * 1000);
 	}
 }, { immediate: true });
 
 onMounted(() => {
 	if (widgetProps.refreshIntervalSec > 0) {
-		intervalId = setInterval(fetchPlayingNow, widgetProps.refreshIntervalSec * 1000);
+		intervalId = window.setInterval(fetchPlayingNow, widgetProps.refreshIntervalSec * 1000);
 	}
 });
 
 onUnmounted(() => {
-	if (intervalId) clearInterval(intervalId);
+	if (intervalId) window.clearInterval(intervalId);
 });
 
 defineExpose<WidgetComponentExpose>({
@@ -160,4 +161,4 @@ defineExpose<WidgetComponentExpose>({
 		max-width: 100%;
 		max-height: 100px;
 }
-</style>
+	</style>

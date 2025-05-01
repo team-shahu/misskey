@@ -6,6 +6,7 @@
 import { $i } from '@/i.js';
 import { instance } from '@/instance.js';
 import { store } from '@/store.js';
+import { prefer } from '@/preferences.js';
 
 export const basicTimelineTypes = [
 	'home',
@@ -38,11 +39,11 @@ export function isAvailableBasicTimeline(timeline: BasicTimelineType | undefined
 		case 'home':
 			return $i != null;
 		case 'local':
-			return ($i == null && instance.policies.ltlAvailable && !store.get('hideLocalTimeLine')) || ($i != null && $i.policies.ltlAvailable && !store.get('hideLocalTimeLine'));
+			return ($i == null && instance.policies.ltlAvailable && !prefer.s.hideLocalTimeLine) || ($i != null && $i.policies.ltlAvailable && !prefer.s.hideLocalTimeLine);
 		case 'social':
-			return $i != null && $i.policies.ltlAvailable && !store.get('hideSocialTimeLine');
+			return $i != null && $i.policies.ltlAvailable && !prefer.s.hideSocialTimeLine;
 		case 'global':
-			return ($i == null && instance.policies.gtlAvailable && !store.get('hideGlobalTimeLine')) || ($i != null && $i.policies.gtlAvailable && !store.get('hideGlobalTimeLine'));
+			return ($i == null && instance.policies.gtlAvailable && !prefer.s.hideGlobalTimeLine) || ($i != null && $i.policies.gtlAvailable && !prefer.s.hideGlobalTimeLine);
 		default:
 			return false;
 	}

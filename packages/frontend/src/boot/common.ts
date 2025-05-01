@@ -178,7 +178,7 @@ export async function common(createVue: () => Promise<App<Element>>) {
 		applyFont(store.s.customFont);
 	}
 
-	watch(store.reactiveState.customFont, (font) => {
+	watch(store.r.customFont, (font) => {
 		applyFont(font);
 	});
 
@@ -187,7 +187,7 @@ export async function common(createVue: () => Promise<App<Element>>) {
 		applyFont(store.s.customFont);
 	}
 
-	watch(store.reactiveState.customFont, (font) => {
+	watch(store.r.customFont, (font) => {
 		applyFont(font);
 	});
 

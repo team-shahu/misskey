@@ -5363,10 +5363,6 @@ export interface Locale extends ILocale {
      */
     "channelAnnouncementDescription": string;
     /**
-     * 投稿フォーム
-     */
-    "postForm": string;
-    /**
      * 投稿フォームの下部に表示される項目の並び替えが出来ます。項目をクリックすると削除できます。
      */
     "postFormBottomSettingsDescription": string;
@@ -7832,6 +7828,10 @@ export interface Locale extends ILocale {
              */
             "canImportUserLists": string;
             /**
+             * チャットを許可
+             */
+            "chatAvailability": string;
+            /**
              * 予約投稿の最大数
              */
             "scheduleNoteMax": string;
@@ -9288,6 +9288,14 @@ export interface Locale extends ILocale {
          */
         "write:report-abuse": string;
         /**
+         * チャットを操作する
+         */
+        "write:chat": string;
+        /**
+         * チャットを閲覧する
+         */
+        "read:chat": string;
+        /**
          * 予約投稿を見る
          */
         "read:notes-schedule": string;
@@ -9517,6 +9525,10 @@ export interface Locale extends ILocale {
          * 今日誕生日のユーザー
          */
         "birthdayFollowings": string;
+        /**
+         * チャット
+         */
+        "chat": string;
         /**
          * ListenBrainz
          */
@@ -10262,6 +10274,10 @@ export interface Locale extends ILocale {
          */
         "roleAssigned": string;
         /**
+         * チャットルームへ招待されました
+         */
+        "chatRoomInvitationReceived": string;
+        /**
          * 予約投稿に失敗しました
          */
         "scheduledNoteFailed": string;
@@ -10412,6 +10428,10 @@ export interface Locale extends ILocale {
              * ログイン
              */
             "login": string;
+            /**
+             * アクセストークンの作成
+             */
+            "createToken": string;
             /**
              * ログインに失敗
              */

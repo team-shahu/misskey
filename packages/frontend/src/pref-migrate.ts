@@ -138,6 +138,37 @@ export function migrateOldSettings() {
 		prefer.commit('sound.on.reaction', store.s.sound_reaction as any);
 		prefer.commit('defaultNoteVisibility', store.s.defaultNoteVisibility);
 		prefer.commit('defaultNoteLocalOnly', store.s.defaultNoteLocalOnly);
+		prefer.commit('hideReactionCount', store.s.hideReactionCount);
+		prefer.commit('hideReactionUsers', store.s.hideReactionUsers);
+		prefer.commit('customFont', store.s.customFont);
+		prefer.commit('hiddenPinnedNotes', store.s.hiddenPinnedNotes);
+		prefer.commit('hiddenActivity', store.s.hiddenActivity);
+		prefer.commit('hiddenFiles', store.s.hiddenFiles);
+		prefer.commit('instanceIcon', store.s.instanceIcon);
+		prefer.commit('disableNoteNyaize', store.s.disableNoteNyaize);
+		prefer.commit('reactionChecksMuting', store.s.reactionChecksMuting);
+		prefer.commit('hideLocalTimeLine', store.s.hideLocalTimeLine);
+		prefer.commit('hideGlobalTimeLine', store.s.hideGlobalTimeLine);
+		prefer.commit('hideSocialTimeLine', store.s.hideSocialTimeLine);
+		prefer.commit('selectReaction', store.s.selectReaction);
+		prefer.commit('showLikeButton', store.s.showLikeButton);
+		prefer.commit('useGeminiLLMAPI', store.s.useGeminiLLMAPI);
+		prefer.commit('geminiToken', store.s.geminiToken);
+		prefer.commit('geminiModels', store.s.geminiModels);
+		prefer.commit('geminiSystemPrompt', store.s.geminiSystemPrompt);
+		prefer.commit('geminiPromptNote', store.s.geminiPromptNote);
+		prefer.commit('geminiPromptProfile', store.s.geminiPromptProfile);
+		prefer.commit('geminiNoteLongText', store.s.geminiNoteLongText);
+		prefer.commit('geminiNoteShortText', store.s.geminiNoteShortText);
+		prefer.commit('geminiNoteSimpleText', store.s.geminiNoteSimpleText);
+		prefer.commit('geminiNoteCasualText', store.s.geminiNoteCasualText);
+		prefer.commit('geminiNoteProfessionalText', store.s.geminiNoteProfessionalText);
+		prefer.commit('geminiNoteCatText', store.s.geminiNoteCatText);
+		prefer.commit('geminiNoteCustomText', store.s.geminiNoteCustomText);
+		prefer.commit('draftSavingBehavior', store.s.draftSavingBehavior);
+		prefer.commit('defaultScheduledNoteDelete', store.s.defaultScheduledNoteDelete);
+		prefer.commit('defaultScheduledNoteDeleteTime', store.s.defaultScheduledNoteDeleteTime);
+		prefer.commit('postFormActions', store.s.postFormActions);
 
 		window.setTimeout(() => {
 			unisonReload();

@@ -6,77 +6,77 @@ SPDX-License-Identifier: AGPL-3.0-only
 <template>
 <div>
 	<MkStickyContainer>
-		<template #header><XHeader :tabs="headerTabs"/></template>
-		<MkSpacer :contentMax="700" :marginMin="16" :marginMax="32">
-			<FormSuspense :p="init">
-				<div class="_gaps_m">
-					<MkFolder>
-						<template #icon><i class="ti ti-text-caption"></i></template>
-						<template #label>{{ i18n.ts.customSplashText }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-						<template v-if="customSplashTextForm.modified.value" #footer>
-							<MkFormFooter :form="customSplashTextForm"/>
-						</template>
+		<PageWithHeader :actions="headerActions" :tabs="headerTabs">
+			<MkSpacer :contentMax="700" :marginMin="16" :marginMax="32">
+				<FormSuspense :p="init">
+					<div class="_gaps_m">
+						<MkFolder>
+							<template #icon><i class="ti ti-text-caption"></i></template>
+							<template #label>{{ i18n.ts.customSplashText }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
+							<template v-if="customSplashTextForm.modified.value" #footer>
+								<MkFormFooter :form="customSplashTextForm"/>
+							</template>
 
-						<div class="_gaps">
-							<MkTextarea v-model="customSplashTextForm.state.customSplashText">
-								<template #caption>{{ i18n.ts.customSplashTextDescription }}</template>
-							</MkTextarea>
-						</div>
-					</MkFolder>
+							<div class="_gaps">
+								<MkTextarea v-model="customSplashTextForm.state.customSplashText">
+									<template #caption>{{ i18n.ts.customSplashTextDescription }}</template>
+								</MkTextarea>
+							</div>
+						</MkFolder>
 
-					<MkFolder>
-						<template #icon><i class="ti ti-robot"></i></template>
-						<template #label>{{ i18n.ts._llm.title }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-						<template v-if="serverGeminiEnabled" #suffix>Enabled</template>
-						<template v-else #suffix>Disabled</template>
-						<template v-if="geminiSettingsForm.modified.value" #footer>
-							<MkFormFooter :form="geminiSettingsForm"/>
-						</template>
+						<MkFolder>
+							<template #icon><i class="ti ti-robot"></i></template>
+							<template #label>{{ i18n.ts._llm.title }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
+							<template v-if="serverGeminiEnabled" #suffix>Enabled</template>
+							<template v-else #suffix>Disabled</template>
+							<template v-if="geminiSettingsForm.modified.value" #footer>
+								<MkFormFooter :form="geminiSettingsForm"/>
+							</template>
 
-						<div class="_gaps">
-							<MkSwitch v-model="geminiSettingsForm.state.serverGeminiEnabled">
-								<template #label>{{ i18n.ts._llm.serverGeminiEnabled }}</template>
-								<template #caption>{{ i18n.ts._llm._server.serverGeminiEnabledDescription }}</template>
-							</MkSwitch>
+							<div class="_gaps">
+								<MkSwitch v-model="geminiSettingsForm.state.serverGeminiEnabled">
+									<template #label>{{ i18n.ts._llm.serverGeminiEnabled }}</template>
+									<template #caption>{{ i18n.ts._llm._server.serverGeminiEnabledDescription }}</template>
+								</MkSwitch>
 
-							<MkInput v-model="geminiSettingsForm.state.serverGeminiApiKey" type="text">
-								<template #label>{{ i18n.ts._llm._server.serverGeminiApiKey }}</template>
-								<template #caption>{{ i18n.ts._llm._server.serverGeminiApiKeyDescription }}</template>
-							</MkInput>
+								<MkInput v-model="geminiSettingsForm.state.serverGeminiApiKey" type="text">
+									<template #label>{{ i18n.ts._llm._server.serverGeminiApiKey }}</template>
+									<template #caption>{{ i18n.ts._llm._server.serverGeminiApiKeyDescription }}</template>
+								</MkInput>
 
-							<MkSelect v-model="geminiSettingsForm.state.serverGeminiModels">
-								<template #label>{{ i18n.ts._llm.geminiModelLabel }}</template>
-								<template #caption>{{ i18n.ts._llm._server.serverGeminiModelsDescription }}</template>
-								<option value="gemini-2.0-flash">gemini-2.0-flash</option>
-								<option value="gemini-1.5-flash">gemini-1.5-flash</option>
-								<option value="gemini-1.5-pro">gemini-1.5-pro</option>
-								<option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
-							</MkSelect>
-						</div>
-					</MkFolder>
-				</div>
-			</formsuspense>
-		</MkSpacer>
+								<MkSelect v-model="geminiSettingsForm.state.serverGeminiModels">
+									<template #label>{{ i18n.ts._llm.geminiModelLabel }}</template>
+									<template #caption>{{ i18n.ts._llm._server.serverGeminiModelsDescription }}</template>
+									<option value="gemini-2.0-flash">gemini-2.0-flash</option>
+									<option value="gemini-1.5-flash">gemini-1.5-flash</option>
+									<option value="gemini-1.5-pro">gemini-1.5-pro</option>
+									<option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
+								</MkSelect>
+							</div>
+						</MkFolder>
+					</div>
+				</formsuspense>
+			</MkSpacer>
+		</PageWithHeader>
 	</MkStickyContainer>
 </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import XHeader from './_header_.vue';
 import MkInput from '@/components/MkInput.vue';
 import MkSwitch from '@/components/MkSwitch.vue';
 import MkFolder from '@/components/MkFolder.vue';
 import MkTextarea from '@/components/MkTextarea.vue';
 import FormSuspense from '@/components/form/suspense.vue';
 import * as os from '@/os.js';
-import { misskeyApi } from '@/scripts/misskey-api.js';
+import { misskeyApi } from '@/utility/misskey-api.js';
 import { fetchInstance } from '@/instance.js';
 import { i18n } from '@/i18n.js';
-import { definePageMetadata } from '@/scripts/page-metadata.js';
+import { definePage } from '@/page.js';
 import MkButton from '@/components/MkButton.vue';
 import MkSelect from '@/components/MkSelect.vue';
-import { useForm } from '@/scripts/use-form.js';
+import { useForm } from '@/use/use-form.js';
 import MkFormFooter from '@/components/MkFormFooter.vue';
 
 const meta = await misskeyApi('admin/meta');
@@ -117,7 +117,7 @@ const geminiSettingsForm = useForm({
 
 const headerTabs = computed(() => []);
 
-definePageMetadata(() => ({
+definePage(() => ({
 	title: i18n.ts.moderation,
 	icon: 'ti ti-shield',
 }));

@@ -52,25 +52,26 @@ import MkSelect from '@/components/MkSelect.vue';
 import MkDeleteScheduleEditor from '@/components/MkDeleteScheduleEditor.vue';
 import FormSlot from '@/components/form/slot.vue';
 import MkContainer from '@/components/MkContainer.vue';
-import { bottomItemDef } from '@/scripts/post-form.js';
+import { bottomItemDef } from '@/utility/post-form.js';
 import * as os from '@/os.js';
-import { defaultStore } from '@/store.js';
+import { prefer } from '@/preferences.js';
+import { store } from '@/store.js';
 import { i18n } from '@/i18n.js';
-import { definePageMetadata } from '@/scripts/page-metadata.js';
+import { definePage } from '@/page.js';
 
-const draftSavingBehavior = computed(defaultStore.makeGetterSetter('draftSavingBehavior'));
-const defaultScheduledNoteDelete = computed(defaultStore.makeGetterSetter('defaultScheduledNoteDelete'));
+const draftSavingBehavior = prefer.s.draftSavingBehavior;
+const defaultScheduledNoteDelete = prefer.s.defaultScheduledNoteDelete;
 
-const scheduledNoteDelete = ref({ deleteAt: null, deleteAfter: defaultStore.state.defaultScheduledNoteDeleteTime, isValid: true });
+const scheduledNoteDelete = ref({ deleteAt: null, deleteAfter: prefer.s.defaultScheduledNoteDeleteTime, isValid: true });
 
 watch(scheduledNoteDelete, () => {
 	if (!scheduledNoteDelete.value.isValid) return;
-	defaultStore.set('defaultScheduledNoteDeleteTime', scheduledNoteDelete.value.deleteAfter);
+	prefer.commit('defaultScheduledNoteDeleteTime', scheduledNoteDelete.value.deleteAfter);
 });
 
 const Sortable = defineAsyncComponent(() => import('vuedraggable').then(x => x.default));
 
-const items = ref(defaultStore.state.postFormActions.map(x => ({
+const items = ref(prefer.s.postFormActions.map(x => ({
 	id: Math.random().toString(),
 	type: x,
 })));
@@ -110,7 +111,7 @@ function removeItem(type: keyof typeof bottomItemDef, ev: MouseEvent) {
 }
 
 async function save() {
-	defaultStore.set('postFormActions', items.value.map(x => x.type));
+	prefer.commit('postFormActions', items.value.map(x => x.type));
 }
 
 async function reset() {
@@ -120,7 +121,7 @@ async function reset() {
 	});
 	if (result.canceled) return;
 
-	items.value = defaultStore.def.postFormActions.default.map(x => ({
+	items.value = store.def.postFormActions.default.map(x => ({
 		id: Math.random().toString(),
 		type: x,
 	}));
@@ -130,7 +131,7 @@ const headerActions = computed(() => []);
 
 const headerTabs = computed(() => []);
 
-definePageMetadata(() => ({
+definePage(() => ({
 	title: i18n.ts.postForm,
 	icon: 'ti ti-pencil',
 }));

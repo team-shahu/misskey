@@ -2,7 +2,7 @@ import * as Misskey from 'misskey-js';
 import type { PollEditorModelValue } from '@/components/MkPollEditor.vue';
 import type { DeleteScheduleEditorModelValue } from '@/components/MkDeleteScheduleEditor.vue';
 import { miLocalStorage } from '@/local-storage.js';
-import { get as idbGet, set as idbSet } from '@/scripts/idb-proxy.js';
+import { get as idbGet, set as idbSet } from '@/utility/idb-proxy.js';
 
 export type NoteDraft = {
 	updatedAt: Date;

@@ -82,7 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	</div> -->
 	<footer :class="$style.footer">
 		<div :class="$style.footerLeft">
-			<template v-for="item in defaultStore.state.postFormActions">
+			<template v-for="item in prefer.s.postFormActions">
 				<button v-if="!bottomItemActionDef[item].hide" :key="item" v-tooltip="bottomItemDef[item].title" class="_button" :class="[$style.footerButton, { [$style.footerButtonActive]: bottomItemActionDef[item].active }]" v-on="bottomItemActionDef[item].action ? { click: bottomItemActionDef[item].action } : {}">
 					<i class="ti" :class="bottomItemDef[item].icon"></i>
 				</button>
@@ -124,7 +124,7 @@ import { extractMentions } from '@/utility/extract-mentions.js';
 import { formatTimeString } from '@/utility/format-time-string.js';
 import { Autocomplete } from '@/utility/autocomplete.js';
 import * as os from '@/os.js';
-import * as noteDrafts from '@/scripts/note-drafts.js';
+import * as noteDrafts from '@/utility/note-drafts.js';
 import { misskeyApi } from '@/utility/misskey-api.js';
 import { selectFiles } from '@/utility/select-file.js';
 import { store } from '@/store.js';
@@ -143,9 +143,9 @@ import { mfmFunctionPicker } from '@/utility/mfm-function-picker.js';
 import { prefer } from '@/preferences.js';
 import { getPluginHandlers } from '@/plugin.js';
 import { DI } from '@/di.js';
-import { bottomItemDef } from '@/scripts/post-form.js';
+import { bottomItemDef } from '@/utility/post-form.js';
 import MkScheduleEditor from '@/components/MkScheduleEditor.vue';
-import { transformTextWithGemini } from '@/scripts/shahu-script/text-transformations.js';
+import { transformTextWithGemini } from '@/utility/shahu-script/text-transformations.js';
 
 const $i = ensureSignin();
 
@@ -185,7 +185,7 @@ const posted = ref(false);
 const text = ref(props.initialText ?? '');
 const files = ref(props.initialFiles ?? []);
 const poll = ref<PollEditorModelValue | null>(null);
-const scheduledNoteDelete = ref<DeleteScheduleEditorModelValue | null>(defaultStore.state.defaultScheduledNoteDelete ? { deleteAt: null, deleteAfter: defaultStore.state.defaultScheduledNoteDeleteTime, isValid: true } : null);
+const scheduledNoteDelete = ref<DeleteScheduleEditorModelValue | null>(prefer.s.defaultScheduledNoteDelete ? { deleteAt: null, deleteAfter: prefer.s.defaultScheduledNoteDeleteTime, isValid: true } : null);
 const useCw = ref<boolean>(!!props.initialCw);
 const renote = ref(props.renote);
 const reply = ref(props.reply);
@@ -536,7 +536,7 @@ function toggleScheduledNoteDelete() {
 	} else {
 		scheduledNoteDelete.value = {
 			deleteAt: null,
-			deleteAfter: defaultStore.state.defaultScheduledNoteDeleteTime,
+			deleteAfter: prefer.s.defaultScheduledNoteDeleteTime,
 			isValid: true,
 		};
 	}
@@ -876,7 +876,7 @@ function onDrop(ev: DragEvent): void {
 async function saveDraft(auto = true) {
 	if (props.instant || props.mock) return;
 
-	if (auto && defaultStore.state.draftSavingBehavior !== 'auto') return;
+	if (auto && prefer.s.draftSavingBehavior !== 'auto') return;
 
 	if (!auto) {
 		// 手動での保存の場合は自動保存したものを削除した上で保存
@@ -1141,7 +1141,7 @@ function cancel() {
 }
 
 async function closed() {
-	if (defaultStore.state.draftSavingBehavior === 'manual' && !posted.value && (text.value !== '' || files.value.length > 0)) {
+	if (prefer.s.draftSavingBehavior === 'manual' && !posted.value && (text.value !== '' || files.value.length > 0)) {
 		os.confirm({
 			type: 'question',
 			text: i18n.ts.saveConfirm,

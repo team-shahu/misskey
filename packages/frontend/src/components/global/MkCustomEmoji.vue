@@ -39,6 +39,7 @@ import { i18n } from '@/i18n.js';
 import MkCustomEmojiDetailedDialog from '@/components/MkCustomEmojiDetailedDialog.vue';
 import { $i } from '@/i.js';
 import { prefer } from '@/preferences.js';
+import { store } from '@/store.js';
 import { DI } from '@/di.js';
 
 const props = defineProps<{
@@ -114,12 +115,12 @@ function onClick(ev: MouseEvent) {
 			});
 		}
 
-		if ( !defaultStore.state.reactions.includes(`:${props.name}:`) ) {
+		if ( !store.s.reactions.includes(`:${props.name}:`) ) {
 			menuItems.push({
 				text: i18n.ts.addToEmojiPicker,
 				icon: 'ti ti-plus',
 				action: () => {
-					defaultStore.set('reactions', [...defaultStore.state.reactions, `:${props.name}:`]);
+					store.set('reactions', [...store.s.reactions, `:${props.name}:`]);
 				},
 			});
 		}

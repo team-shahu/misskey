@@ -37,7 +37,7 @@ import { customEmojisMap } from '@/custom-emojis.js';
 import { prefer } from '@/preferences.js';
 import { DI } from '@/di.js';
 
-const reactionChecksMuting = computed(defaultStore.makeGetterSetter('reactionChecksMuting'));
+const reactionChecksMuting = prefer.s.reactionChecksMuting;
 
 const props = defineProps<{
 	reaction: string;
@@ -71,7 +71,7 @@ const canToggle = computed(() => {
 const canGetInfo = computed(() => !props.reaction.match(/@\w/) && props.reaction.includes(':'));
 
 const hideReactionCount = computed(() => {
-	switch (defaultStore.state.hideReactionCount) {
+	switch (prefer.s.hideReactionCount) {
 		case 'none': return false;
 		case 'all': return true;
 		case 'self': return props.note.userId === $i?.id;
@@ -180,7 +180,7 @@ if (!mock) {
 	useTooltip(buttonEl, async (showing) => {
 		const useGet = !reactionChecksMuting.value;
 		const apiCall = useGet ? misskeyApiGet : misskeyApi;
-		const reactions = !defaultStore.state.hideReactionUsers ? await apiCall('notes/reactions', {
+		const reactions = !prefer.s.hideReactionUsers ? await apiCall('notes/reactions', {
 			noteId: props.note.id,
 			type: props.reaction,
 			limit: 10,

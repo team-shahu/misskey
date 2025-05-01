@@ -4,7 +4,7 @@
  */
 
 import type { SoundStore } from '@/store.js';
-import { defaultStore } from '@/store.js';
+import { store } from '@/store.js';
 
 let ctx: AudioContext;
 const cache = new Map<string, AudioBuffer>();
@@ -127,11 +127,11 @@ export async function loadAudio(url: string, options?: { useCache?: boolean; }) 
  * @param type スプライトの種類を指定
  */
 export function playMisskeySfx(operationType: OperationType) {
-	const sound = defaultStore.state[`sound_${operationType}`];
+	const sound = prefer.s[`sound_${operationType}`];
 	playMisskeySfxFile(sound).then((succeed) => {
 		if (!succeed && sound.type === '_driveFile_') {
 			// ドライブファイルが存在しない場合はデフォルトのサウンドを再生する
-			const soundName = defaultStore.def[`sound_${operationType}`].default.type as Exclude<SoundType, '_driveFile_'>;
+			const soundName = store.def[`sound_${operationType}`].default.type as Exclude<SoundType, '_driveFile_'>;
 			if (_DEV_) console.log(`Failed to play sound: ${sound.fileUrl}, so play default sound: ${soundName}`);
 			playMisskeySfxFileInternal({
 				type: soundName,
@@ -166,7 +166,7 @@ async function playMisskeySfxFileInternal(soundStore: SoundStore): Promise<boole
 	if (soundStore.type === null || (soundStore.type === '_driveFile_' && !soundStore.fileUrl)) {
 		return false;
 	}
-	const masterVolume = defaultStore.state.sound_masterVolume;
+	const masterVolume = prefer.s.sound_masterVolume;
 	if (isMute() || masterVolume === 0 || soundStore.volume === 0) {
 		return true; // ミュート時は成功として扱う
 	}
@@ -242,13 +242,13 @@ export async function getSoundDuration(file: string): Promise<number> {
  * ミュートすべきかどうかを判断する
  */
 export function isMute(): boolean {
-	if (defaultStore.state.sound_notUseSound) {
+	if (prefer.s.sound_notUseSound) {
 		// サウンドを出力しない
 		return true;
 	}
 
 	// noinspection RedundantIfStatementJS
-	if (defaultStore.state.sound_useSoundOnlyWhenActive && document.visibilityState === 'hidden') {
+	if (prefer.s.sound_useSoundOnlyWhenActive && document.visibilityState === 'hidden') {
 		// ブラウザがアクティブな時のみサウンドを出力する
 		return true;
 	}

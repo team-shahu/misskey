@@ -404,6 +404,116 @@ export const PREF_DEF = {
 		},
 	},
 
+	// region Original Features
+	draftSavingBehavior: {
+		default: 'auto' as 'auto' | 'manual',
+	},
+	defaultScheduledNoteDelete: {
+		default: false,
+	},
+	defaultScheduledNoteDeleteTime: {
+		default: 86400000,
+	},
+	postFormActions: {
+		default: [
+			'attachFile',
+			'poll',
+			'scheduledNoteDelete',
+			'useCw',
+			'mention',
+			'hashtags',
+			'plugins',
+			'emoji',
+			'addMfmFunction',
+			'scheduleNote',
+			'schedulePostList',
+		],
+	},
+	instanceIcon: {
+		default: false,
+	},
+	selectReaction: {
+		default: '🤍' as string,
+	},
+	showLikeButton: {
+		default: true,
+	},
+	hideReactionUsers: {
+		default: false,
+	},
+	hideReactionCount: {
+		default: 'none' as 'none' | 'self' | 'others' | 'all',
+	},
+	customFont: {
+		default: null as null | string,
+	},
+	hiddenActivityAndFiles: {
+		default: false,
+	},
+	hiddenPinnedNotes: {
+		default: false,
+	},
+	hiddenActivity: {
+		default: false,
+	},
+	hiddenFiles: {
+		default: false,
+	},
+	disableNoteNyaize: {
+		default: false,
+	},
+	hideLocalTimeLine: {
+		default: false,
+	},
+	hideSocialTimeLine: {
+		default: false,
+	},
+	hideGlobalTimeLine: {
+		default: false,
+	},
+	reactionChecksMuting: {
+		default: true,
+	},
+	useGeminiLLMAPI: {
+		default: false,
+	},
+	geminiToken: {
+		default: null as string | null,
+	},
+	geminiModels: {
+		default: 'gemini-2.0-flash' as 'gemini-2.0-flash' | 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-2.0-pro-exp-02-05' | null,
+	},
+	geminiSystemPrompt: {
+		default: 'リスト記法は対応しておらず、パーサーが壊れるため使用禁止です。列挙する場合は「・」を使ってください。' as string | null,
+	},
+	geminiPromptNote: {
+		default: '以下のSNSの投稿をわかりやすく簡潔にユーザーに要約してください。' as string | null,
+	},
+	geminiPromptProfile: {
+		default: 'プロフィール情報と投稿からこのユーザーの特徴を簡潔に教えてください。' as string | null,
+	},
+	geminiNoteLongText: {
+		default: '以下の文章を長文にしてください。' as string | null,
+	},
+	geminiNoteShortText: {
+		default: '以下の文章を短文にしてください。' as string | null,
+	},
+	geminiNoteSimpleText: {
+		default: '以下の文章を簡潔にしてください。' as string | null,
+	},
+	geminiNoteCasualText: {
+		default: '以下の文章をカジュアルにしてください。' as string | null,
+	},
+	geminiNoteProfessionalText: {
+		default: '以下の文章を専門的にしてください。' as string | null,
+	},
+	geminiNoteCatText: {
+		default: '以下の文章を猫っぽくしてください。' as string | null,
+	},
+	geminiNoteCustomText: {
+		default: null as string | null,
+	},
+	// endregion Original Features
 	'experimental.stackingRouterView': {
 		default: false,
 	},

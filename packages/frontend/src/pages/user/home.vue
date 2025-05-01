@@ -231,9 +231,9 @@ const memoDraft = ref(props.user.memo);
 const isEditingMemo = ref(false);
 const moderationNote = ref(props.user.moderationNote);
 const editModerationNote = ref(false);
-const hiddenPinnedNotes = defaultStore.state.hiddenPinnedNotes;
-const hiddenActivity = defaultStore.state.hiddenActivity;
-const hiddenFiles = defaultStore.state.hiddenFiles;
+const hiddenPinnedNotes = prefer.s.hiddenPinnedNotes;
+const hiddenActivity = prefer.s.hiddenActivity;
+const hiddenFiles = prefer.s.hiddenFiles;
 
 watch(moderationNote, async () => {
 	await misskeyApi('admin/update-user-note', { userId: props.user.id, text: moderationNote.value });

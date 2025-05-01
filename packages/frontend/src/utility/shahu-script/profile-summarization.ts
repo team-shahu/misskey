@@ -4,10 +4,10 @@
  */
 
 import { defineAsyncComponent, ref } from 'vue';
-import { defaultStore } from '@/store.js';
+import { prefer } from '@/preferences.js';
 import * as os from '@/os.js';
-import { generateGeminiSummary } from '@/scripts/shahu-script/llm.js';
-import { misskeyApi } from '@/scripts/misskey-api.js';
+import { generateGeminiSummary } from '@/utility/shahu-script/llm.js';
+import { misskeyApi } from '@/utility/misskey-api.js';
 import { displayLlmError } from '@/utils/errorHandler.js';
 import { popup } from '@/os.js';
 
@@ -50,8 +50,8 @@ export async function summarizeUserProfile(userId: string): Promise<void> {
 
 		// Gemini API 呼び出しをシステム命令形式に更新
 		const systemInstruction = [
-			defaultStore.state.geminiPromptProfile ?? '',
-			defaultStore.state.geminiSystemPrompt ?? '',
+			prefer.s.geminiPromptProfile ?? '',
+			prefer.s.geminiSystemPrompt ?? '',
 		].join('\n');
 
 		const userContent =

@@ -7,18 +7,18 @@ import { toUnicode } from 'punycode.js';
 import { defineAsyncComponent, ref, watch } from 'vue';
 import * as Misskey from 'misskey-js';
 import { i18n } from '@/i18n.js';
-import { copyToClipboard } from '@/scripts/copy-to-clipboard.js';
+import { copyToClipboard } from '@/utility/copy-to-clipboard.js';
 import { host, url } from '@@/js/config.js';
 import * as os from '@/os.js';
-import { misskeyApi } from '@/scripts/misskey-api.js';
-import { defaultStore, userActions } from '@/store.js';
-import { $i, iAmModerator } from '@/account.js';
-import { notesSearchAvailable, canSearchNonLocalNotes } from '@/scripts/check-permissions.js';
+import { misskeyApi } from '@/utility/misskey-api.js';
+import { $i, iAmModerator } from '@/i.js';
+import { notesSearchAvailable, canSearchNonLocalNotes } from '@/utility/check-permissions.js';
 import type { IRouter } from '@/nirax.js';
 import { antennasCache, rolesCache, userListsCache } from '@/cache.js';
-import { mainRouter } from '@/router/main.js';
-import { genEmbedCode } from '@/scripts/get-embed-code.js';
+import { mainRouter } from '@/router.js';
+import { genEmbedCode } from '@/utility/get-embed-code.js';
 import type { MenuItem } from '@/types/menu.js';
+import { getPluginHandlers } from '@/plugin';
 
 export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter = mainRouter) {
 	const meId = $i ? $i.id : null;
@@ -398,7 +398,7 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
 		});
 	}
 
-	if (defaultStore.state.devMode) {
+	if (prefer.s.devMode) {
 		menuItems.push({ type: 'divider' }, {
 			icon: 'ti ti-id',
 			text: i18n.ts.copyUserId,
@@ -418,6 +418,7 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: IRouter
 		});
 	}
 
+	const userActions = getPluginHandlers('user_action');
 	if (userActions.length > 0) {
 		menuItems.push({ type: 'divider' }, ...userActions.map(action => ({
 			icon: 'ti ti-plug',

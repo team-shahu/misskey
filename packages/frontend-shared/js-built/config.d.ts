@@ -2,6 +2,7 @@ import type { Locale } from '../../../locales/index.js';
 export declare const host: string;
 export declare const hostname: string;
 export declare const url: string;
+export declare const port: string;
 export declare const apiUrl: string;
 export declare const wsOrigin: string;
 export declare const lang: string;

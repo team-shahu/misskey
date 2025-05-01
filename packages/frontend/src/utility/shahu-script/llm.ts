@@ -5,11 +5,11 @@
 
 import { ref } from 'vue';
 import * as Misskey from 'misskey-js';
-import { defaultStore } from '@/store.js';
-import { misskeyApi } from '@/scripts/misskey-api.js';
+import { prefer } from '@/preferences.js';
+import { misskeyApi } from '@/utility/misskey-api.js';
 import { fetchInstance } from '@/instance.js';
 import { displayLlmError } from '@/utils/errorHandler.js';
-import { $i } from '@/account.js';
+import { $i } from '@/i.js';
 
 const instance = ref<Misskey.entities.MetaDetailed | null>(null);
 
@@ -24,7 +24,7 @@ export async function generateGeminiSummary({
 	userContent: string;
 	systemInstruction?: string;
 }): Promise<any> {
-	const { geminiToken, geminiModels, useGeminiLLMAPI } = defaultStore.state;
+	const { geminiToken, geminiModels, useGeminiLLMAPI } = prefer.s;
 
 	// サーバー提供のLLM APIを使用する場合
 	if (useGeminiLLMAPI && $i?.policies.canUseGeminiLLMAPI) {
@@ -51,7 +51,7 @@ export async function generateGeminiSummary({
 		return displayLlmError(new Error('Gemini API tokenがありません。'));
 	}
 
-	const response = await fetch(
+	const response = await window.fetch(
 		`https://generativelanguage.googleapis.com/v1beta/models/${geminiModels}:generateContent?key=${geminiToken}`,
 		{
 			method: 'POST',

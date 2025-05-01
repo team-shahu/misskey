@@ -4,8 +4,8 @@
  */
 
 import { defineAsyncComponent } from 'vue';
-import { generateGeminiSummary } from '@/scripts/shahu-script/llm.js';
-import { defaultStore } from '@/store.js';
+import { generateGeminiSummary } from '@/utility/shahu-script/llm.js';
+import { prefer } from '@/preferences.js';
 import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
 import { displayLlmError } from '@/utils/errorHandler.js';
@@ -18,8 +18,8 @@ import { displayLlmError } from '@/utils/errorHandler.js';
  */
 export async function callGeminiSummarize(text: string): Promise<string> {
 	const systemInstruction = [
-		defaultStore.state.geminiPromptNote ?? '',
-		defaultStore.state.geminiSystemPrompt ?? '',
+		prefer.s.geminiPromptNote ?? '',
+		prefer.s.geminiSystemPrompt ?? '',
 	].join('\n');
 
 	const data = await generateGeminiSummary({

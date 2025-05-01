@@ -93,7 +93,7 @@ const name = ref<string>(props.avatarDecoration ? props.avatarDecoration.name : 
 const description = ref<string>(props.avatarDecoration ? props.avatarDecoration.description : '');
 const roleIdsThatCanBeUsedThisDecoration = ref(props.avatarDecoration ? props.avatarDecoration.roleIdsThatCanBeUsedThisDecoration : []);
 const rolesThatCanBeUsedThisDecoration = ref<Misskey.entities.Role[]>([]);
-	import { selectFile } from '@/scripts/select-file.js';
+	import { selectFile } from '@/utility/select-file.js';
 
 watch(roleIdsThatCanBeUsedThisDecoration, async () => {
 	rolesThatCanBeUsedThisDecoration.value = (await Promise.all(roleIdsThatCanBeUsedThisDecoration.value.map((id) => misskeyApi('admin/roles/show', { roleId: id }).catch(() => null)))).filter(x => x != null);

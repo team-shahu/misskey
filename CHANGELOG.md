@@ -1,15 +1,3 @@
-## Unreleased
-
-### General
--
-
-### Client
--
-
-### Server
--
-
-
 ## 2025.4.1
 
 ### General

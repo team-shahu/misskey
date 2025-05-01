@@ -35,7 +35,11 @@ export default function(app: App) {
 	app.component('WidgetUserList', defineAsyncComponent(() => import('./WidgetUserList.vue')));
 	app.component('WidgetClicker', defineAsyncComponent(() => import('./WidgetClicker.vue')));
 	app.component('WidgetBirthdayFollowings', defineAsyncComponent(() => import('./WidgetBirthdayFollowings.vue')));
+<<<<<<< HEAD
 	app.component('WidgetListenBrainz', defineAsyncComponent(() => import('./WidgetListenBrainz.vue')));
+=======
+	app.component('WidgetChat', defineAsyncComponent(() => import('./WidgetChat.vue')));
+>>>>>>> misskey/develop
 }
 
 // 連合関連のウィジェット（連合無効時に隠す）
@@ -71,7 +75,11 @@ export const widgets = [
 	'userList',
 	'clicker',
 	'birthdayFollowings',
+<<<<<<< HEAD
 	'listenBrainz',
+=======
+	'chat',
+>>>>>>> misskey/develop
 
 	...federationWidgets,
 ];

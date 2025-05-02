@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <MkStickyContainer v-if="$i.policies.canReadFollowHistory">
 	<template #header><MkPageHeader v-model:tab="tab" :actions="headerActions" :tabs="headerTabs"/></template>
 	<MkSpacer :contentMax="800">
-		<MkHorizontalSwipe v-model:tab="tab" :tabs="headerTabs">
+		<MkSwiper v-model:tab="tab" :tabs="headerTabs">
 			<div :key="tab" class="_gaps">
 				<MkPagination ref="paginationComponent" :pagination="pagination">
 					<template #empty>
@@ -74,7 +74,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					</template>
 				</MkPagination>
 			</div>
-		</MkHorizontalSwipe>
+		</MkSwiper>
 	</MkSpacer>
 </MkStickyContainer>
 <div v-else>
@@ -91,10 +91,10 @@ import MkButton from '@/components/MkButton.vue';
 import { userPage } from '@/filters/user.js';
 import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
-import { definePageMetadata } from '@/scripts/page-metadata.js';
+import { definePage } from '@/page.js';
 import { infoImageUrl } from '@/instance.js';
-import { $i } from '@/account.js';
-import MkHorizontalSwipe from '@/components/MkHorizontalSwipe.vue';
+import { $i } from '@/i.js';
+import MkSwiper from '@/components/MkSwiper.vue';
 import { dateString } from '@/filters/date.js';
 import XNotFound from '@/pages/not-found.vue';
 
@@ -224,7 +224,7 @@ const headerTabs = computed(() => [
 	})),
 ]);
 
-definePageMetadata(() => ({
+definePage(() => ({
 	title: i18n.ts._followRequestHistory.title,
 	icon: 'ti ti-history-toggle',
 }));

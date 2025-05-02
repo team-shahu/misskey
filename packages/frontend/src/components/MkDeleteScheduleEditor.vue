@@ -37,24 +37,25 @@
 import { ref, watch } from 'vue';
 import MkInput from './MkInput.vue';
 import MkSelect from './MkSelect.vue';
-import { formatDateTimeString } from '@/scripts/format-time-string.js';
-import { addTime } from '@/scripts/time.js';
-import { defaultStore } from '@/store.js';
+import { formatDateTimeString } from '@/utility/format-time-string.js';
+import { addTime } from '@/utility/time.js';
+import { store } from '@/store.js';
+import { prefer } from '@/preferences.js';
 import { i18n } from '@/i18n.js';
 
 export type DeleteScheduleEditorModelValue = {
-		deleteAt: number | null;
-		deleteAfter: number | null;
-		isValid: boolean;
-	};
+	deleteAt: number | null;
+	deleteAfter: number | null;
+	isValid: boolean;
+};
 
 const props = defineProps<{
-		modelValue: DeleteScheduleEditorModelValue;
-		afterOnly?: boolean;
+	modelValue: DeleteScheduleEditorModelValue;
+	afterOnly?: boolean;
 }>();
 const emit = defineEmits<{
-		(ev: 'update:modelValue', v: DeleteScheduleEditorModelValue): void;
-	}>();
+	(ev: 'update:modelValue', v: DeleteScheduleEditorModelValue): void;
+}>();
 
 const expiration = ref<'at' | 'after'>('after');
 const atDate = ref(formatDateTimeString(addTime(new Date(), 1, 'day'), 'yyyy-MM-dd'));
@@ -63,7 +64,7 @@ const after = ref(0);
 const unit = ref<'second' | 'minute' | 'hour' | 'day'>('second');
 const isValid = ref(true);
 
-const showDetail = ref(!defaultStore.state.defaultScheduledNoteDelete);
+const showDetail = ref(!prefer.s.defaultScheduledNoteDelete);
 
 const beautifyAfter = (base: number) => {
 	let time = base;
@@ -86,7 +87,7 @@ const beautifyAfter = (base: number) => {
 	after.value = time;
 };
 
-beautifyAfter(defaultStore.state.defaultScheduledNoteDeleteTime / 1000);
+beautifyAfter(prefer.s.defaultScheduledNoteDeleteTime / 1000);
 
 if (props.modelValue.deleteAt) {
 	expiration.value = 'at';

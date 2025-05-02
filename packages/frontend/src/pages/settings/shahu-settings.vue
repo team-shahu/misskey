@@ -246,105 +246,105 @@ import FromSlot from '@/components/form/slot.vue';
 import MkCustomEmoji from '@/components/global/MkCustomEmoji.vue';
 import MkEmoji from '@/components/global/MkEmoji.vue';
 import MkFormFooter from '@/components/MkFormFooter.vue';
-import { defaultStore } from '@/store.js';
+import { prefer } from '@/preferences.js';
 import * as os from '@/os.js';
-import { reloadAsk } from '@/scripts/reload-ask.js';
+import { reloadAsk } from '@/utility/reload-ask.js';
 import { i18n } from '@/i18n.js';
-import { definePageMetadata } from '@/scripts/page-metadata.js';
-import { fontList } from '@/scripts/font';
+import { definePage } from '@/page.js';
+import { fontList } from '@/utility/font';
 import { instance } from '@/instance.js';
-import { $i } from '@/account.js';
-import { useForm } from '@/scripts/use-form.js';
+import { $i } from '@/i.js';
+import { useForm } from '@/use/use-form.js';
 
-const instanceTicker = computed(defaultStore.makeGetterSetter('instanceTicker'));
+const instanceTicker = prefer.s.instanceTicker;
 
 // フォームの定義
 const displaySettingsForm = useForm({
-	hideReactionCount: defaultStore.state.hideReactionCount,
-	hideReactionUsers: defaultStore.state.hideReactionUsers,
-	instanceIcon: defaultStore.state.instanceIcon,
-	disableNoteNyaize: defaultStore.state.disableNoteNyaize,
+	hideReactionCount: prefer.s.hideReactionCount,
+	hideReactionUsers: prefer.s.hideReactionUsers,
+	instanceIcon: prefer.s.instanceIcon,
+	disableNoteNyaize: prefer.s.disableNoteNyaize,
 }, async (state) => {
-	defaultStore.set('hideReactionCount', state.hideReactionCount);
-	defaultStore.set('hideReactionUsers', state.hideReactionUsers);
-	defaultStore.set('instanceIcon', state.instanceIcon);
-	defaultStore.set('disableNoteNyaize', state.disableNoteNyaize);
+	prefer.commit('hideReactionCount', state.hideReactionCount);
+	prefer.commit('hideReactionUsers', state.hideReactionUsers);
+	prefer.commit('instanceIcon', state.instanceIcon);
+	prefer.commit('disableNoteNyaize', state.disableNoteNyaize);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
 const likeSettingsForm = useForm({
-	showLikeButton: defaultStore.state.showLikeButton,
-	selectReaction: defaultStore.state.selectReaction || '',
+	showLikeButton: prefer.s.showLikeButton,
+	selectReaction: prefer.s.selectReaction || '',
 }, async (state) => {
-	defaultStore.set('showLikeButton', state.showLikeButton);
-	defaultStore.set('selectReaction', state.selectReaction);
+	prefer.commit('showLikeButton', state.showLikeButton);
+	prefer.commit('selectReaction', state.selectReaction);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
 const appearanceSettingsForm = useForm({
-	customFont: defaultStore.state.customFont,
+	customFont: prefer.s.customFont,
 }, async (state) => {
-	defaultStore.set('customFont', state.customFont);
+	prefer.commit('customFont', state.customFont);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
 const behaviorSettingsForm = useForm({
-	reactionChecksMuting: defaultStore.state.reactionChecksMuting,
+	reactionChecksMuting: prefer.s.reactionChecksMuting,
 }, async (state) => {
-	defaultStore.set('reactionChecksMuting', state.reactionChecksMuting);
+	prefer.commit('reactionChecksMuting', state.reactionChecksMuting);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
 const profileHiddenSettingsForm = useForm({
-	hiddenPinnedNotes: defaultStore.state.hiddenPinnedNotes,
-	hiddenActivity: defaultStore.state.hiddenActivity,
-	hiddenFiles: defaultStore.state.hiddenFiles,
+	hiddenPinnedNotes: prefer.s.hiddenPinnedNotes,
+	hiddenActivity: prefer.s.hiddenActivity,
+	hiddenFiles: prefer.s.hiddenFiles,
 }, async (state) => {
-	defaultStore.set('hiddenPinnedNotes', state.hiddenPinnedNotes);
-	defaultStore.set('hiddenActivity', state.hiddenActivity);
-	defaultStore.set('hiddenFiles', state.hiddenFiles);
+	prefer.commit('hiddenPinnedNotes', state.hiddenPinnedNotes);
+	prefer.commit('hiddenActivity', state.hiddenActivity);
+	prefer.commit('hiddenFiles', state.hiddenFiles);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
 const timelineSettingsForm = useForm({
-	hideLocalTimeLine: defaultStore.state.hideLocalTimeLine,
-	hideSocialTimeLine: defaultStore.state.hideSocialTimeLine,
-	hideGlobalTimeLine: defaultStore.state.hideGlobalTimeLine,
+	hideLocalTimeLine: prefer.s.hideLocalTimeLine,
+	hideSocialTimeLine: prefer.s.hideSocialTimeLine,
+	hideGlobalTimeLine: prefer.s.hideGlobalTimeLine,
 }, async (state) => {
-	defaultStore.set('hideLocalTimeLine', state.hideLocalTimeLine);
-	defaultStore.set('hideSocialTimeLine', state.hideSocialTimeLine);
-	defaultStore.set('hideGlobalTimeLine', state.hideGlobalTimeLine);
+	prefer.commit('hideLocalTimeLine', state.hideLocalTimeLine);
+	prefer.commit('hideSocialTimeLine', state.hideSocialTimeLine);
+	prefer.commit('hideGlobalTimeLine', state.hideGlobalTimeLine);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
 const llmSettingsForm = useForm({
-	useGeminiLLMAPI: defaultStore.state.useGeminiLLMAPI,
-	geminiToken: defaultStore.state.geminiToken || '',
-	geminiModels: defaultStore.state.geminiModels || 'gemini-2.0-flash',
-	geminiSystemPrompt: defaultStore.state.geminiSystemPrompt || '',
-	geminiPromptNote: defaultStore.state.geminiPromptNote || '',
-	geminiPromptProfile: defaultStore.state.geminiPromptProfile || '',
-	geminiNoteLongText: defaultStore.state.geminiNoteLongText || '',
-	geminiNoteShortText: defaultStore.state.geminiNoteShortText || '',
-	geminiNoteSimpleText: defaultStore.state.geminiNoteSimpleText || '',
-	geminiNoteCasualText: defaultStore.state.geminiNoteCasualText || '',
-	geminiNoteProfessionalText: defaultStore.state.geminiNoteProfessionalText || '',
-	geminiNoteCatText: defaultStore.state.geminiNoteCatText || '',
-	geminiNoteCustomText: defaultStore.state.geminiNoteCustomText || '',
+	useGeminiLLMAPI: prefer.s.useGeminiLLMAPI,
+	geminiToken: prefer.s.geminiToken || '',
+	geminiModels: prefer.s.geminiModels || 'gemini-2.0-flash',
+	geminiSystemPrompt: prefer.s.geminiSystemPrompt || '',
+	geminiPromptNote: prefer.s.geminiPromptNote || '',
+	geminiPromptProfile: prefer.s.geminiPromptProfile || '',
+	geminiNoteLongText: prefer.s.geminiNoteLongText || '',
+	geminiNoteShortText: prefer.s.geminiNoteShortText || '',
+	geminiNoteSimpleText: prefer.s.geminiNoteSimpleText || '',
+	geminiNoteCasualText: prefer.s.geminiNoteCasualText || '',
+	geminiNoteProfessionalText: prefer.s.geminiNoteProfessionalText || '',
+	geminiNoteCatText: prefer.s.geminiNoteCatText || '',
+	geminiNoteCustomText: prefer.s.geminiNoteCustomText || '',
 }, async (state) => {
-	defaultStore.set('useGeminiLLMAPI', $i?.policies.canUseGeminiLLMAPI ? state.useGeminiLLMAPI : false);
-	defaultStore.set('geminiToken', state.geminiToken);
-	defaultStore.set('geminiModels', state.geminiModels);
-	defaultStore.set('geminiSystemPrompt', state.geminiSystemPrompt);
-	defaultStore.set('geminiPromptNote', state.geminiPromptNote);
-	defaultStore.set('geminiPromptProfile', state.geminiPromptProfile);
-	defaultStore.set('geminiNoteLongText', state.geminiNoteLongText);
-	defaultStore.set('geminiNoteShortText', state.geminiNoteShortText);
-	defaultStore.set('geminiNoteSimpleText', state.geminiNoteSimpleText);
-	defaultStore.set('geminiNoteCasualText', state.geminiNoteCasualText);
-	defaultStore.set('geminiNoteProfessionalText', state.geminiNoteProfessionalText);
-	defaultStore.set('geminiNoteCatText', state.geminiNoteCatText);
-	defaultStore.set('geminiNoteCustomText', state.geminiNoteCustomText);
+	prefer.commit('useGeminiLLMAPI', $i?.policies.canUseGeminiLLMAPI ? state.useGeminiLLMAPI : false);
+	prefer.commit('geminiToken', state.geminiToken);
+	prefer.commit('geminiModels', state.geminiModels);
+	prefer.commit('geminiSystemPrompt', state.geminiSystemPrompt);
+	prefer.commit('geminiPromptNote', state.geminiPromptNote);
+	prefer.commit('geminiPromptProfile', state.geminiPromptProfile);
+	prefer.commit('geminiNoteLongText', state.geminiNoteLongText);
+	prefer.commit('geminiNoteShortText', state.geminiNoteShortText);
+	prefer.commit('geminiNoteSimpleText', state.geminiNoteSimpleText);
+	prefer.commit('geminiNoteCasualText', state.geminiNoteCasualText);
+	prefer.commit('geminiNoteProfessionalText', state.geminiNoteProfessionalText);
+	prefer.commit('geminiNoteCatText', state.geminiNoteCatText);
+	prefer.commit('geminiNoteCustomText', state.geminiNoteCustomText);
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
 
@@ -380,7 +380,7 @@ function disableAllHidden() {
 const headerActions = computed(() => []);
 const headerTabs = computed(() => []);
 
-definePageMetadata(() => ({
+definePage(() => ({
 	title: 'shahu-fork',
 	icon: 'ti ti-adjustments',
 }));

@@ -203,6 +203,8 @@ const QUEUE_TYPES = [
 	'objectStorage',
 	'userWebhookDeliver',
 	'systemWebhookDeliver',
+	'scheduleNotePost',
+	'scheduledNoteDelete',
 ] as const;
 
 const tab: Ref<typeof QUEUE_TYPES[number] | '-'> = ref('-');

@@ -158,15 +158,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 								</MkPreferenceContainer>
 							</SearchMarker>
 
-							<SearchMarker :keywords="['post', 'form', 'settings']">
-								<FormLink to="/settings/post-form">
-									<template #label>
-										{{ i18n.ts.postForm }}
-										<span class="_beta">{{ i18n.ts.originalFeature }}</span>
-									</template>
-								</FormLink>
-							</SearchMarker>
-
 							<SearchMarker :keywords="['note', 'timeline', 'gap']">
 								<MkPreferenceContainer k="showGapBetweenNotesInTimeline">
 									<MkSwitch v-model="showGapBetweenNotesInTimeline">
@@ -355,6 +346,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 										<option value="always">{{ i18n.ts._instanceTicker.always }}</option>
 									</MkSelect>
 								</MkPreferenceContainer>
+							</SearchMarker>
+
+							<SearchMarker :keywords="['instance', 'icon']">
 								<MkPreferenceContainer k="instanceIcon">
 									<MkSwitch v-if="instance.federation !== 'none' && instanceTicker !== 'none'" v-model="instanceIcon">
 										<template #label>
@@ -438,6 +432,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 									</div>
 								</MkFolder>
 							</MkDisableSection>
+						</SearchMarker>
+
+						<SearchMarker :keywords="['post', 'form', 'settings']">
+							<FormLink to="/settings/post-form">
+								{{ i18n.ts.postForm }}
+								<span class="_beta">{{ i18n.ts.originalFeature }}</span>
+							</FormLink>
 						</SearchMarker>
 					</div>
 				</MkFolder>
@@ -960,20 +961,20 @@ const menuStyle = prefer.model('menuStyle');
 const makeEveryTextElementsSelectable = prefer.model('makeEveryTextElementsSelectable');
 
 // region Original Features
-const hideReactionCount = store.makeGetterSetter('hideReactionCount');
-const hideReactionUsers = store.makeGetterSetter('hideReactionUsers');
-const customFont = store.makeGetterSetter('customFont');
-const hiddenPinnedNotes = store.makeGetterSetter('hiddenPinnedNotes');
-const hiddenActivity = store.makeGetterSetter('hiddenActivity');
-const hiddenFiles = store.makeGetterSetter('hiddenFiles');
-const instanceIcon = store.makeGetterSetter('instanceIcon');
-const disableNoteNyaize = store.makeGetterSetter('disableNoteNyaize');
-const reactionChecksMuting = store.makeGetterSetter('reactionChecksMuting');
-const hideLocalTimeLine = store.makeGetterSetter('hideLocalTimeLine');
-const hideGlobalTimeLine = store.makeGetterSetter('hideGlobalTimeLine');
-const hideSocialTimeLine = store.makeGetterSetter('hideSocialTimeLine');
-const selectReaction = store.makeGetterSetter('selectReaction');
-const showLikeButton = store.makeGetterSetter('showLikeButton');
+const hideReactionCount = prefer.model('hideReactionCount');
+const hideReactionUsers = prefer.model('hideReactionUsers');
+const customFont = prefer.model('customFont');
+const hiddenPinnedNotes = prefer.model('hiddenPinnedNotes');
+const hiddenActivity = prefer.model('hiddenActivity');
+const hiddenFiles = prefer.model('hiddenFiles');
+const instanceIcon = prefer.model('instanceIcon');
+const disableNoteNyaize = prefer.model('disableNoteNyaize');
+const reactionChecksMuting = prefer.model('reactionChecksMuting');
+const hideLocalTimeLine = prefer.model('hideLocalTimeLine');
+const hideGlobalTimeLine = prefer.model('hideGlobalTimeLine');
+const hideSocialTimeLine = prefer.model('hideSocialTimeLine');
+const selectReaction = prefer.model('selectReaction');
+const showLikeButton = prefer.model('showLikeButton');
 // endregion Original Features
 
 const fontSize = ref(miLocalStorage.getItem('fontSize'));

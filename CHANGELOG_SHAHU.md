@@ -10,6 +10,11 @@
 
   
 -->
+## shahu.1.10.2
+### General
+- 2025.4.1の変更により、[独自機能がupstreamに取り込まれた](https://github.com/misskey-dev/misskey/pull/15264)ため、一部の独自機能を削除しました
+
+  
 ## shahu.1.10.1
 ### General
 - Fix: ロール剥奪後もサーバーサイドLLMが使えてしまうバグの修正

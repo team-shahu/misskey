@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<MkFolder>
 							<template #icon><i class="ti ti-eye"></i></template>
 							<template #label>
-								{{ i18n.ts.displayOfNote }}<span class="_beta">{{ i18n.ts.originalFeature
+								{{ i18n.ts._settings.timelineAndNote }}<span class="_beta">{{ i18n.ts.originalFeature
 								}}</span>
 							</template>
 							<template v-if="displaySettingsForm.modified.value" #footer>

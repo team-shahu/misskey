@@ -10,13 +10,13 @@
 
   
 -->
-## Unlereased
+## shahu.1.10.3
 ### General
-
+- Fix: ユーザーメニューが開けなかった問題の修正
 ### Client
+- Enhance: 投稿フォーム設定を独自機能の設定と統合し、簡素化されました
 - Enhance: 各ページに散乱していた独自機能が、単一のページに集約されました
 - Enhance: 独自機能の設定ページに`MkPreferenceContainer`が追加され、各機能の設定がしやすくなりました
-### Server
 
   
 ## shahu.1.10.2

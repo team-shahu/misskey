@@ -112,16 +112,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 								</div>
 							</MkPreferenceContainer>
 						</SearchMarker>
-
-						<SearchMarker :keywords="['font', 'custom', 'typeface']">
-							<MkPreferenceContainer k="customFont">
-								<MkSelect v-model="customFont">
-									<template #label><SearchLabel>{{ i18n.ts.customFont }}</SearchLabel><span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-									<option :value="null">{{ i18n.ts.default }}</option>
-									<option v-for="[name, font] of Object.entries(fontList)" :key="name" :value="name">{{ font.name }}</option>
-								</MkSelect>
-							</MkPreferenceContainer>
-						</SearchMarker>
 					</div>
 				</MkFolder>
 			</SearchMarker>
@@ -220,15 +210,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 									</MkPreferenceContainer>
 								</SearchMarker>
 
-								<SearchMarker :keywords="['reaction', 'muting', 'checks']">
-									<MkPreferenceContainer k="reactionChecksMuting">
-										<MkSwitch v-model="reactionChecksMuting">
-											<template #label><SearchLabel>{{ i18n.ts._reactionChecksMuting.title }}</SearchLabel><span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-											<template #caption>{{ i18n.ts._reactionChecksMuting.caption }}</template>
-										</MkSwitch>
-									</MkPreferenceContainer>
-								</SearchMarker>
-
 								<SearchMarker :keywords="['image', 'photo', 'picture', 'media', 'thumbnail', 'quality', 'raw', 'attachment']">
 									<MkPreferenceContainer k="loadRawImages">
 										<MkSwitch v-model="loadRawImages">
@@ -265,27 +246,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 								</MkPreferenceContainer>
 							</SearchMarker>
 
-							<SearchMarker :keywords="['reaction', 'count', 'hide']">
-								<MkPreferenceContainer k="hideReactionCount">
-									<MkSelect v-model="hideReactionCount">
-										<template #label>{{ i18n.ts.hideReactionCount }}<span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-										<option value="none">{{ i18n.ts._hideReactionCount.none }}</option>
-										<option value="self">{{ i18n.ts._hideReactionCount.self }}</option>
-										<option value="others">{{ i18n.ts._hideReactionCount.others }}</option>
-										<option value="all">{{ i18n.ts._hideReactionCount.all }}</option>
-									</MkSelect>
-								</MkPreferenceContainer>
-							</SearchMarker>
-							<SearchMarker :keywords="['reaction', 'users', 'hide']">
-								<MkPreferenceContainer k="hideReactionUsers">
-									<MkSwitch v-model="hideReactionUsers">
-										<template #caption>{{ i18n.ts.hideReactionUsersDescription }}</template>
-										{{ i18n.ts.hideReactionUsers }}
-										<span class="_beta">{{ i18n.ts.originalFeature }}</span>
-									</MkSwitch>
-								</MkPreferenceContainer>
-							</SearchMarker>
-
 							<SearchMarker :keywords="['attachment', 'image', 'photo', 'picture', 'media', 'thumbnail', 'list', 'size', 'height']">
 								<MkPreferenceContainer k="mediaListWithOneImageAppearance">
 									<MkRadios v-model="mediaListWithOneImageAppearance">
@@ -298,45 +258,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 								</MkPreferenceContainer>
 							</SearchMarker>
 
-							<SearchMarker :keywords="['nyaize', 'disable', 'note']">
-								<MkPreferenceContainer k="disableNoteNyaize">
-									<MkSwitch v-model="disableNoteNyaize">
-										<template #label>
-											{{ i18n.ts.disableNoteNyaize }}
-											<span class="_beta">{{ i18n.ts.originalFeature }}</span>
-										</template>
-									</MkSwitch>
-								</MkPreferenceContainer>
-							</SearchMarker>
-
-							<SearchMarker :keywords="['like', 'reaction', 'button']">
-								<MkFolder>
-									<template #label>
-										{{ i18n.ts.like }}
-										<span class="_beta">{{ i18n.ts.originalFeature }}</span>
-									</template>
-									<div class="_gaps_m">
-										<MkPreferenceContainer k="showLikeButton">
-											<MkSwitch v-model="showLikeButton">
-												<template #label>{{ i18n.ts.showLikeButton }}</template>
-											</MkSwitch>
-										</MkPreferenceContainer>
-										<MkPreferenceContainer k="selectReaction">
-											<FromSlot v-model="selectReaction">
-												<template #label>{{ i18n.ts.selectReaction }}</template>
-												<MkCustomEmoji v-if="selectReaction && selectReaction.startsWith(':')" style="max-height: 3em; font-size: 1.1em;" :useOriginalSize="false" :name="selectReaction" :normal="true" :noStyle="true"/>
-												<MkEmoji v-else-if="selectReaction && !selectReaction.startsWith(':')" :emoji="selectReaction" style="max-height: 3em; font-size: 1.1em;" :normal="true" :noStyle="true"/>
-												<span v-else-if="!selectReaction">{{ i18n.ts.notSet }}</span>
-												<div class="_buttons" style="padding-top: 8px;">
-													<MkButton rounded :small="true" inline @click="chooseNewReaction"><i class="ti ti-mood-happy"></i> Change</MkButton>
-													<MkButton rounded :small="true" inline @click="resetReaction"><i class="ti ti-reload"></i> Reset</MkButton>
-												</div>
-											</FromSlot>
-										</MkPreferenceContainer>
-									</div>
-								</MkFolder>
-							</SearchMarker>
-
 							<SearchMarker :keywords="['ticker', 'information', 'label', 'instance', 'server', 'host', 'federation']">
 								<MkPreferenceContainer k="instanceTicker">
 									<MkSelect v-if="instance.federation !== 'none'" v-model="instanceTicker">
@@ -345,18 +266,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 										<option value="remote">{{ i18n.ts._instanceTicker.remote }}</option>
 										<option value="always">{{ i18n.ts._instanceTicker.always }}</option>
 									</MkSelect>
-								</MkPreferenceContainer>
-							</SearchMarker>
-
-							<SearchMarker :keywords="['instance', 'icon']">
-								<MkPreferenceContainer k="instanceIcon">
-									<MkSwitch v-if="instance.federation !== 'none' && instanceTicker !== 'none'" v-model="instanceIcon">
-										<template #label>
-											<SearchLabel>{{ i18n.ts.instanceIcon }}</SearchLabel>
-											<span class="_beta">{{ i18n.ts.originalFeature }}</span>
-										</template>
-										<template #caption>{{ i18n.ts.instanceIconDescription }}</template>
-									</MkSwitch>
 								</MkPreferenceContainer>
 							</SearchMarker>
 
@@ -432,13 +341,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 									</div>
 								</MkFolder>
 							</MkDisableSection>
-						</SearchMarker>
-
-						<SearchMarker :keywords="['post', 'form', 'settings']">
-							<FormLink to="/settings/post-form">
-								{{ i18n.ts.postForm }}
-								<span class="_beta">{{ i18n.ts.originalFeature }}</span>
-							</FormLink>
 						</SearchMarker>
 					</div>
 				</MkFolder>
@@ -706,59 +608,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 				</MkFolder>
 			</SearchMarker>
 
-			<SearchMarker :keywords="['profile', 'hidden', 'privacy']">
-				<MkFolder>
-					<template #label><SearchLabel>{{ i18n.ts._profileHiddenSettings.hiddenProfile }}</SearchLabel><span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-					<div class="_gaps_m">
-						<div class="_buttons">
-							<MkButton inline @click="enableAllHidden">{{ i18n.ts.enableAll }}</MkButton>
-							<MkButton inline @click="disableAllHidden">{{ i18n.ts.disableAll }}</MkButton>
-						</div>
-						<MkPreferenceContainer k="hiddenPinnedNotes">
-							<MkSwitch v-model="hiddenPinnedNotes">
-								<template #label><SearchLabel>{{ i18n.ts._profileHiddenSettings.hiddenPinnedNotes }}</SearchLabel></template>
-								<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenPinnedNotesDescription }}</template>
-							</MkSwitch>
-						</MkPreferenceContainer>
-						<MkPreferenceContainer k="hiddenActivity">
-							<MkSwitch v-model="hiddenActivity">
-								<template #label><SearchLabel>{{ i18n.ts._profileHiddenSettings.hiddenActivity }}</SearchLabel></template>
-								<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenActivityDescription }}</template>
-							</MkSwitch>
-						</MkPreferenceContainer>
-						<MkPreferenceContainer k="hiddenFiles">
-							<MkSwitch v-model="hiddenFiles">
-								<template #label><SearchLabel>{{ i18n.ts._profileHiddenSettings.hiddenFiles }}</SearchLabel></template>
-								<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenFilesDescription }}</template>
-							</MkSwitch>
-						</MkPreferenceContainer>
-					</div>
-				</MkFolder>
-			</SearchMarker>
-
-			<SearchMarker :keywords="['timeline', 'hide', 'local', 'social', 'global']">
-				<MkFolder>
-					<template #label><SearchLabel>{{ i18n.ts.timeline }}</SearchLabel><span class="_beta">{{ i18n.ts.originalFeature }}</span></template>
-					<div class="_gaps_m">
-						<MkPreferenceContainer k="hideLocalTimeLine">
-							<MkSwitch v-model="hideLocalTimeLine">
-								<template #label><SearchLabel>{{ i18n.ts.hideLocalTimeLine }}</SearchLabel></template>
-							</MkSwitch>
-						</MkPreferenceContainer>
-						<MkPreferenceContainer k="hideSocialTimeLine">
-							<MkSwitch v-model="hideSocialTimeLine">
-								<template #label><SearchLabel>{{ i18n.ts.hideSocialTimeLine }}</SearchLabel></template>
-							</MkSwitch>
-						</MkPreferenceContainer>
-						<MkPreferenceContainer k="hideGlobalTimeLine">
-							<MkSwitch v-model="hideGlobalTimeLine">
-								<template #label><SearchLabel>{{ i18n.ts.hideGlobalTimeLine }}</SearchLabel></template>
-							</MkSwitch>
-						</MkPreferenceContainer>
-					</div>
-				</MkFolder>
-			</SearchMarker>
-
 			<SearchMarker v-slot="slotProps" :keywords="['other']">
 				<MkFolder :defaultOpen="slotProps.isParentOfTarget">
 					<template #label><SearchLabel>{{ i18n.ts.other }}</SearchLabel></template>
@@ -960,23 +809,6 @@ const contextMenu = prefer.model('contextMenu');
 const menuStyle = prefer.model('menuStyle');
 const makeEveryTextElementsSelectable = prefer.model('makeEveryTextElementsSelectable');
 
-// region Original Features
-const hideReactionCount = prefer.model('hideReactionCount');
-const hideReactionUsers = prefer.model('hideReactionUsers');
-const customFont = prefer.model('customFont');
-const hiddenPinnedNotes = prefer.model('hiddenPinnedNotes');
-const hiddenActivity = prefer.model('hiddenActivity');
-const hiddenFiles = prefer.model('hiddenFiles');
-const instanceIcon = prefer.model('instanceIcon');
-const disableNoteNyaize = prefer.model('disableNoteNyaize');
-const reactionChecksMuting = prefer.model('reactionChecksMuting');
-const hideLocalTimeLine = prefer.model('hideLocalTimeLine');
-const hideGlobalTimeLine = prefer.model('hideGlobalTimeLine');
-const hideSocialTimeLine = prefer.model('hideSocialTimeLine');
-const selectReaction = prefer.model('selectReaction');
-const showLikeButton = prefer.model('showLikeButton');
-// endregion Original Features
-
 const fontSize = ref(miLocalStorage.getItem('fontSize'));
 const useSystemFont = ref(miLocalStorage.getItem('useSystemFont') != null);
 
@@ -1029,13 +861,6 @@ watch([
 	fontSize,
 	useSystemFont,
 	makeEveryTextElementsSelectable,
-	hideReactionCount,
-	instanceIcon,
-	hiddenPinnedNotes,
-	hiddenActivity,
-	hiddenFiles,
-	selectReaction,
-	showLikeButton,
 ], async () => {
 	await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true });
 });
@@ -1150,39 +975,6 @@ function testNotification(): void {
 		smashCount = 0;
 	}, 300);
 }
-
-// region Original Features
-function chooseNewReaction(ev: MouseEvent) {
-	os.pickEmoji(getHTMLElement(ev), {
-		showPinned: false,
-	}).then(async (emoji) => {
-		selectReaction.value = emoji as string; // 選択された絵文字を格納
-		await reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true }); // 必要ならリロードや更新処理
-	});
-}
-
-function resetReaction() {
-	selectReaction.value = ''; // `selectReaction` をリセット
-	reloadAsk({ reason: i18n.ts.reloadToApplySetting, unison: true }); // 必要ならリロードや更新処理
-}
-
-function getHTMLElement(ev: MouseEvent): HTMLElement {
-	const target = ev.currentTarget ?? ev.target;
-	return target as HTMLElement; // イベント発生元の HTML 要素を取得
-}
-
-function enableAllHidden() {
-	store.set('hiddenPinnedNotes', true);
-	store.set('hiddenActivity', true);
-	store.set('hiddenFiles', true);
-}
-
-function disableAllHidden() {
-	store.set('hiddenPinnedNotes', false);
-	store.set('hiddenActivity', false);
-	store.set('hiddenFiles', false);
-}
-// endregion Original Features
 
 const headerActions = computed(() => []);
 

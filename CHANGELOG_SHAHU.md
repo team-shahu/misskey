@@ -10,6 +10,15 @@
 
   
 -->
+## Unlereased
+### General
+
+### Client
+- Enhance: 各ページに散乱していた独自機能が、単一のページに集約されました
+- Enhance: 独自機能の設定ページに`MkPreferenceContainer`が追加され、各機能の設定がしやすくなりました
+### Server
+
+  
 ## shahu.1.10.2
 ### General
 - 2025.4.1の変更により、[独自機能がupstreamに取り込まれた](https://github.com/misskey-dev/misskey/pull/15264)ため、一部の独自機能を削除しました

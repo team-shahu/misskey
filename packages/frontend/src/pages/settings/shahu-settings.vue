@@ -31,29 +31,34 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</template>
 
 							<div class="_gaps_s">
-								<MkSelect v-model="displaySettingsForm.state.hideReactionCount">
-									<template #label>{{ i18n.ts.hideReactionCount }}</template>
-									<option value="none">{{ i18n.ts._hideReactionCount.none }}</option>
-									<option value="self">{{ i18n.ts._hideReactionCount.self }}</option>
-									<option value="others">{{ i18n.ts._hideReactionCount.others }}</option>
-									<option value="all">{{ i18n.ts._hideReactionCount.all }}</option>
-								</MkSelect>
-								<MkSwitch v-model="displaySettingsForm.state.hideReactionUsers">
-									<template #caption>{{ i18n.ts.hideReactionUsersDescription }}</template>
-									{{ i18n.ts.hideReactionUsers }}
-								</MkSwitch>
+								<MkPreferenceContainer k="hideReactionCount">
+									<MkSelect v-model="displaySettingsForm.state.hideReactionCount">
+										<template #label>{{ i18n.ts.hideReactionCount }}</template>
+										<option value="none">{{ i18n.ts._hideReactionCount.none }}</option>
+										<option value="self">{{ i18n.ts._hideReactionCount.self }}</option>
+										<option value="others">{{ i18n.ts._hideReactionCount.others }}</option>
+										<option value="all">{{ i18n.ts._hideReactionCount.all }}</option>
+									</MkSelect>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="hideReactionUsers">
+									<MkSwitch v-model="displaySettingsForm.state.hideReactionUsers">
+										<template #caption>{{ i18n.ts.hideReactionUsersDescription }}</template>
+										{{ i18n.ts.hideReactionUsers }}
+									</MkSwitch>
+								</MkPreferenceContainer>
 
-								<MkSwitch
-									v-if="instance.federation !== 'none' && instanceTicker !== 'none'"
-									v-model="displaySettingsForm.state.instanceIcon"
-								>
-									<template #caption>{{ i18n.ts.instanceIconDescription }}</template>
-									{{ i18n.ts.instanceIcon }}
-								</MkSwitch>
+								<MkPreferenceContainer v-if="instance.federation !== 'none' && instanceTicker !== 'none'" k="instanceIcon">
+									<MkSwitch v-model="displaySettingsForm.state.instanceIcon">
+										<template #caption>{{ i18n.ts.instanceIconDescription }}</template>
+										{{ i18n.ts.instanceIcon }}
+									</MkSwitch>
+								</MkPreferenceContainer>
 
-								<MkSwitch v-model="displaySettingsForm.state.disableNoteNyaize">
-									{{ i18n.ts.disableNoteNyaize }}
-								</MkSwitch>
+								<MkPreferenceContainer k="disableNoteNyaize">
+									<MkSwitch v-model="displaySettingsForm.state.disableNoteNyaize">
+										{{ i18n.ts.disableNoteNyaize }}
+									</MkSwitch>
+								</MkPreferenceContainer>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -67,31 +72,35 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</template>
 
 							<div class="_gaps_m">
-								<MkSwitch v-model="likeSettingsForm.state.showLikeButton">{{ i18n.ts.showLikeButton }}</MkSwitch>
+								<MkPreferenceContainer k="showLikeButton">
+									<MkSwitch v-model="likeSettingsForm.state.showLikeButton">{{ i18n.ts.showLikeButton }}</MkSwitch>
+								</MkPreferenceContainer>
 
-								<FromSlot v-model="likeSettingsForm.state.selectReaction">
-									<template #label>{{ i18n.ts.selectReaction }}</template>
-									<MkCustomEmoji
-										v-if="likeSettingsForm.state.selectReaction && likeSettingsForm.state.selectReaction.startsWith(':')"
-										style="max-height: 3em; font-size: 1.1em;" :useOriginalSize="false"
-										:name="likeSettingsForm.state.selectReaction" :normal="true" :noStyle="true"
-									/>
-									<MkEmoji
-										v-else-if="likeSettingsForm.state.selectReaction && !likeSettingsForm.state.selectReaction.startsWith(':')"
-										:emoji="likeSettingsForm.state.selectReaction" style="max-height: 3em; font-size: 1.1em;"
-										:normal="true" :noStyle="true"
-									/>
-									<span v-else-if="!likeSettingsForm.state.selectReaction">{{ i18n.ts.notSet }}</span>
-									<div class="_buttons" style="padding-top: 8px;">
-										<MkButton rounded :small="true" inline @click="chooseNewReaction">
-											<i class="ti ti-mood-happy"></i>
-											Change
-										</MkButton>
-										<MkButton rounded :small="true" inline @click="resetReaction">
-											<i class="ti ti-reload"></i> Reset
-										</MkButton>
-									</div>
-								</FromSlot>
+								<MkPreferenceContainer k="selectReaction">
+									<FromSlot v-model="likeSettingsForm.state.selectReaction">
+										<template #label>{{ i18n.ts.selectReaction }}</template>
+										<MkCustomEmoji
+											v-if="likeSettingsForm.state.selectReaction && likeSettingsForm.state.selectReaction.startsWith(':')"
+											style="max-height: 3em; font-size: 1.1em;" :useOriginalSize="false"
+											:name="likeSettingsForm.state.selectReaction" :normal="true" :noStyle="true"
+										/>
+										<MkEmoji
+											v-else-if="likeSettingsForm.state.selectReaction && !likeSettingsForm.state.selectReaction.startsWith(':')"
+											:emoji="likeSettingsForm.state.selectReaction" style="max-height: 3em; font-size: 1.1em;"
+											:normal="true" :noStyle="true"
+										/>
+										<span v-else-if="!likeSettingsForm.state.selectReaction">{{ i18n.ts.notSet }}</span>
+										<div class="_buttons" style="padding-top: 8px;">
+											<MkButton rounded :small="true" inline @click="chooseNewReaction">
+												<i class="ti ti-mood-happy"></i>
+												Change
+											</MkButton>
+											<MkButton rounded :small="true" inline @click="resetReaction">
+												<i class="ti ti-reload"></i> Reset
+											</MkButton>
+										</div>
+									</FromSlot>
+								</MkPreferenceContainer>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -108,11 +117,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</template>
 
 							<div class="_gaps_m">
-								<MkSelect v-model="appearanceSettingsForm.state.customFont">
-									<template #label>{{ i18n.ts.customFont }}</template>
-									<option :value="null">{{ i18n.ts.default }}</option>
-									<option v-for="[name, font] of Object.entries(fontList)" :value="name">{{ font.name }}</option>
-								</MkSelect>
+								<MkPreferenceContainer k="customFont">
+									<MkSelect v-model="appearanceSettingsForm.state.customFont">
+										<template #label>{{ i18n.ts.customFont }}</template>
+										<option :value="null">{{ i18n.ts.default }}</option>
+										<option v-for="[name, font] of Object.entries(fontList)" :key="name" :value="name">{{ font.name }}</option>
+									</MkSelect>
+								</MkPreferenceContainer>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -137,10 +148,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</template>
 
 							<div class="_gaps_s">
-								<MkSwitch v-model="behaviorSettingsForm.state.reactionChecksMuting">
-									{{ i18n.ts._reactionChecksMuting.title }}
-									<template #caption>{{ i18n.ts._reactionChecksMuting.caption }}</template>
-								</MkSwitch>
+								<MkPreferenceContainer k="reactionChecksMuting">
+									<MkSwitch v-model="behaviorSettingsForm.state.reactionChecksMuting">
+										{{ i18n.ts._reactionChecksMuting.title }}
+										<template #caption>{{ i18n.ts._reactionChecksMuting.caption }}</template>
+									</MkSwitch>
+								</MkPreferenceContainer>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -235,18 +248,24 @@ SPDX-License-Identifier: AGPL-3.0-only
 									<MkButton inline @click="enableAllHidden">{{ i18n.ts.enableAll }}</MkButton>
 									<MkButton inline @click="disableAllHidden">{{ i18n.ts.disableAll }}</MkButton>
 								</div>
-								<MkSwitch v-model="profileHiddenSettingsForm.state.hiddenPinnedNotes">
-									<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenPinnedNotesDescription }}</template>
-									{{ i18n.ts._profileHiddenSettings.hiddenPinnedNotes }}
-								</MkSwitch>
-								<MkSwitch v-model="profileHiddenSettingsForm.state.hiddenActivity">
-									<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenActivityDescription }}</template>
-									{{ i18n.ts._profileHiddenSettings.hiddenActivity }}
-								</MkSwitch>
-								<MkSwitch v-model="profileHiddenSettingsForm.state.hiddenFiles">
-									<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenFilesDescription }}</template>
-									{{ i18n.ts._profileHiddenSettings.hiddenFiles }}
-								</MkSwitch>
+								<MkPreferenceContainer k="hiddenPinnedNotes">
+									<MkSwitch v-model="profileHiddenSettingsForm.state.hiddenPinnedNotes">
+										<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenPinnedNotesDescription }}</template>
+										{{ i18n.ts._profileHiddenSettings.hiddenPinnedNotes }}
+									</MkSwitch>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="hiddenActivity">
+									<MkSwitch v-model="profileHiddenSettingsForm.state.hiddenActivity">
+										<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenActivityDescription }}</template>
+										{{ i18n.ts._profileHiddenSettings.hiddenActivity }}
+									</MkSwitch>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="hiddenFiles">
+									<MkSwitch v-model="profileHiddenSettingsForm.state.hiddenFiles">
+										<template #caption>{{ i18n.ts._profileHiddenSettings.hiddenFilesDescription }}</template>
+										{{ i18n.ts._profileHiddenSettings.hiddenFiles }}
+									</MkSwitch>
+								</MkPreferenceContainer>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -263,15 +282,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</template>
 
 							<div class="_gaps_m">
-								<MkSwitch v-model="timelineSettingsForm.state.hideLocalTimeLine">
-									{{ i18n.ts.hideLocalTimeLine }}
-								</MkSwitch>
-								<MkSwitch v-model="timelineSettingsForm.state.hideSocialTimeLine">
-									{{ i18n.ts.hideSocialTimeLine }}
-								</MkSwitch>
-								<MkSwitch v-model="timelineSettingsForm.state.hideGlobalTimeLine">
-									{{ i18n.ts.hideGlobalTimeLine }}
-								</MkSwitch>
+								<MkPreferenceContainer k="hideLocalTimeLine">
+									<MkSwitch v-model="timelineSettingsForm.state.hideLocalTimeLine">
+										{{ i18n.ts.hideLocalTimeLine }}
+									</MkSwitch>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="hideSocialTimeLine">
+									<MkSwitch v-model="timelineSettingsForm.state.hideSocialTimeLine">
+										{{ i18n.ts.hideSocialTimeLine }}
+									</MkSwitch>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="hideGlobalTimeLine">
+									<MkSwitch v-model="timelineSettingsForm.state.hideGlobalTimeLine">
+										{{ i18n.ts.hideGlobalTimeLine }}
+									</MkSwitch>
+								</MkPreferenceContainer>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -288,47 +313,56 @@ SPDX-License-Identifier: AGPL-3.0-only
 							</template>
 
 							<div class="_gaps_m">
-								<MkSwitch
-									v-model="llmSettingsForm.state.useGeminiLLMAPI"
-									:disabled="!$i?.policies.canUseGeminiLLMAPI"
-								>
-									{{ i18n.ts._llm.useGeminiLLMAPI }}
-									<template #caption>{{ i18n.ts._llm.useGeminiLLMAPIDescription }}</template>
-								</MkSwitch>
+								<MkPreferenceContainer k="useGeminiLLMAPI">
+									<MkSwitch
+										v-model="llmSettingsForm.state.useGeminiLLMAPI"
+										:disabled="!$i?.policies.canUseGeminiLLMAPI"
+									>
+										{{ i18n.ts._llm.useGeminiLLMAPI }}
+										<template #caption>{{ i18n.ts._llm.useGeminiLLMAPIDescription }}</template>
+									</MkSwitch>
+								</MkPreferenceContainer>
 
-								<MkInput
-									v-model="llmSettingsForm.state.geminiToken" type="text"
-									:disabled="llmSettingsForm.state.useGeminiLLMAPI"
-								>
-									<template #label>{{ i18n.ts._llm.geminiTokenLabel }}</template>
-									<template #caption>{{ i18n.ts._llm.geminiTokenCaption }}</template>
-								</MkInput>
+								<MkPreferenceContainer k="geminiToken">
+									<MkInput
+										v-model="llmSettingsForm.state.geminiToken" type="text"
+										:disabled="llmSettingsForm.state.useGeminiLLMAPI"
+									>
+										<template #label>{{ i18n.ts._llm.geminiTokenLabel }}</template>
+										<template #caption>{{ i18n.ts._llm.geminiTokenCaption }}</template>
+									</MkInput>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="geminiModels">
+									<MkSelect
+										v-model="llmSettingsForm.state.geminiModels"
+										:disabled="llmSettingsForm.state.useGeminiLLMAPI"
+									>
+										<template #label>{{ i18n.ts._llm.geminiModelLabel }}</template>
+										<option value="gemini-2.0-flash">gemini-2.0-flash</option>
+										<option value="gemini-1.5-flash">gemini-1.5-flash</option>
+										<option value="gemini-1.5-pro">gemini-1.5-pro</option>
+										<option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
+									</MkSelect>
+								</MkPreferenceContainer>
 
-								<MkSelect
-									v-model="llmSettingsForm.state.geminiModels"
-									:disabled="llmSettingsForm.state.useGeminiLLMAPI"
-								>
-									<template #label>{{ i18n.ts._llm.geminiModelLabel }}</template>
-									<option value="gemini-2.0-flash">gemini-2.0-flash</option>
-									<option value="gemini-1.5-flash">gemini-1.5-flash</option>
-									<option value="gemini-1.5-pro">gemini-1.5-pro</option>
-									<option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
-								</MkSelect>
-
-								<MkInput v-model="llmSettingsForm.state.geminiSystemPrompt" type="text">
-									<template #label>{{ i18n.ts._llm.geminiSystemPromptLabel }}</template>
-									<template #caption>{{ i18n.ts._llm.geminiSystemPromptCaption }}</template>
-								</MkInput>
-
-								<MkInput v-model="llmSettingsForm.state.geminiPromptNote" type="text">
-									<template #label>{{ i18n.ts._llm.geminiSummarizePromptLabel }}</template>
-									<template #caption>{{ i18n.ts._llm.geminiSummarizePromptCaption }}</template>
-								</MkInput>
-
-								<MkInput v-model="llmSettingsForm.state.geminiPromptProfile" type="text">
-									<template #label>{{ i18n.ts._llm.geminiProfileSummarizePromptLabel }}</template>
-									<template #caption>{{ i18n.ts._llm.geminiProfileSummarizePromptCaption }}</template>
-								</MkInput>
+								<MkPreferenceContainer k="geminiSystemPrompt">
+									<MkInput v-model="llmSettingsForm.state.geminiSystemPrompt" type="text">
+										<template #label>{{ i18n.ts._llm.geminiSystemPromptLabel }}</template>
+										<template #caption>{{ i18n.ts._llm.geminiSystemPromptCaption }}</template>
+									</MkInput>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="geminiPromptNote">
+									<MkInput v-model="llmSettingsForm.state.geminiPromptNote" type="text">
+										<template #label>{{ i18n.ts._llm.geminiSummarizePromptLabel }}</template>
+										<template #caption>{{ i18n.ts._llm.geminiSummarizePromptCaption }}</template>
+									</MkInput>
+								</MkPreferenceContainer>
+								<MkPreferenceContainer k="geminiPromptProfile">
+									<MkInput v-model="llmSettingsForm.state.geminiPromptProfile" type="text">
+										<template #label>{{ i18n.ts._llm.geminiProfileSummarizePromptLabel }}</template>
+										<template #caption>{{ i18n.ts._llm.geminiProfileSummarizePromptCaption }}</template>
+									</MkInput>
+								</MkPreferenceContainer>
 
 								<SearchMarker :label="i18n.ts._llm.notesPrompt">
 									<MkFolder>
@@ -336,33 +370,47 @@ SPDX-License-Identifier: AGPL-3.0-only
 										<template #label>{{ i18n.ts._llm.notesPrompt }}</template>
 
 										<div class="_gaps_m">
-											<MkInput v-model="llmSettingsForm.state.geminiNoteLongText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteLongText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteLongText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteLongText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteLongText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 
-											<MkInput v-model="llmSettingsForm.state.geminiNoteShortText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteShortText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteShortText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteShortText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteShortText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 
-											<MkInput v-model="llmSettingsForm.state.geminiNoteSimpleText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteSimpleText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteSimpleText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteSimpleText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteSimpleText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 
-											<MkInput v-model="llmSettingsForm.state.geminiNoteCasualText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteCasualText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteCasualText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteCasualText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteCasualText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 
-											<MkInput v-model="llmSettingsForm.state.geminiNoteProfessionalText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteProfessionalText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteProfessionalText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteProfessionalText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteProfessionalText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 
-											<MkInput v-model="llmSettingsForm.state.geminiNoteCatText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteCatText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteCatText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteCatText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteCatText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 
-											<MkInput v-model="llmSettingsForm.state.geminiNoteCustomText" type="text">
-												<template #label>{{ i18n.ts._llm.geminiNoteCustomText }}</template>
-											</MkInput>
+											<MkPreferenceContainer k="geminiNoteCustomText">
+												<MkInput v-model="llmSettingsForm.state.geminiNoteCustomText" type="text">
+													<template #label>{{ i18n.ts._llm.geminiNoteCustomText }}</template>
+												</MkInput>
+											</MkPreferenceContainer>
 										</div>
 									</MkFolder>
 								</SearchMarker>

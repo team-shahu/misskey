@@ -5,24 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <template>
 <SearchMarker
-	path="/settings/shahu-settings" :label="i18n.ts.originalFeature" :keywords="['originalFeature', 'preferences']"
-	icon="ti ti-adjustments"
+	path="/settings/shahu-settings" :label="i18n.ts.originalFeature"
+	:keywords="['originalFeature', 'preferences']" icon="ti ti-adjustments"
+	markerId="shahu-settings"
 >
 	<div class="_gaps_m">
 		<MkFeatureBanner icon="/client-assets/gear_3d.png" color="#7f6666">
 			<SearchKeyword>{{ i18n.ts.originalFeature }}</SearchKeyword>
 		</MkFeatureBanner>
-
-		<SearchMarker :label="i18n.ts.postForm">
-			<FormSection>
-				<div class="_gaps_s">
-					<FormLink to="/settings/post-form">
-						{{ i18n.ts.postForm }}<span class="_beta">{{ i18n.ts.originalFeature
-						}}</span>
-					</FormLink>
-				</div>
-			</FormSection>
-		</SearchMarker>
 
 		<SearchMarker :label="i18n.ts.display">
 			<FormSection>
@@ -151,6 +141,72 @@ SPDX-License-Identifier: AGPL-3.0-only
 									{{ i18n.ts._reactionChecksMuting.title }}
 									<template #caption>{{ i18n.ts._reactionChecksMuting.caption }}</template>
 								</MkSwitch>
+							</div>
+						</MkFolder>
+					</SearchMarker>
+
+					<SearchMarker
+						:label="i18n.ts.postForm"
+						:keywords="['post', 'form', 'compose']"
+					>
+						<MkFolder>
+							<template #icon><i class="ti ti-forms"></i></template>
+							<template #label>
+								<SearchLabel>{{ i18n.ts.postForm }}</SearchLabel><span class="_beta">{{
+									i18n.ts.originalFeature }}</span>
+							</template>
+							<div class="_gaps_m">
+								<SearchMarker :keywords="['post', 'form', 'compose']">
+									<MkPreferenceContainer k="postFormActions">
+										<MkContainer :showHeader="false">
+											<Sortable
+												v-model="items" :class="$style.items" :itemKey="items => items" :animation="100"
+												:delay="50" :delayOnTouchOnly="true"
+											>
+												<template #item="{ element }">
+													<button
+														v-tooltip="bottomItemDef[element.type].title" class="_button" :class="$style.item"
+														@click="removeItem(element.type, $event)"
+													>
+														<i class="ti ti-fw" :class="[$style.itemIcon, bottomItemDef[element.type].icon]"></i>
+													</button>
+												</template>
+											</Sortable>
+										</MkContainer>
+									</MkPreferenceContainer>
+								</SearchMarker>
+
+								<div class="_buttons">
+									<MkButton @click="addItem"><i class="ti ti-plus"></i>{{ i18n.ts.addItem }}</MkButton>
+									<MkButton danger @click="reset_postform">
+										<i class="ti ti-reload"></i> {{ i18n.ts.default }}
+									</MkButton>
+									<MkButton primary class="save" @click="save_postform">
+										<i class="ti ti-device-floppy"></i> {{
+											i18n.ts.save
+										}}
+									</MkButton>
+								</div>
+								<div :class="$style.label">
+									<SearchLabel>{{ i18n.ts.postFormBottomSettingsDescription }}</SearchLabel>
+								</div>
+
+								<SearchMarker :keywords="['post', 'form', 'compose']">
+									<MkPreferenceContainer k="defaultScheduledNoteDeleteTime">
+										<div :class="$style.label">
+											<SearchLabel>{{ i18n.ts.defaultScheduledNoteDeleteTime }}</SearchLabel>
+										</div>
+										<MkDeleteScheduleEditor v-model="scheduledNoteDelete" :afterOnly="true"/>
+									</MkPreferenceContainer>
+								</SearchMarker>
+
+								<SearchMarker :keywords="['post', 'form', 'compose']">
+									<MkPreferenceContainer k="defaultScheduledNoteDelete">
+										<MkSwitch v-model="defaultScheduledNoteDelete">
+											<SearchLabel>{{ i18n.ts.defaultScheduledNoteDelete }}</SearchLabel>
+										</MkSwitch>
+									</MkPreferenceContainer>
+								</SearchMarker>
 							</div>
 						</MkFolder>
 					</SearchMarker>
@@ -322,6 +378,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import { defineAsyncComponent, ref, watch } from 'vue';
 import MkInput from '@/components/MkInput.vue';
 import MkSwitch from '@/components/MkSwitch.vue';
 import MkSelect from '@/components/MkSelect.vue';
@@ -343,6 +400,71 @@ import { instance } from '@/instance.js';
 import { $i } from '@/i.js';
 import { useForm } from '@/use/use-form.js';
 import MkFeatureBanner from '@/components/MkFeatureBanner.vue';
+import { bottomItemDef } from '@/utility/post-form.js';
+import { PREF_DEF } from '@/preferences/def.js';
+import MkPreferenceContainer from '@/components/MkPreferenceContainer.vue';
+import MkContainer from '@/components/MkContainer.vue';
+import MkDeleteScheduleEditor from '@/components/MkDeleteScheduleEditor.vue';
+
+const Sortable = defineAsyncComponent(() => import('vuedraggable').then(x => x.default));
+const defaultScheduledNoteDelete = prefer.model('defaultScheduledNoteDelete');
+const scheduledNoteDelete = ref({ deleteAt: null, deleteAfter: prefer.s.defaultScheduledNoteDeleteTime, isValid: true });
+
+const items = ref(prefer.s.postFormActions.map(x => ({
+	id: Math.random().toString(),
+	type: x,
+})));
+
+async function addItem() {
+	const currentItems = items.value.map(x => x.type);
+	const bottomItem = Object.keys(bottomItemDef).filter(k => !currentItems.includes(k));
+	const { canceled, result: item } = await os.select({
+		title: i18n.ts.addItem,
+		items: bottomItem.map(k => ({
+			value: k, text: bottomItemDef[k].title,
+		})),
+	});
+	if (canceled || item == null) return;
+	items.value = [...items.value, {
+		id: Math.random().toString(),
+		type: item,
+	}];
+}
+
+function removeItem(type: keyof typeof bottomItemDef, ev: MouseEvent) {
+	const item = bottomItemDef[type];
+	os.popupMenu([{
+		type: 'label',
+		text: item.title,
+	}, {
+		text: i18n.ts.remove,
+		action: () => {
+			items.value = items.value.filter(x => x.type !== type);
+		},
+	}], getHTMLElement(ev));
+}
+
+async function save_postform() {
+	prefer.commit('postFormActions', items.value.map(x => x.type));
+}
+
+async function reset_postform() {
+	const result = await os.confirm({
+		type: 'warning',
+		text: i18n.ts.resetAreYouSure,
+	});
+	if (result.canceled) return;
+
+	items.value = PREF_DEF.postFormActions.default.map(x => ({
+		id: Math.random().toString(),
+		type: x,
+	}));
+}
+
+watch(scheduledNoteDelete, () => {
+	if (!scheduledNoteDelete.value.isValid) return;
+	prefer.commit('defaultScheduledNoteDeleteTime', scheduledNoteDelete.value.deleteAfter);
+});
 
 const instanceTicker = prefer.s.instanceTicker;
 
@@ -473,3 +595,33 @@ definePage(() => ({
 	icon: 'ti ti-adjustments',
 }));
 </script>
+<style lang="scss" module>
+.items {
+	padding: 8px;
+	flex: 1;
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+	grid-auto-rows: 40px;
+}
+
+.item {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	font-size: 1em;
+	width: auto;
+	height: 100%;
+	border-radius: 6px;
+
+	&:hover {
+		background: var(--X5);
+	}
+}
+
+.label {
+	font-size: 0.85em;
+	padding: 0 0 8px 0;
+	user-select: none;
+}
+</style>

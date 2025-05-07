@@ -15,8 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<MkPagination ref="paginationEl" :pagination="pagination">
 			<template #empty>
 				<div class="_fullinfo">
-					<img :src="infoImageUrl" class="_ghost"/>
-					<div>{{ i18n.ts.nothing }}</div>
+					<MkResult type="empty" class="_ghost"/>
 				</div>
 			</template>
 
@@ -37,7 +36,7 @@ import MkModalWindow from '@/components/MkModalWindow.vue';
 import MkPagination from '@/components/MkPagination.vue';
 import MkNoteSimple from '@/components/MkNoteSimple.vue';
 import { i18n } from '@/i18n.js';
-import { infoImageUrl } from '@/instance.js';
+import MkResult from '@/components/global/MkResult.vue';
 
 const emit = defineEmits<{
 	(ev: 'cancel'): void;

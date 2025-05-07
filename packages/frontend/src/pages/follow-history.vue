@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<MkStickyContainer v-if="$i.policies.canReadFollowHistory">
+<MkStickyContainer v-if="$i?.policies.canReadFollowHistory">
 	<template #header><MkPageHeader v-model:tab="tab" :actions="headerActions" :tabs="headerTabs"/></template>
 	<MkSpacer :contentMax="800">
 		<MkSwiper v-model:tab="tab" :tabs="headerTabs">
@@ -12,8 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<MkPagination ref="paginationComponent" :pagination="pagination">
 					<template #empty>
 						<div class="_fullinfo">
-							<img :src="infoImageUrl" class="_ghost"/>
-							<div>{{ i18n.ts._followHistory.empty }}</div>
+							<MkResult type="empty" :text="i18n.ts._followHistory.empty" class="_ghost"/>
 						</div>
 					</template>
 					<template #default="{items}">
@@ -92,11 +91,13 @@ import { userPage } from '@/filters/user.js';
 import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
 import { definePage } from '@/page.js';
-import { infoImageUrl } from '@/instance.js';
 import { $i } from '@/i.js';
 import MkSwiper from '@/components/MkSwiper.vue';
 import { dateString } from '@/filters/date.js';
 import XNotFound from '@/pages/not-found.vue';
+import MkResult from '@/components/global/MkResult.vue';
+import MkPageHeader from '@/components/global/MkPageHeader.vue';
+import MkStickyContainer from '@/components/global/MkStickyContainer.vue';
 
 function hasUserProps(user: any): boolean {
 	return !!(user && (user.id || user.username || user.avatarUrl));

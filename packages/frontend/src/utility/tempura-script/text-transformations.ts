@@ -1,13 +1,15 @@
 /*
- * SPDX-FileCopyrightText: lqvp and chan-mai
+ * SPDX-FileCopyrightText: lqvp
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { defineAsyncComponent, ref } from 'vue';
+import { defineAsyncComponent } from 'vue';
+import { store } from '@/store.js';
 import { prefer } from '@/preferences.js';
 import * as os from '@/os.js';
-import { generateGeminiSummary } from '@/utility/shahu-script/llm.js';
+import { generateGeminiSummary, extractCandidateText } from '@/utility/tempura-script/llm.js';
 import { displayLlmError } from '@/utils/errorHandler.js';
+import { i18n } from '@/i18n.js';
 
 /**
  * 指定されたテキストに対して、Gemini API による変換を実行します。
@@ -39,14 +41,6 @@ export async function transformTextWithGemini(noteText: string, onApplied: (newT
 
 	// 繰り返し処理で「再生成」が選択された場合も対応
 	while (true) {
-		const showing = ref(true);
-		const { dispose } = os.popup(defineAsyncComponent(() => import('@/components/MkWaitingDialog.vue')), {
-			success: false,
-			showing: showing,
-		}, {
-			closed: () => dispose(),
-		});
-
 		// store内の該当プロンプト（geminiNote*）を利用してプロンプト生成
 		const state = (prefer.s as unknown) as Record<string, string> | null;
 		const stylePrompt = state?.[selectedStyleKey] ?? '';
@@ -59,28 +53,19 @@ export async function transformTextWithGemini(noteText: string, onApplied: (newT
 			});
 			result = data;
 		} catch (error: any) {
-			showing.value = false;
-			// 変更: エラー表示とthrow
-			displayLlmError(error, '変換の実行に失敗しました。');
+			// 変更: エラー表示にlocaleの値を参照
+			displayLlmError(error, i18n.ts._llm._error.transformExecute);
 		}
 
-		if (
-			!result.candidates ||
-            result.candidates.length === 0 ||
-            !result.candidates[0].content ||
-            !result.candidates[0].content.parts ||
-            result.candidates[0].content.parts.length === 0
-		) {
-			showing.value = false;
-			// 変更: エラーメッセージを統一した形で表示
-			displayLlmError(new Error('変換結果に問題が発生しました。'));
+		let transformedText: string;
+		try {
+			transformedText = extractCandidateText(result);
+		} catch (error: any) {
+			displayLlmError(error, i18n.ts._llm._error.transformResult);
 		}
-
-		const transformedText = result.candidates[0].content.parts[0].text;
 
 		// 結果の確認ダイアログを表示（MkDialog.vue を利用）
 		const dialogResult: string = await new Promise((resolve) => {
-			showing.value = false;
 			os.popup(defineAsyncComponent(() => import('@/components/MkDialog.vue')), {
 				title: '変換結果',
 				text: transformedText,
@@ -94,9 +79,7 @@ export async function transformTextWithGemini(noteText: string, onApplied: (newT
 
 		if (dialogResult === 'confirm') {
 			// 決定時：変換結果をコールバック経由で適用
-			showing.value = true;
 			onApplied(transformedText);
-			showing.value = false;
 			break;
 		} else if (dialogResult === 'cancel') {
 			// キャンセル時：何もせず終了

@@ -20,6 +20,7 @@ import { mainRouter } from '@/router.js';
 import { genEmbedCode } from '@/utility/get-embed-code.js';
 import { prefer } from '@/preferences.js';
 import { getPluginHandlers } from '@/plugin.js';
+import { summarizeUserProfile } from '@/utility/tempura-script/profile-summarization.js';
 
 export function getUserMenu(user: Misskey.entities.UserDetailed, router: Router = mainRouter) {
 	const meId = $i ? $i.id : null;
@@ -220,7 +221,23 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: Router 
 	}
 
 	if ($i) {
-		menuItems.push({ type: 'divider' }, {
+		menuItems.push(($i.policies.canUseGeminiLLMAPI || prefer.s.geminiToken) ? {
+			icon: 'ti ti-file-text',
+			text: i18n.ts._llm.summarizeProfile,
+			action: async () => {
+				// プロフィール要約で取得するノート数を指定できるようにする
+				const { canceled, result } = await os.inputNumber({
+					title: i18n.ts._llm.summarizeProfile,
+					text: i18n.ts._llm.notesLimitPrompt,
+					default: 15,
+				});
+
+				if (canceled) return;
+
+				// キャンセルされなかった場合、指定された数値でプロフィール要約を実行
+				await summarizeUserProfile(user.id, result);
+			},
+		} : undefined, { type: 'divider' }, {
 			icon: 'ti ti-pencil',
 			text: i18n.ts.editMemo,
 			action: editMemo,

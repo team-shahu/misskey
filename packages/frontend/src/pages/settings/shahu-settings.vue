@@ -323,6 +323,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 									</MkSwitch>
 								</MkPreferenceContainer>
 
+								<MkPreferenceContainer k="useGeminiWithMedia">
+									<MkSwitch v-model="llmSettingsForm.state.useGeminiWithMedia">
+										<SearchLabel>{{ i18n.ts._llm.useGeminiWithMedia }}</SearchLabel>
+										<template #caption>{{ i18n.ts._llm.useGeminiWithMediaDescription }}</template>
+									</MkSwitch>
+								</MkPreferenceContainer>
+
 								<MkPreferenceContainer k="geminiToken">
 									<MkInput
 										v-model="llmSettingsForm.state.geminiToken" type="text"
@@ -332,6 +339,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 										<template #caption>{{ i18n.ts._llm.geminiTokenCaption }}</template>
 									</MkInput>
 								</MkPreferenceContainer>
+
 								<MkPreferenceContainer k="geminiModels">
 									<MkSelect
 										v-model="llmSettingsForm.state.geminiModels"
@@ -339,9 +347,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 									>
 										<template #label>{{ i18n.ts._llm.geminiModelLabel }}</template>
 										<option value="gemini-2.0-flash">gemini-2.0-flash</option>
-										<option value="gemini-1.5-flash">gemini-1.5-flash</option>
-										<option value="gemini-1.5-pro">gemini-1.5-pro</option>
-										<option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
+										<option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
+										<option value="gemini-2.5-flash-preview-04-17">gemini-2.5-flash-preview-04-17</option>
+										<option value="gemini-2.5-pro-preview-05-06">gemini-2.5-pro-preview-05-06</option>
 									</MkSelect>
 								</MkPreferenceContainer>
 
@@ -577,6 +585,7 @@ const timelineSettingsForm = useForm({
 
 const llmSettingsForm = useForm({
 	useGeminiLLMAPI: prefer.s.useGeminiLLMAPI,
+	useGeminiWithMedia: prefer.s.useGeminiWithMedia,
 	geminiToken: prefer.s.geminiToken || '',
 	geminiModels: prefer.s.geminiModels || 'gemini-2.0-flash',
 	geminiSystemPrompt: prefer.s.geminiSystemPrompt || '',
@@ -591,6 +600,7 @@ const llmSettingsForm = useForm({
 	geminiNoteCustomText: prefer.s.geminiNoteCustomText || '',
 }, async (state) => {
 	prefer.commit('useGeminiLLMAPI', $i?.policies.canUseGeminiLLMAPI ? state.useGeminiLLMAPI : false);
+	prefer.commit('useGeminiWithMedia', state.useGeminiWithMedia);
 	prefer.commit('geminiToken', state.geminiToken);
 	prefer.commit('geminiModels', state.geminiModels);
 	prefer.commit('geminiSystemPrompt', state.geminiSystemPrompt);

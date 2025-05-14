@@ -4,10 +4,10 @@
  */
 
 import { defineAsyncComponent } from 'vue';
-import type { Ref, ShallowRef } from 'vue';
 import * as Misskey from 'misskey-js';
 import { url } from '@@/js/config.js';
 import { claimAchievement } from './achievements.js';
+import type { Ref, ShallowRef } from 'vue';
 import type { MenuItem } from '@/types/menu.js';
 import { $i } from '@/i.js';
 import { i18n } from '@/i18n.js';
@@ -24,6 +24,8 @@ import { isSupportShare } from '@/utility/navigator.js';
 import { getAppearNote } from '@/utility/get-appear-note.js';
 import { genEmbedCode } from '@/utility/get-embed-code.js';
 import { getPluginHandlers } from '@/plugin.js';
+import { prefer } from '@/preferences.js';
+import { showNoteSummary } from '@/utility/tempura-script/note-summarization.js';
 
 export async function getNoteClipMenu(props: {
 	note: Misskey.entities.Note;
@@ -349,6 +351,16 @@ export function getNoteMenu(props: {
 				icon: 'ti ti-language-hiragana',
 				text: i18n.ts.translate,
 				action: translate,
+			});
+		}
+
+		if ($i.policies.canUseGeminiLLMAPI || prefer.s.geminiToken) {
+			menuItems.push({
+				icon: 'ti ti-file-text',
+				text: i18n.ts._llm.summarizeNote,
+				action: async () => {
+					await showNoteSummary(appearNote);
+				},
 			});
 		}
 

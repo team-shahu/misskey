@@ -5257,6 +5257,96 @@ export interface Locale extends ILocale {
              */
             "serverGeminiModelsDescription": string;
         };
+        "_error": {
+            /**
+             * ファイルのダウンロードに失敗しました
+             */
+            "fileDownload": string;
+            /**
+             * ファイルアップロードの初期化に失敗しました
+             */
+            "uploadInit": string;
+            /**
+             * アップロードURLが取得できませんでした
+             */
+            "uploadUrlNotFound": string;
+            /**
+             * ファイルのアップロードに失敗しました
+             */
+            "upload": string;
+            /**
+             * アップロードしたファイルのURIが取得できませんでした
+             */
+            "uploadedFileUri": string;
+            /**
+             * 操作がキャンセルされました。
+             */
+            "cancel": string;
+            /**
+             * Gemini APIの利用を無効にしました。
+             */
+            "disable": string;
+            /**
+             * サーバー提供のLLM APIが有効になっていません。
+             */
+            "serverDisabled": string;
+            /**
+             * サーバー提供のLLM APIを使用する権限がありません。
+             */
+            "serverPermission": string;
+            /**
+             * サーバーLLM API エラー:
+             */
+            "serverLLMApi": string;
+            /**
+             * Gemini API tokenがありません。
+             */
+            "tokenMissing": string;
+            /**
+             * Gemini API エラー:
+             */
+            "api": string;
+            /**
+             * 変換の実行に失敗しました。
+             */
+            "transformExecute": string;
+            /**
+             * 変換結果に問題が発生しました。
+             */
+            "transformResult": string;
+            /**
+             * プロフィール情報が取得できませんでした。
+             */
+            "profileNotFound": string;
+            /**
+             * Gemini API のレスポンスフォーマットが不正です。
+             */
+            "responseFormat": string;
+            /**
+             * プロフィール要約の取得に失敗しました。
+             */
+            "profileSummarization": string;
+            /**
+             * ノート本文がありません。
+             */
+            "noteEmpty": string;
+            /**
+             * ノート本文とファイルがありません。
+             */
+            "noteMissing": string;
+            /**
+             * Gemini API応答の解析に失敗しました。
+             */
+            "responseParse": string;
+            /**
+             * ノートの要約に失敗しました。
+             */
+            "noteSummarization": string;
+            /**
+             * 要約の取得に失敗しました。
+             */
+            "noteSummaryFetch": string;
+        };
         /**
          * LLM設定
          */
@@ -5269,6 +5359,14 @@ export interface Locale extends ILocale {
          * サーバーが提供するGemini APIを使用して、LLMを実行します。
          */
         "useGeminiLLMAPIDescription": string;
+        /**
+         * メディアを含めてLLMを実行
+         */
+        "useGeminiWithMedia": string;
+        /**
+         * ノートにファイルがあれば、Gemini APIにメディアを含めてLLMを実行します。
+         */
+        "useGeminiWithMediaDescription": string;
         /**
          * Geminiトークン
          */
@@ -5313,6 +5411,10 @@ export interface Locale extends ILocale {
          * プロフィールを要約
          */
         "summarizeProfile": string;
+        /**
+         * ノート取得数を指定してください
+         */
+        "notesLimitPrompt": string;
         /**
          * ノートの変換
          */

@@ -145,7 +145,7 @@ import { getPluginHandlers } from '@/plugin.js';
 import { DI } from '@/di.js';
 import { bottomItemDef } from '@/utility/post-form.js';
 import MkScheduleEditor from '@/components/MkScheduleEditor.vue';
-import { transformTextWithGemini } from '@/utility/shahu-script/text-transformations.js';
+import { transformTextWithGemini } from '@/utility/tempura-script/text-transformations.js';
 
 const $i = ensureSignin();
 
@@ -305,6 +305,7 @@ const canPost = computed((): boolean => {
 
 const withHashtags = computed(store.makeGetterSetter('postFormWithHashtags'));
 const hashtags = computed(store.makeGetterSetter('postFormHashtags'));
+const geminiToken = computed(store.makeGetterSetter('geminiToken'));
 
 const bottomItemActionDef: Record<keyof typeof bottomItemDef, {
 	hide?: boolean;
@@ -363,6 +364,7 @@ const bottomItemActionDef: Record<keyof typeof bottomItemDef, {
 		},
 	},
 	notesTransformation: {
+		hide: computed(() => !($i.policies.canUseGeminiLLMAPI || geminiToken.value)),
 		action: () => {
 			transformTextWithGemini(text.value, (newText: string) => {
 				text.value = newText;

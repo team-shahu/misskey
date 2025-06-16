@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <div>
 	<MkStickyContainer>
 		<PageWithHeader :actions="headerActions" :tabs="headerTabs">
-			<MkSpacer :contentMax="700" :marginMin="16" :marginMax="32">
+			<div class="_spacer" style="--MI_SPACER-w: 700px; --MI_SPACER-min: 16px; --MI_SPACER-max: 32px;">
 				<FormSuspense :p="init">
 					<div class="_gaps_m">
 						<MkFolder>
@@ -56,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</MkFolder>
 					</div>
 				</formsuspense>
-			</MkSpacer>
+			</div>
 		</PageWithHeader>
 	</MkStickyContainer>
 </div>
@@ -76,7 +76,7 @@ import { i18n } from '@/i18n.js';
 import { definePage } from '@/page.js';
 import MkButton from '@/components/MkButton.vue';
 import MkSelect from '@/components/MkSelect.vue';
-import { useForm } from '@/use/use-form.js';
+import { useForm } from '@/composables/use-form.js';
 import MkFormFooter from '@/components/MkFormFooter.vue';
 
 const meta = await misskeyApi('admin/meta');

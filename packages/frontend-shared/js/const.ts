@@ -116,6 +116,7 @@ export const ROLE_POLICIES = [
 	'canImportMuting',
 	'canImportUserLists',
 	'chatAvailability',
+	'uploadableFileTypes',
 	'canReadFollowHistory',
 	'canUseGeminiLLMAPI',
 ] as const;

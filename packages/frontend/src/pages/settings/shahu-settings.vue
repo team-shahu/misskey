@@ -6,8 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <template>
 <SearchMarker
 	path="/settings/shahu-settings" :label="i18n.ts.originalFeature"
-	:keywords="['originalFeature', 'preferences']" icon="ti ti-adjustments"
-	markerId="shahu-settings"
+	:keywords="['originalFeature', 'preferences']" icon="ti ti-adjustments" markerId="shahu-settings"
 >
 	<div class="_gaps_m">
 		<MkFeatureBanner icon="/client-assets/gear_3d.png" color="#7f6666">
@@ -47,7 +46,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 									</MkSwitch>
 								</MkPreferenceContainer>
 
-								<MkPreferenceContainer v-if="instance.federation !== 'none' && instanceTicker !== 'none'" k="instanceIcon">
+								<MkPreferenceContainer
+									v-if="instance.federation !== 'none' && instanceTicker !== 'none'"
+									k="instanceIcon"
+								>
 									<MkSwitch v-model="displaySettingsForm.state.instanceIcon">
 										<template #caption>{{ i18n.ts.instanceIconDescription }}</template>
 										{{ i18n.ts.instanceIcon }}
@@ -121,7 +123,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 									<MkSelect v-model="appearanceSettingsForm.state.customFont">
 										<template #label>{{ i18n.ts.customFont }}</template>
 										<option :value="null">{{ i18n.ts.default }}</option>
-										<option v-for="[name, font] of Object.entries(fontList)" :key="name" :value="name">{{ font.name }}</option>
+										<option v-for="[name, font] of Object.entries(fontList)" :key="name" :value="name">
+											{{ font.name }}
+										</option>
 									</MkSelect>
 								</MkPreferenceContainer>
 							</div>
@@ -158,10 +162,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</MkFolder>
 					</SearchMarker>
 
-					<SearchMarker
-						:label="i18n.ts.postForm"
-						:keywords="['post', 'form', 'compose']"
-					>
+					<SearchMarker :label="i18n.ts.postForm" :keywords="['post', 'form', 'compose']">
 						<MkFolder>
 							<template #icon><i class="ti ti-forms"></i></template>
 							<template #label>
@@ -454,7 +455,7 @@ import { definePage } from '@/page.js';
 import { fontList } from '@/utility/font';
 import { instance } from '@/instance.js';
 import { $i } from '@/i.js';
-import { useForm } from '@/use/use-form.js';
+import { useForm } from '@/composables/use-form.js';
 import MkFeatureBanner from '@/components/MkFeatureBanner.vue';
 import { bottomItemDef } from '@/utility/post-form.js';
 import { PREF_DEF } from '@/preferences/def.js';

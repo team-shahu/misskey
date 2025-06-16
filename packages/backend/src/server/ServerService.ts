@@ -108,7 +108,7 @@ export class ServerService implements OnApplicationShutdown {
 		// this will break lookup that involve copying a URL from a third-party server, like trying to lookup http://charlie.example.com/@alice@alice.com
 		//
 		// this is not required by standard but protect us from peers that did not validate final URL.
-		if (this.config.disallowExternalApRedirect) {
+		if (!this.meta.allowExternalApRedirect) {
 			const maybeApLookupRegex = /application\/activity\+json|application\/ld\+json.+activitystreams/i;
 			fastify.addHook('onSend', (request, reply, _, done) => {
 				const location = reply.getHeader('location');
